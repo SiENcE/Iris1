@@ -1,0 +1,17 @@
+<?xml version='1.0'?>
+<form width='640' height='480' alpha='0' flags='0' shape=''>
+ <fade alpha='0' time='0'/>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+<control class='border' name='border_a28' left='126' top='146' width='409' height='182' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <gump>0xA28</gump>
+</control>
+<control class='label' name='connect' left='280' top='205' width='116' height='26' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='0' hue='0x95' align='left'>Connecting...</text>
+</control>
+<control class='button' name='button_47e' left='318' top='270' width='28' height='21' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='handler_on_main' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <gump normal='0x47E' over='0x47F' pressed='0x47E'/>
+</control>
+</form>

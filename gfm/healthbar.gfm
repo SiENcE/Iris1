@@ -1,0 +1,33 @@
+<?xml version='1.0'?>
+<form width='154' height='60' alpha='0' flags='0' shape=''>
+ <fade alpha='0' time='0'/>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+<control class='button' name='status_bar' left='0' top='0' width='154' height='60' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='handler_on_status' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <gump normal='0x803' over='0x803' pressed='0x803'/>
+</control>
+<control class='button' name='button_805' left='35' top='10' width='109' height='11' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='handler_on_status' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <gump normal='0x805' over='0x805' pressed='0x805'/>
+</control>
+<control class='button' name='button_805' left='35' top='25' width='109' height='11' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='handler_on_status' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <gump normal='0x805' over='0x805' pressed='0x805'/>
+</control>
+<control class='button' name='button_805' left='35' top='40' width='109' height='11' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='handler_on_status' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <gump normal='0x805' over='0x805' pressed='0x805'/>
+</control>
+<control class='picture' name='hitsbar' left='34' top='10' width='109' height='11' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='handler_on_status' onkeypressed=''/>
+ <gump>0x806</gump>
+</control>
+<control class='picture' name='manabar' left='35' top='25' width='109' height='11' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='handler_on_status' onkeypressed=''/>
+ <gump>0x806</gump>
+</control>
+<control class='picture' name='stambar' left='35' top='40' width='109' height='11' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='handler_on_status' onkeypressed=''/>
+ <gump>0x806</gump>
+</control>
+</form>

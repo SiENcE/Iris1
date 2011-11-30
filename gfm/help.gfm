@@ -1,0 +1,69 @@
+<?xml version='1.0'?>
+<form width='471' height='360' alpha='8' flags='0' shape=''>
+ <fade alpha='0' time='0'/>
+ <event onclick='' onclose='handler_on_close_help' onmouseup='' onmousedown='' onkeypressed=''/>
+<control class='border' name='border_a28' left='0' top='0' width='471' height='360' freezed='0' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <gump>0xA28</gump>
+</control>
+<control class='label' name='label' left='186' top='20' width='89' height='26' freezed='0' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='0' hue='0x1' align='center'>Help</text>
+</control>
+<control class='label' name='cam_help' left='24' top='56' width='122' height='30' freezed='0' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='3' hue='0x121' align='left'>Camera rotation:</text>
+</control>
+<control class='label' name='label' left='120' top='80' width='327' height='22' freezed='0' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='3' hue='0x847' align='left'>hold down right + left mouse button and move</text>
+</control>
+<control class='label' name='cursor_help' left='24' top='112' width='144' height='24' freezed='0' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='3' hue='0x121' align='left'>Moving Characters:</text>
+</control>
+<control class='label' name='label' left='120' top='136' width='312' height='24' freezed='0' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='3' hue='0x847' align='left'>Cursor Keys or hold down right Mouse Button</text>
+</control>
+<control class='label' name='label' left='120' top='152' width='176' height='24' freezed='0' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='3' hue='0x847' align='left'>(only 3third person view)</text>
+</control>
+<control class='label' name='persp_help' left='24' top='184' width='144' height='32' freezed='0' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='3' hue='0x121' align='left'>Change View:</text>
+</control>
+<control class='label' name='label' left='120' top='200' width='344' height='24' freezed='0' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='3' hue='0x847' align='left'>mouse scroll wheel to Zoom into 1st Person</text>
+</control>
+<control class='label' name='label' left='112' top='216' width='216' height='32' freezed='0' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='3' hue='0x847' align='left'> or back to 3third person view</text>
+</control>
+<control class='label' name='label' left='120' top='256' width='296' height='24' freezed='0' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='3' hue='0x847' align='left'>INS (Einfg) -  disable/enable free rotation</text>
+</control>
+<control class='label' name='label' left='32' top='240' width='96' height='32' freezed='0' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='3' hue='0x121' align='left'>Keys:</text>
+</control>
+<control class='label' name='label' left='65' top='272' width='288' height='24' freezed='0' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='3' hue='0x847' align='left'>right mouse button - click closes gumps</text>
+</control>
+<control class='label' name='label' left='115' top='288' width='205' height='24' freezed='0' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='3' hue='0x847' align='left'>right ALT + i - Open Bagpack</text>
+</control>
+<control class='label' name='label' left='109' top='304' width='217' height='21' freezed='0' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='3' hue='0x847' align='left'>right ALT + P - Open Paperdoll</text>
+</control>
+<control class='label' name='label' left='182' top='320' width='116' height='23' freezed='0' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='3' hue='0x847' align='left'>F7 - toggle run</text>
+</control>
+</form>

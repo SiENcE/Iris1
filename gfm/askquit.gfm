@@ -1,0 +1,25 @@
+<?xml version='1.0'?>
+<form width='178' height='108' alpha='0' flags='0' shape=''>
+ <fade alpha='255' time='700'/>
+ <event onclick='' onclose='handler_on_close_quit' onmouseup='' onmousedown='' onkeypressed=''/>
+<control class='picture' name='picture_816' left='0' top='0' width='178' height='108' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <gump>0x816</gump>
+</control>
+<control class='label' name='label' left='65' top='28' width='48' height='21' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='7' hue='0x1' align='center'>Quit</text>
+</control>
+<control class='label' name='label' left='45' top='46' width='95' height='21' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='7' hue='0x1' align='center'>Iris !?</text>
+</control>
+<control class='button' name='button_81a' left='97' top='76' width='46' height='21' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='handler_deinit' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <gump normal='0x81A' over='0x81C' pressed='0x81B'/>
+</control>
+<control class='button' name='button_817' left='33' top='76' width='56' height='21' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='handler_on_cancel' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <gump normal='0x817' over='0x819' pressed='0x818'/>
+</control>
+</form>

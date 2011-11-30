@@ -1,0 +1,89 @@
+
+static const FUNC_ONCLICK      = 0;
+static const FUNC_ONCLOSE      = 1;
+static const FUNC_ONMOUSEUP    = 2;
+static const FUNC_ONMOUSEDOWN  = 3;
+static const FUNC_ONKEYPRESSED = 4;
+
+static const FLAG_MOVABLE   = 1;
+static const FLAG_CLOSABLE  = 2;
+static const FLAG_FOCUSABLE = 4;
+
+static const CONFIG_MUSIC        = 0;
+static const CONFIG_SOUND        = 1;
+static const CONFIG_MP3          = 2;
+static const CONFIG_LOGIN        = 3;
+static const CONFIG_PASSWORD     = 4;
+static const CONFIG_SERVERIP     = 5;
+static const CONFIG_ISSPHERE     = 6;
+static const CONFIG_OFFLINE      = 7; //not implemented yet
+static const CONFIG_SPEED        = 8; //not implemented yet
+static const CONFIG_EDITMODE     = 9; //not implemented yet
+static const CONFIG_PERSPECTIVE  = 10;
+static const CONFIG_ZBUFFER      = 11; //not implemented yet
+static const CONFIG_LIGHTLEVEL   = 12; //not implemented yet
+static const CONFIG_VIEWDISTANCE = 13;
+static const CONFIG_RENDERFOG    = 14; //not implemented yet
+static const CONFIG_WIDTH        = 15;
+static const CONFIG_HEIGHT       = 16;
+static const CONFIG_BRIGHTNESS   = 17;
+//static const CONFIG_RENDERMODE   = 18; //removed
+static const CONFIG_VERSION      = 19;
+static const CONFIG_AOS          = 20;
+static const CONFIG_SPEECH_HUE   = 21;
+static const CONFIG_ROOFFADE_TIME= 22;
+static const CONFIG_ROOFFADE     = 23;
+static const CONFIG_MUSIC_VOLUME = 24;
+
+static const ALIGN_LEFT    = 0;
+static const ALIGN_CENTER  = 1;
+static const ALIGN_RIGHT   = 2;
+
+static const NETERROR_UNKNOWN            = 0;
+static const NETERROR_SOCKET             = 1;
+static const NETERROR_UNKNOWNHOST        = 2;
+static const NETERROR_NOCONNECTION       = 3;
+static const NETERROR_CONNECTIONABORTED  = 4;
+
+static const NETERROR_UNKNOWNUSER        = 5;
+static const NETERROR_ACCOUNTINUSE       = 6;
+static const NETERROR_ACCOUNTBLOCKED     = 7;
+static const NETERROR_BADPASSWORD        = 8;
+
+static const STATUS_NAME        = 0;
+static const STATUS_HITS        = 1;
+static const STATUS_MAXHITS     = 2;
+static const STATUS_NAMECHANGE  = 3;
+static const STATUS_SEX         = 4;
+static const STATUS_STR         = 5;
+static const STATUS_DEX         = 6;
+static const STATUS_INT         = 7;
+static const STATUS_STAMINA     = 8;
+static const STATUS_MAXSTAMINA  = 9;
+static const STATUS_MANA        = 10;
+static const STATUS_MAXMANA     = 11;
+static const STATUS_GOLD        = 12;
+static const STATUS_ARMOR       = 13;
+static const STATUS_WEIGHT      = 14;
+static const STATUS_STATCAP     = 15;
+static const STATUS_PETSCURR    = 16;
+static const STATUS_PETSMAX     = 17;
+static const STATUS_FIRERES     = 18;
+static const STATUS_COLDRES     = 19;
+static const STATUS_POISRES     = 20;
+static const STATUS_ENERGRES    = 21;
+static const STATUS_LUCK        = 22;
+static const STATUS_MAXDAMAGE   = 23;
+static const STATUS_MINDAMAGE   = 24;
+static const STATUS_TITH        = 25;
+
+static const REQUEST_BASIC  = 0;
+static const REQUEST_SKILLS = 1;
+
+static const NUM_LAST_SPEECH    = 8;  //Number of times you can press tab to cycle the previously spoken phrases
+static const MAX_PAPERDOLLS = 10;
+static const CREATION_MAX_SKILL = 50;
+static const CREATION_TOTAL_SKILLS = 100;
+static const CREATION_MAX_STAT = 60;
+static const CREATION_MIN_STAT = 10;
+static const CREATION_TOTAL_STATS = 80;

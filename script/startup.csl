@@ -1,0 +1,1404 @@
+/*
+-------------------------------------------------------------------------------------------------
+	startup.csl
+Written by Thorgrim, Tensor and SiENcE
+------------------------------------------------------------------------------------------------
+*/
+
+/*
+-------------------------------------------------------------------------------------------------
+global vars
+------------------------------------------------------------------------------------------------
+*/
+
+var input_username;
+var input_password;
+var border_list[5];
+var label_list[5];
+var button_scrollup;
+var button_scrolldown;
+
+var serverlist_entries[1][2];
+var serverlist_marked = 0;
+var serverlist_scroll = 0;
+var serverlist_count = 0;
+
+var charlist_names[5];
+var charlist_marked = 0;
+var charlist_count = 0;
+var del_char = 0;
+var quickstart = 0;
+
+var stat[3];
+var skill[3];
+var skill_name_char[3];
+
+var stat_val[3];
+var skill_val[3];
+
+var stat_bar[3];
+var skill_bar[3];
+
+var gender = 0;
+var gender_gump;
+
+var location = 0;
+var name = "";
+var name_input;
+
+var hair_list;
+var hair;
+var facial_hair;
+
+var hair_list_open = 0;
+var facial_hair_list_open = 0;
+
+/*
+-------------------------------------------------------------------------------------------------
+ forward declarations
+-------------------------------------------------------------------------------------------------
+*/
+
+display_main_menu();
+display_loading();
+display_credits();
+display_serverlist_entries();
+display_new_char();
+display_new_char_2();
+display_new_char_3();
+display_delete_char();
+display_gender_gump();
+display_enter_name();
+display_maximum_allowed();
+mark_charlist();
+display_connecting();
+display_charlist();
+display_neterror(const message);
+display_serverlist();
+display_list(const y, const type);
+
+/*
+-------------------------------------------------------------------------------------------------
+Event Handelers
+-------------------------------------------------------------------------------------------------
+*/
+
+handler_on_main (const sender)
+{
+	display_main_menu();
+}
+
+handler_on_main_keypressed (const sender, const key)
+{
+	var current_box = control_gettag(sender, 0);
+	if (key==13) {
+		if ((current_box == 0)||(current_box == 1))
+		{
+			config_setvalue(CONFIG_LOGIN, input_gettext(input_username));
+			config_setvalue(CONFIG_PASSWORD, input_gettext(input_password));
+			display_loading();
+			iris_connect();
+		}
+		// Add in Ability to press enter as well as > arrows
+		}
+		else if (key==9) {
+
+		if (current_box == 0)
+			gui_setfocus(input_password);
+		else
+			gui_setfocus(input_username);
+		}
+}
+
+handler_on_quit (const sender)
+{
+	iris_quit();
+}
+
+handler_on_credits (const sender)
+{
+	display_credits();
+}
+
+handler_on_startgame(const sender){
+	//make all changes to main_keypressed too... might tidy up later
+
+	config_setvalue(CONFIG_LOGIN, input_gettext(input_username));
+	config_setvalue(CONFIG_PASSWORD, input_gettext(input_password));
+	display_loading();
+	iris_connect();
+}
+
+handler_on_quickstart(const sender){
+	quickstart = 1;
+	config_setvalue(CONFIG_LOGIN, input_gettext(input_username));
+	config_setvalue(CONFIG_PASSWORD, input_gettext(input_password));
+	display_loading();
+	iris_connect();
+}
+
+handler_on_charlist_borderclick(const sender)
+{
+	var index = 0;
+    	for (var i = 0; i < 5; i ++) {
+		if (border_list[i] == sender)
+			index = i;
+	}
+
+	if ((index < charlist_count) && (charlist_names[index]))
+		charlist_marked = index;
+
+        mark_charlist();
+}
+
+handler_on_charlist_ok (const sender)
+{
+	net_selectchar(charlist_marked);
+	gui_clear();
+}
+
+handler_on_serverlist_borderclick(const sender)
+{
+	var index = 0;
+    	for (var i = 0; i < 5; i ++) {
+		if (border_list[i] == sender)
+			index = i + serverlist_scroll;
+	}
+
+	if ((index < serverlist_count))
+		serverlist_marked = index;
+
+        display_serverlist_entries();
+}
+
+handler_on_serverlistclick (const sender)
+{
+	if ((serverlist_marked >= 0) && (serverlist_marked < serverlist_count))
+		net_selectserver(serverlist_entries[serverlist_marked][1]);
+	else
+		net_selectserver(0);
+	display_connecting();
+}
+
+handler_on_scroll (const sender)
+{
+	if  (sender == button_scrollup) 
+		if (serverlist_scroll > 0) {
+			serverlist_scroll--;
+			display_serverlist_entries();
+		}
+
+	if  (sender == button_scrolldown) 
+                if ((serverlist_scroll + 4) < serverlist_count ) {
+                        serverlist_scroll++;
+			display_serverlist_entries();
+		}
+}
+
+handler_on_new_char (const sender)
+{
+	if (charlist_count < 5)
+	{
+		name = input_gettext(name_input);
+		display_new_char();
+	}
+	else
+		display_maximum_allowed();
+}
+
+handler_on_new_char_2 (const sender)
+{
+	display_new_char_2();
+}
+
+handler_on_new_char_3 (const sender)
+{
+	name = input_gettext(name_input);
+	if(!name)
+		display_enter_name();
+	else 
+		display_new_char_3();
+}
+
+handler_on_new_char_4 (const sender)
+{
+	gui_clear();
+//	Make new char( name, <password?>, gender, stat_val[0], stat_val[1], stat_val[2], skill_name_char[0], skill_val[0], skill_name_char[1], skill_val[1], skill_name_char[2], skill_val[2], <skin color>, hair, <hair color>, facial_hair, <facial hair color>, <location>, <slot>, <shirt color>, <pants color>);
+
+	net_createchar(name, gender, stat_val[0], stat_val[2], stat_val[1], 40/*skill_name_char[0]*/, skill_val[0], 27/*skill_name_char[1]*/, skill_val[1], 1/*skill_name_char[2]*/, skill_val[2], 0x3eb/*skin color*/, 0x203c/*hair*/, 0x44f/*hair color*/, 0x203f/*facial_hair*/, 0x44f/*facial hair color*/, 2/*<shirt color>*/, 2/*<pants color>*/, location/*location*/, charlist_count /*<slot>*/);
+	log("charlist_count: "+charlist_count);
+}
+
+handler_on_change_city (const sender)
+{
+	location = control_gettag(sender, 0);
+	gui_clear();
+	display_new_char_3();
+//	gui_addlabel(-50,-50, location, 5, 0);
+}
+
+handler_on_delete_char (const sender)
+{
+	display_delete_char();
+}
+
+handler_on_delete_character (const sender)
+{
+	if(del_char == 0)
+		net_deletechar (charlist_marked);
+	del_char = 0;
+}
+
+handler_on_close_del_char (const sender)
+{
+	del_char = 0;
+}
+
+handler_on_charmenu (const sender)
+{
+	display_charlist();
+}
+
+handler_on_increase_stat (const sender)
+{
+	var type = control_gettag(sender, 0);
+	if(label_gettext (stat[type]) < CREATION_MAX_STAT) {
+		stat_val[type] = label_gettext (stat[type]) + 1;
+		label_settext (stat[type], stat_val[type]);
+		control_setx (stat_bar[type], ((stat_val[type]-10)/50*140) + 140);
+
+	if (type == 1)
+	{
+	type = 2;
+		if(stat_val[type] > CREATION_MIN_STAT) {
+			stat_val[type] = label_gettext (stat[type]) - 1;
+			label_settext (stat[type], stat_val[type]);
+			control_setx (stat_bar[type], ((stat_val[type]-10)/50*140) + 140);
+		}
+		else
+		{
+		type = 0;
+			stat_val[type] = label_gettext (stat[type]) - 1;
+			label_settext (stat[type], stat_val[type]);
+			control_setx (stat_bar[type], ((stat_val[type]-10)/50*140) + 140);
+		}
+	}
+	else if (type == 0)
+	{
+	type = 1;
+		if(stat_val[type] > CREATION_MIN_STAT) {
+			stat_val[type] = label_gettext (stat[type]) - 1;
+			label_settext (stat[type], stat_val[type]);
+			control_setx (stat_bar[type], ((stat_val[type]-10)/50*140) + 140);
+		}
+		else
+		{
+		type = 2;
+			stat_val[type] = label_gettext (stat[type]) - 1;
+			label_settext (stat[type], stat_val[type]);
+			control_setx (stat_bar[type], ((stat_val[type]-10)/50*140) + 140);
+		}
+	}
+	else
+	{
+	type = 0;
+		if(stat_val[type] > CREATION_MIN_STAT) {
+			stat_val[type] = label_gettext (stat[type]) - 1;
+			label_settext (stat[type], stat_val[type]);
+			control_setx (stat_bar[type], ((stat_val[type]-10)/50*140) + 140);
+		}
+		else
+		{
+		type = 1;
+			stat_val[type] = label_gettext (stat[type]) - 1;
+			label_settext (stat[type], stat_val[type]);
+			control_setx (stat_bar[type], ((stat_val[type]-10)/50*140) + 140);
+		}
+	}
+	}
+}
+
+handler_on_decrease_stat (const sender)
+{
+	var type = control_gettag(sender, 0);
+	if(label_gettext (stat[type]) > CREATION_MIN_STAT) {
+		stat_val[type] = label_gettext (stat[type]) - 1;
+		label_settext (stat[type], stat_val[type]);
+		control_setx (stat_bar[type], ((stat_val[type]-10)/50*140) + 140);
+
+	if (type == 1)
+	{
+	type = 2;
+		if(stat_val[type] < CREATION_MAX_STAT) {
+			stat_val[type] = label_gettext (stat[type]) + 1;
+			label_settext (stat[type], stat_val[type]);
+			control_setx (stat_bar[type], ((stat_val[type]-10)/50*140) + 140);
+		}
+		else
+		{
+		type = 0;
+			stat_val[type] = label_gettext (stat[type]) + 1;
+			label_settext (stat[type], stat_val[type]);
+			control_setx (stat_bar[type], ((stat_val[type]-10)/50*140) + 140);
+		}
+	}
+	else if (type == 0)
+	{
+	type = 1;
+		if(stat_val[type] < CREATION_MAX_STAT) {
+			stat_val[type] = label_gettext (stat[type]) + 1;
+			label_settext (stat[type], stat_val[type]);
+			control_setx (stat_bar[type], ((stat_val[type]-10)/50*140) + 140);
+		}
+		else
+		{
+		type = 2;
+			stat_val[type] = label_gettext (stat[type]) + 1;
+			label_settext (stat[type], stat_val[type]);
+			control_setx (stat_bar[type], ((stat_val[type]-10)/50*140) + 140);
+		}
+	}
+	else
+	{
+	type = 0;
+		if(stat_val[type] < CREATION_MAX_STAT) {
+			stat_val[type] = label_gettext (stat[type]) + 1;
+			label_settext (stat[type], stat_val[type]);
+			control_setx (stat_bar[type], ((stat_val[type]-10)/50*140) + 140);
+		}
+		else
+		{
+		type = 1;
+			stat_val[type] = label_gettext (stat[type]) + 1;
+			label_settext (stat[type], stat_val[type]);
+			control_setx (stat_bar[type], ((stat_val[type]-10)/50*140) + 140);
+		}
+	}
+	}
+}
+
+handler_on_inc_skill_c (const sender)
+{
+	var type = control_gettag(sender, 0);
+	if(label_gettext (skill[type])<50) {
+		skill_val[type] = label_gettext (skill[type]) + 1;
+		label_settext (skill[type], skill_val[type]);
+		control_setx (skill_bar[type], ((skill_val[type])/50*140) + 140);
+	if (type == 1)
+	{
+	type = 2;
+		if(skill_val[type]>0) {
+			skill_val[type] = label_gettext (skill[type]) - 1;
+			label_settext (skill[type], skill_val[type]);
+			control_setx (skill_bar[type], ((skill_val[type])/50*140) + 140);
+		}
+		else
+		{
+		type = 0;
+			skill_val[type] = label_gettext (skill[type]) - 1;
+			label_settext (skill[type], skill_val[type]);
+			control_setx (skill_bar[type], ((skill_val[type])/50*140) + 140);
+		}
+	}
+	else if (type == 0)
+	{
+	type = 1;
+		if(skill_val[type]>0) {
+			skill_val[type] = label_gettext (skill[type]) - 1;
+			label_settext (skill[type], skill_val[type]);
+			control_setx (skill_bar[type], ((skill_val[type])/50*140) + 140);
+		}
+		else
+		{
+		type = 2;
+			skill_val[type] = label_gettext (skill[type]) - 1;
+			label_settext (skill[type], skill_val[type]);
+			control_setx (skill_bar[type], ((skill_val[type])/50*140) + 140);
+		}
+	}
+	else
+	{
+	type = 0;
+		if(skill_val[type]>0) {
+			skill_val[type] = label_gettext (skill[type]) - 1;
+			label_settext (skill[type], skill_val[type]);
+			control_setx (skill_bar[type], ((skill_val[type])/50*140) + 140);
+		}
+		else
+		{
+		type = 1;
+			skill_val[type] = label_gettext (skill[type]) - 1;
+			label_settext (skill[type], skill_val[type]);
+			control_setx (skill_bar[type], ((skill_val[type])/50*140) + 140);
+		}
+	}
+	}
+}
+
+handler_on_dec_skill_c (const sender)
+{
+	var type = control_gettag(sender, 0);
+	if(label_gettext (skill[type])>0) {
+		skill_val[type] = label_gettext (skill[type]) - 1;
+		label_settext (skill[type], skill_val[type]);
+		control_setx (skill_bar[type], ((skill_val[type])/50*140) + 140);
+	if (type == 1)
+	{
+	type = 2;
+		if(skill_val[type]<CREATION_MAX_SKILL) {
+			skill_val[type] = label_gettext (skill[type]) + 1;
+			label_settext (skill[type], skill_val[type]);
+			control_setx (skill_bar[type], ((skill_val[type])/50*140) + 140);
+		}
+		else
+		{
+		type = 0;
+			skill_val[type] = label_gettext (skill[type]) + 1;
+			label_settext (skill[type], skill_val[type]);
+			control_setx (skill_bar[type], ((skill_val[type])/50*140) + 140);
+		}
+	}
+	else if (type == 0)
+	{
+	type = 1;
+		if(skill_val[type]<CREATION_MAX_SKILL) {
+			skill_val[type] = label_gettext (skill[type]) + 1;
+			label_settext (skill[type], skill_val[type]);
+			control_setx (skill_bar[type], ((skill_val[type])/50*140) + 140);
+		}
+		else
+		{
+		type = 2;
+			skill_val[type] = label_gettext (skill[type]) + 1;
+			label_settext (skill[type], skill_val[type]);
+			control_setx (skill_bar[type], ((skill_val[type])/50*140) + 140);
+		}
+	}
+	else
+	{
+	type = 0;
+		if(skill_val[type]<CREATION_MAX_SKILL) {
+			skill_val[type] = label_gettext (skill[type]) + 1;
+			label_settext (skill[type], skill_val[type]);
+			control_setx (skill_bar[type], ((skill_val[type])/50*140) + 140);
+		}
+		else
+		{
+		type = 1;
+			skill_val[type] = label_gettext (skill[type]) + 1;
+			label_settext (skill[type], skill_val[type]);
+			control_setx (skill_bar[type], ((skill_val[type])/50*140) + 140);
+		}
+	}
+	}
+}
+
+
+handler_on_max_stat (const sender)
+{
+	var stat_to_min_1 = 0;
+	var stat_to_min_2 = 1;
+	var type = control_gettag(sender, 0);
+		stat_val[type] = 60;
+		label_settext (stat[type], stat_val[type]);
+		control_setx (stat_bar[type], 280);
+
+	if (type == 0)
+	{
+	stat_to_min_1 = 1;
+	stat_to_min_2 = 2;
+	}
+	else if (type == 1)
+	{
+	stat_to_min_1 = 2;
+	stat_to_min_2 = 0;
+	}
+
+	stat_val[stat_to_min_1] = CREATION_MIN_STAT;
+	label_settext (stat[stat_to_min_1], stat_val[stat_to_min_1]);
+	control_setx (stat_bar[stat_to_min_1], ((stat_val[stat_to_min_1]-10)/50*140) + 140);
+
+	stat_val[stat_to_min_2] = CREATION_MIN_STAT;
+	label_settext (stat[stat_to_min_2], stat_val[stat_to_min_2]);
+	control_setx (stat_bar[stat_to_min_2], ((stat_val[stat_to_min_2]-10)/50*140) + 140);
+}
+
+handler_on_min_stat (const sender)
+{
+	var type = control_gettag(sender, 0);
+
+	var taken_stat = stat_val[type] - CREATION_MIN_STAT;
+
+	stat_val[type] = CREATION_MIN_STAT;
+	label_settext (stat[type], stat_val[type]);
+	control_setx (stat_bar[type], 140);
+
+	var stat_to_inc_1 = 0;
+	//var stat_to_inc_2 = 1;
+	//var inc_val_2 = 0;
+
+	if (type == 0)
+	{
+	stat_to_inc_1 = 1;
+	//stat_to_inc_2 = 2;
+	}
+	else if (type == 1)
+	{
+	stat_to_inc_1 = 2;
+	//stat_to_inc_2 = 0;
+	}
+
+	//inc_val_2 = CREATION_MIN_STAT - stat_val[stat_to_inc_1];
+	stat_val[stat_to_inc_1] = stat_val[stat_to_inc_1] + taken_stat;
+	label_settext (stat[stat_to_inc_1], stat_val[stat_to_inc_1]);
+	control_setx (stat_bar[stat_to_inc_1], ((stat_val[stat_to_inc_1]-10)/50*140) + 140);
+
+	//stat_val[stat_to_inc_2] = CREATION_TOTAL_STATS - CREATION_MIN_STAT - stat_val[stat_to_inc_1];
+	//label_settext (stat[stat_to_inc_2], stat_val[stat_to_inc_2]);
+	//control_setx (stat_bar[stat_to_inc_2], ((stat_val[stat_to_inc_2]-10)/50*140) + 140);
+}
+
+handler_on_max_skill_c (const sender)
+{
+	var type = control_gettag(sender, 0);
+
+	var added_skill = CREATION_MAX_SKILL - skill_val[type];
+
+		skill_val[type] = CREATION_MAX_SKILL;
+		label_settext (skill[type], skill_val[type]);
+		control_setx (skill_bar[type], 280);
+
+	var skill_to_dec_1 = 0;
+	var skill_to_dec_2 = 1;
+
+	if (type == 0)
+	{
+	skill_to_dec_1 = 1;
+	skill_to_dec_2 = 2;
+	}
+	else if (type == 1)
+	{
+	skill_to_dec_1 = 2;
+	skill_to_dec_2 = 0;
+	}
+
+	var dec_val_1 = skill_val[skill_to_dec_1] - added_skill;
+	var dec_val_2 = skill_val[skill_to_dec_2];
+
+	if (dec_val_1 < 0)
+	{
+		dec_val_2 =  - dec_val_1;
+		dec_val_1 = 0;
+	}
+
+	skill_val[skill_to_dec_1] = dec_val_1;
+	label_settext (skill[skill_to_dec_1], skill_val[skill_to_dec_1]);
+	control_setx (skill_bar[skill_to_dec_1], ((skill_val[skill_to_dec_1])/50*140) + 140);
+
+	skill_val[skill_to_dec_2] = dec_val_2;
+	label_settext (skill[skill_to_dec_2], skill_val[skill_to_dec_2]);
+	control_setx (skill_bar[skill_to_dec_2], ((skill_val[skill_to_dec_2])/50*140) + 140);
+}
+
+handler_on_min_skill_c (const sender)
+{
+	var skill_to_max_1 = 0;
+	var skill_to_max_2 = 1;
+	var type = control_gettag(sender, 0);
+		skill_val[type] = 0;
+		label_settext (skill[type], skill_val[type]);
+		control_setx (skill_bar[type], 140);
+
+	if (type == 0)
+	{
+	skill_to_max_1 = 1;
+	skill_to_max_2 = 2;
+	}
+	else if (type == 1)
+	{
+	skill_to_max_1 = 2;
+	skill_to_max_2 = 0;
+	}
+
+	skill_val[skill_to_max_1] = CREATION_MAX_SKILL;
+
+	label_settext (skill[skill_to_max_1], skill_val[skill_to_max_1]);
+	control_setx (skill_bar[skill_to_max_1], ((skill_val[skill_to_max_1])/50*140) + 140);
+
+	skill_val[skill_to_max_2] = CREATION_MAX_SKILL;
+
+	label_settext (skill[skill_to_max_2], skill_val[skill_to_max_2]);
+	control_setx (skill_bar[skill_to_max_2], ((skill_val[skill_to_max_2])/50*140) + 140);
+}
+
+handler_on_change_gender (const sender)
+{
+	if (gender==0)
+	{
+		gender = 1;
+		button_setgump(sender, 0, 0x70d);
+		button_setgump(sender, 1, 0x70e);
+		button_setgump(sender, 2, 0x70f);
+		control_close(gender_gump);
+		display_gender_gump();
+	} 
+	else
+	{
+		gender = 0;
+		button_setgump(sender, 0, 0x710);
+		button_setgump(sender, 1, 0x711);
+		button_setgump(sender, 2, 0x712);
+		control_close(gender_gump);
+		display_gender_gump();
+	}
+}
+
+handler_on_hair_style (const sender)
+{
+	if(hair_list_open==1){
+		control_close(hair_list);
+		hair_list_open=0;
+	}
+	else
+	{
+		if(facial_hair_list_open==1)
+		{
+			control_close(hair_list);
+			facial_hair_list_open=0;
+		}
+
+		display_list(240, 1);
+		hair_list_open=1;
+	}
+}
+
+handler_on_facial_hair_style (const sender)
+{
+	if(facial_hair_list_open==1){
+		control_close(hair_list);
+		facial_hair_list_open=0;
+	}
+	else
+	{
+		if(hair_list_open==1){
+			control_close(hair_list);
+			hair_list_open=0;
+		}
+
+		display_list(240, 0);
+		facial_hair_list_open=1;
+	}
+}
+
+handler_on_change_hair (const sender)
+{
+	label_settext (sender, "1");
+}
+
+/*
+-------------------------------------------------------------------------------------------------
+Network Functions
+-------------------------------------------------------------------------------------------------
+*/
+
+
+net_on_createchar_error(const errorid)
+{
+/* will be called if an error accurs on char creation
+error id meaning:
+1  - str < 10
+2  - str > 45
+3  - dex < 10
+4  - dex > 45
+5  - int < 10
+6  - int > 45
+7  - str + int + dex different from 65
+8  - invalid first skill identifier
+9  - invalid second skill identifier
+10 - invalid third skill identifier
+11 - repeated skill identifiers
+12 - skill 1 > 50
+13 - skill 2 > 50
+14 - skill 3 > 50
+15 - skill 1 + skill 2 + skill 3 different from 100
+16 - invalid skin color identifier
+17 - invalid hair color identifier
+18 - invalid facial hair color identifier
+19 - invalid hair type identifier
+20 - invalid facial hair type identifier
+21 - invalid pants color identifier
+22 - invalid shirt color identifier
+23 - empty name
+*/
+	display_charlist();
+}
+
+net_error(const errorid){
+	var msg;
+	switch(errorid)	{
+		case NETERROR_SOCKET: msg = "Unable to create socket"; break;
+		case NETERROR_UNKNOWNHOST: msg = "Unknown host"; break;
+		case NETERROR_NOCONNECTION: msg = "Connection failed"; break;
+		case NETERROR_CONNECTIONABORTED: msg = "Connection aborted"; break;
+		case NETERROR_UNKNOWNUSER: msg = "Invalid account"; break;
+		case NETERROR_ACCOUNTINUSE: msg = "Account already in use"; break;
+		case NETERROR_ACCOUNTBLOCKED: msg = "Account blocked"; break;
+		case NETERROR_BADPASSWORD: msg = "Bad password for account"; break;
+
+		default: msg = "Generic network error";
+	}
+	display_neterror(msg);
+}
+
+net_onserverlist (const count){
+	if (quickstart == 1)
+	{
+		net_selectserver(0);
+		display_connecting();
+	}
+	else
+	{
+		display_serverlist();
+		serverlist_count = count;
+		resize serverlist_entries[serverlist_count][2];
+		
+		for (var i=0; i< serverlist_count; i++) {
+			var id = 0;
+			var name = net_getserverlist(i, id);
+			serverlist_entries[i][0] = name;
+			serverlist_entries[i][1] = id;
+		}
+	var id = 0;
+	var name = net_getserverlist(0, id);
+	serverlist_entries[0][0] = name;
+	serverlist_entries[0][1] = id;
+
+// 	disabled, so every time you log in again, the first choice is default
+//	serverlist_marked = 0;
+
+	serverlist_scroll = 0;
+	display_serverlist_entries();
+	}
+}
+
+net_oncharlist (const count){
+	if (quickstart == 1)
+	{
+		net_selectchar(0);
+		quickstart = 0;
+		gui_clear();
+	}
+	else
+	{
+		charlist_marked = 0;
+		charlist_count = count;
+		var i;
+		var id;
+		for (i = 0; i < 5; i++)
+			charlist_names[i] = "";
+		for (i=0; i< charlist_count; i++)
+			charlist_names[i] = net_getcharlist(i);
+		display_charlist();
+	}
+}
+
+
+/*
+-------------------------------------------------------------------------------------------------
+Display Functions
+
+All GFX-Menus is now defined in the GFM Files.
+Take the GumpEditor from the Iris repository at Sourceforge to edit the GFM (Gump) Files.(SiENcE)
+-------------------------------------------------------------------------------------------------
+*/
+
+display_background()
+{
+    gui_clear();
+    var gump = gui_addgump(-(config_getvalue(CONFIG_WIDTH)-640)/2, -(config_getvalue(CONFIG_HEIGHT)-480) /2, 0xe14, 0);
+    control_setsize(gump, config_getvalue(CONFIG_WIDTH), config_getvalue(CONFIG_HEIGHT));
+    gui_addform(-5,-5,"gfm/background.gfm");
+}
+
+display_main_menu()
+{
+	var gump = gui_addgump(-(config_getvalue(CONFIG_WIDTH)-640)/2, -(config_getvalue(CONFIG_HEIGHT)-480) /2, 0xe14, 0);
+	control_setsize(gump, config_getvalue(CONFIG_WIDTH), config_getvalue(CONFIG_HEIGHT));
+	gui_addform(-5,-5,"gfm/main_menu.gfm");
+
+	label_settext(control_getid("ultima_iris_version"), "Iris - Version " + config_getvalue (CONFIG_VERSION) );
+
+	input_username = control_getid("input_username");
+	input_password = control_getid("input_password");
+
+	input_settext(input_username, config_getvalue(CONFIG_LOGIN));
+	input_settext(input_password, config_getvalue(CONFIG_PASSWORD));
+	gui_setfocus(input_password);
+/*
+	if (config_getvalue(CONFIG_MUSIC) == 1)
+	{
+		iris_playmusic(1, config_getvalue(CONFIG_MP3), config_getvalue(CONFIG_MUSIC_VOLUME));
+		log("Music playing...");
+	}
+*/
+}
+
+display_loading()
+{
+    display_background();
+    gui_addform(0,0,"gfm/loading.gfm");
+}
+
+display_credits()
+{
+    config_setvalue(CONFIG_LOGIN, input_gettext(input_username));
+    config_setvalue(CONFIG_PASSWORD, input_gettext(input_password));
+    display_background();
+    gui_addform(0,0,"gfm/credits.gfm");
+}
+
+
+display_serverlist()
+{
+	display_background();
+	gui_addform(0,0,"gfm/serverlist.gfm");
+
+	for (var i=0; i < 5; i++) {
+		label_list[i] = control_getid("server_list"+i);
+		border_list[i] = control_getid("border_list"+i);
+	}
+}
+
+display_serverlist_entries()
+{
+    for (var i = 0; i < 5; i ++) 
+    {
+    	var j = i+serverlist_scroll;
+
+	var hue = 0x3cd;
+	if (serverlist_marked == j)
+		hue = 1;
+	label_sethue(label_list[i], hue);
+
+    	if (j < serverlist_count)
+    		label_settext(label_list[i], serverlist_entries[j][0]);
+	else
+    		label_settext(label_list[i], "");
+    }
+}
+
+display_connecting()
+{
+	display_background();
+	gui_addform(0,0,"gfm/connecting.gfm");
+}
+
+display_charlist()
+{
+	display_background();
+	gui_addform(0,0,"gfm/charlist.gfm");
+
+	for (var i=0; i < 5; i++) {
+		border_list[i]=control_getid("char_border"+i);
+		label_list[i]=control_getid("char_label"+i);
+		label_settext(label_list[i], charlist_names[i]);
+	}
+	mark_charlist();
+
+	stat_val[0]=CREATION_MAX_STAT;
+	stat_val[1]=10;
+	stat_val[2]=10;
+	skill_val[0]=50;
+	skill_val[1]=50;
+	skill_val[2]=0;
+	skill_name_char[0] = " - ";
+	skill_name_char[1] = " - ";
+	skill_name_char[2] = " - ";
+}
+
+mark_charlist()
+{
+    for (var i = 0; i < 5; i ++) 
+    {
+    		var hue = 0x3cd;
+		if (charlist_marked == i)
+			hue = 1;
+		label_sethue(label_list[i], hue);
+    }
+
+}
+
+display_neterror(const message)
+{
+	display_background();
+	gui_addform(0,0,"gfm/neterror.gfm");
+	label_settext(control_getid("message"), message);
+}
+
+
+
+
+display_new_char()
+{
+    display_background();
+
+    var border = gui_addborder(85, 95, 0xa28, 0);
+    control_setsize(border, 510, 370);
+
+    gui_addgump(140, 73, 0x58b, 0);
+
+    gui_addgump(217, 55, 0x589, 0);
+    gui_addgump(227, 65, 0x1580, 0);
+
+    gui_addgump(265, 110, 0x58a, 0);
+
+    var label = gui_addlabel(115, 140, "Select your new characters starting skills", 0, 0);
+    label = gui_addlabel(115, 160, "and statistics", 0, 0);
+
+	    	gui_addlabel(145,175, "Strength", 5, 1);
+        	gui_addgump(140, 205, 0xd6, 0);
+        	gui_addgump(165, 205, 0xd6, 0);
+        	gui_addgump(190, 205, 0xd6, 0);
+        	gui_addgump(215, 205, 0xd6, 0);
+        	gui_addgump(240, 205, 0xd6, 0);
+        	gui_addgump(265, 205, 0xd6, 0);
+
+	    	stat[0] = gui_addlabel(318,195, stat_val[0], 5, 1);
+        	stat_bar[0] = gui_addgump(((label_gettext (stat[0])-10)/(CREATION_MAX_STAT-10)*140) + 140, 205, 0x233e, 0);
+
+	    	gui_addlabel(145,225, "Inteligence", 5, 1);
+        	gui_addgump(140, 255, 0xd6, 0);
+        	gui_addgump(165, 255, 0xd6, 0);
+        	gui_addgump(190, 255, 0xd6, 0);
+        	gui_addgump(215, 255, 0xd6, 0);
+        	gui_addgump(240, 255, 0xd6, 0);
+        	gui_addgump(265, 255, 0xd6, 0);
+
+	    	stat[1] = gui_addlabel(318,245, stat_val[1], 5, 1);
+        	stat_bar[1] = gui_addgump(((label_gettext (stat[1])-10)/(CREATION_MAX_STAT-10)*140) + 140, 255, 0x233e, 0);
+
+	    	gui_addlabel(145,275, "Dexterity", 5, 1);
+        	gui_addgump(140, 305, 0xd6, 0);
+        	gui_addgump(165, 305, 0xd6, 0);
+        	gui_addgump(190, 305, 0xd6, 0);
+        	gui_addgump(215, 305, 0xd6, 0);
+        	gui_addgump(240, 305, 0xd6, 0);
+        	gui_addgump(265, 305, 0xd6, 0);
+
+	    	stat[2] = gui_addlabel(318,295, stat_val[2], 5, 1);
+        	stat_bar[2] = gui_addgump(((label_gettext (stat[2])-10)/(CREATION_MAX_STAT-10)*140) + 140, 305, 0x233e, 0);
+
+		var a =360;
+		var b =390;
+		var c =420;
+
+	    	gui_addlabel(145,330, "Skills", 5, 1);
+
+        	gui_addgump(140, a, 0xd6, 0);
+        	gui_addgump(165, a, 0xd6, 0);
+        	gui_addgump(190, a, 0xd6, 0);
+        	gui_addgump(215, a, 0xd6, 0);
+        	gui_addgump(240, a, 0xd6, 0);
+        	gui_addgump(265, a, 0xd6, 0);
+
+	    	skill[0] = gui_addlabel(318,a-10, skill_val[0], 5, 1);
+        	skill_bar[0] = gui_addgump((label_gettext (skill[0])/50*140) + 140, a, 0x233e, 0);
+
+   		gui_addlabel(390, a-10, skill_name_char[0], 0, 0);					// do some type of get skill name from value (0-45)
+
+        	gui_addgump(140, b, 0xd6, 0);
+        	gui_addgump(165, b, 0xd6, 0);
+        	gui_addgump(190, b, 0xd6, 0);
+        	gui_addgump(215, b, 0xd6, 0);
+        	gui_addgump(240, b, 0xd6, 0);
+        	gui_addgump(265, b, 0xd6, 0);
+
+	    	skill[1] = gui_addlabel(318,b-10, skill_val[1], 5, 1);
+        	skill_bar[1] = gui_addgump((label_gettext (skill[1])/50*140) + 140, b, 0x233e, 0);
+
+   		gui_addlabel(390, b-10, skill_name_char[1], 0, 0);					// do some type of get skill name from value (0-45)
+
+        	gui_addgump(140, c, 0xd6, 0);
+        	gui_addgump(165, c, 0xd6, 0);
+        	gui_addgump(190, c, 0xd6, 0);
+        	gui_addgump(215, c, 0xd6, 0);
+        	gui_addgump(240, c, 0xd6, 0);
+        	gui_addgump(265, c, 0xd6, 0);
+
+	    	skill[2] = gui_addlabel(318,c-10, skill_val[2], 5, 1);
+        	skill_bar[2] = gui_addgump((label_gettext (skill[2])/50*140) + 140, c, 0x233e, 0);
+
+   		gui_addlabel(390, c-10, skill_name_char[2], 0, 0);					// do some type of get skill name from value (0-45)
+
+	var button;
+
+    for (var i = 0; i < 3; i ++) {
+   	button = gui_addbutton(122, 203 + (50 * i), 0x15e3, 0x15e3, 0x15e7);
+    	control_sethandler(button, FUNC_ONCLICK, "handler_on_decrease_stat");
+	control_settag(button, 0, i);
+
+   	button = gui_addbutton(293, 203 + (50 * i), 0x15e1, 0x15e1, 0x15e5);
+    	control_sethandler(button, FUNC_ONCLICK, "handler_on_increase_stat");
+	control_settag(button, 0, i);
+	}
+
+    for (i = 0; i < 3; i ++) {
+   	button = gui_addbutton(122, 358 + (30 * i), 0x15e3, 0x15e3, 0x15e7);
+    	control_sethandler(button, FUNC_ONCLICK, "handler_on_dec_skill_c");
+	control_settag(button, 0, i);
+
+   	button = gui_addbutton(293, 358 + (30 * i), 0x15e1, 0x15e1, 0x15e5);
+    	control_sethandler(button, FUNC_ONCLICK, "handler_on_inc_skill_c");
+	control_settag(button, 0, i);
+	}
+
+    for (i = 0; i < 3; i ++) {
+   	button = gui_addbutton(340, 191 + (50 * i), 0x15e0, 0x15e0, 0x15e4);
+    	control_sethandler(button, FUNC_ONCLICK, "handler_on_max_stat");
+	control_settag(button, 0, i);
+
+   	button = gui_addbutton(340, 215 + (50 * i), 0x15e2, 0x15e2, 0x15e6);
+    	control_sethandler(button, FUNC_ONCLICK, "handler_on_min_stat");
+	control_settag(button, 0, i);
+	}
+
+    for (i = 0; i < 3; i ++) {
+   	button = gui_addbutton(340, 355 + (30 * i), 0x15e0, 0x15e0, 0x15e4);
+    	control_sethandler(button, FUNC_ONCLICK, "handler_on_max_skill_c");
+	control_settag(button, 0, i);
+
+   	button = gui_addbutton(358, 355 + (30 * i), 0x15e2, 0x15e2, 0x15e6);
+    	control_sethandler(button, FUNC_ONCLICK, "handler_on_min_skill_c");
+	control_settag(button, 0, i);
+	}
+
+    button = gui_addbutton(610, 450, 0x15a4, 0x15a5, 0x15a6);
+    control_sethandler(button, FUNC_ONCLICK, "handler_on_new_char_2");
+
+    button = gui_addbutton(585, 450, 0x15a1, 0x15a2, 0x15a3);
+    control_sethandler(button, FUNC_ONCLICK, "handler_on_charmenu");
+
+}
+
+display_new_char_2()
+{
+    display_background();
+
+    gui_addgump(240, 90, 0x708, 0);
+
+    display_gender_gump();
+
+    var border = gui_addborder(80, 110, 0xe10, 0);
+    control_setsize(border, 153, 330);
+
+    border = gui_addborder(480, 110, 0xe10, 0);
+    control_setsize(border, 153, 330);
+
+    gui_addlabel(497, 124, "Skin color", 1, 0);
+
+    gui_addlabel(497, 184, "Shirt color", 1, 0);
+
+    gui_addlabel(497, 244, "Pants color", 1, 0);
+
+    gui_addlabel(497, 304, "Hair color", 1, 0);
+
+    gui_addlabel(497, 364, "Facial hair color", 1, 0);
+
+    gui_addlabel(95, 124, "Hair Style", 1, 0);
+
+    var gump = gui_addgump(95, 143, 0x988, 0);
+    control_setsize(gump, 110, 26);
+
+	hair = gui_addlabel(105, 148, "Short", 1, 0);
+
+    var button = gui_addbutton(203, 145, 0xfd, 0xfd, 0xfc);
+    control_sethandler(button, FUNC_ONCLICK, "handler_on_hair_style");
+
+    gui_addlabel(95, 184, "Facial Hair Style", 1, 0);
+
+    gump = gui_addgump(95, 203, 0x988, 0);
+    control_setsize(gump, 110, 26);
+
+	facial_hair = gui_addlabel(105, 208, "NONE", 1, 0);
+
+    button = gui_addbutton(203, 205, 0xfd, 0xfd, 0xfc);
+    control_sethandler(button, FUNC_ONCLICK, "handler_on_facial_hair_style");
+
+    gui_addgump(275, 50, 0x709, 0);
+
+    gui_addgump(235, 70, 0x70a, 0);
+    gui_addgump(243, 70, 0x70b, 0);
+    gui_addgump(459, 70, 0x70c, 0);
+
+    name_input = gui_addinput(247,70,225,16,1,6);
+    input_settext (name_input, name);
+
+    if(gender == 0) 
+    {
+        button = gui_addbutton(323, 400, 0x710, 0x711, 0x712);
+        control_sethandler(button, FUNC_ONCLICK, "handler_on_change_gender");
+    }
+    else 
+    {
+        button = gui_addbutton(323, 400, 0x70d, 0x70e, 0x70f);
+        control_sethandler(button, FUNC_ONCLICK, "handler_on_change_gender");
+    }
+
+    button = gui_addbutton(610, 450, 0x15a4, 0x15a5, 0x15a6);
+    control_sethandler(button, FUNC_ONCLICK, "handler_on_new_char_3");
+
+    button = gui_addbutton(585, 450, 0x15a1, 0x15a2, 0x15a3);
+    control_sethandler(button, FUNC_ONCLICK, "handler_on_new_char");
+}
+
+display_enter_name()
+{
+    display_background();
+
+    var border = gui_addborder(107, 190, 0xa28, 0);
+    control_setsize(border, 450, 170);
+
+    gui_addlabel(140, 230, "Please enter a valid character name", 0, 149);
+
+    var button = gui_addbutton(300, 320, 0xf9, 0xf7, 0xf8);
+    control_sethandler(button, FUNC_ONCLICK, "handler_on_new_char_2");
+}
+
+display_maximum_allowed()
+{
+    display_background();
+
+    var border = gui_addborder(107, 190, 0xa28, 0);
+    control_setsize(border, 450, 170);
+
+    gui_addlabel(150, 230, "Maximum allowed Charcters per World!", 0, 149);
+
+    var button = gui_addbutton(300, 320, 0xf9, 0xf7, 0xf8);
+    control_sethandler(button, FUNC_ONCLICK, "handler_on_charmenu");
+}
+
+display_list(const y, const type)
+{
+	hair_list = gui_addcontainer(0,0, 0, 0);
+	gui_setcontainer(hair_list);
+
+	gui_addgump(102, y, 0x9b0, 0);
+	gui_addgump(102, y+10, 0x9b1, 0);
+	gui_addgump(102, y+25, 0x9b2, 0);
+	gui_addgump(102, y+40, 0x9b3, 0);
+	gui_addgump(102, y+55, 0x9b1, 0);
+	gui_addgump(102, y+70, 0x9b2, 0);
+	gui_addgump(102, y+85, 0x9b3, 0);
+	gui_addgump(102, y+100, 0x9b1, 0);
+	gui_addgump(102, y+115, 0x9b2, 0);
+	gui_addgump(102, y+130, 0x9b3, 0);
+	gui_addgump(102, y+145, 0x9b4, 0);
+
+	var label;
+
+	if(type == 1) {
+    		label = gui_addlabel(109, y+5, "NONE", 1, 0);
+    		label = gui_addlabel(109, y+20, "Short", 1, 0);
+    		label = gui_addlabel(109, y+35, "Long", 1, 0);
+    		label = gui_addlabel(109, y+50, "Pony Tail", 1, 0);
+    		label = gui_addlabel(109, y+65, "Mohawk", 1, 0);
+    		label = gui_addlabel(109, y+80, "Pageboy", 1, 0);
+    		label = gui_addlabel(109, y+95, "Topknot", 1, 0);
+    		label = gui_addlabel(109, y+110, "Curly", 1, 0);
+    		label = gui_addlabel(109, y+125, "Receding", 1, 0);
+    		label = gui_addlabel(109, y+140, "2 Tails", 1, 0);
+
+		gui_addlabel(112, y+158, "Choose your", 1, 0);
+		gui_addlabel(120, y+173, "hair style", 1, 0);
+	}
+	else {
+    		label = gui_addlabel(106, y+5, "NONE", 1, 0);
+    		label = gui_addlabel(106, y+20, "Goatee", 1, 0);
+    		label = gui_addlabel(106, y+35, "Long Beard", 1, 0);
+    		label = gui_addlabel(106, y+50, "Short Beard", 1, 0);
+    		label = gui_addlabel(106, y+65, "Moustache", 1, 0);
+    		label = gui_addlabel(105, y+80, "Short Beard +", 1, 0);
+    		label = gui_addlabel(112, y+94, "Mostache", 1, 0);
+    		label = gui_addlabel(105, y+109, "Long Beard +", 1, 0);
+    		label = gui_addlabel(112, y+123, "Mostache", 1, 0);
+    		label = gui_addlabel(106, y+138, "Vandyke", 1, 0);
+
+		gui_addlabel(112, y+158, "Choose your", 1, 0);
+		gui_addlabel(98, y+173, "facial hair style", 1, 0);
+	}
+	gui_setcontainer();
+}
+
+display_new_char_3()
+{
+    display_background();
+
+    gui_addgump(58, 48, 0x1598, 0);
+
+    gui_addgump(0, 0, 0x15a0, 0);
+
+    var border = gui_addborder(455, 60, 0xdac, 0);
+    control_setsize(border, 170, 370);
+
+    gui_addlabel(115, 130, "Yew", 1, 73);
+    var button = gui_addbutton(98, 130, 0x4b9, 0x4ba, 0x4ba);
+    control_sethandler(button, FUNC_ONCLICK, "handler_on_change_city");
+    control_settag(button, 0, 0);
+
+    gui_addlabel(264, 98, "Minoc", 1, 73);
+    button = gui_addbutton(246, 91, 0x4b9, 0x4ba, 0x4ba);
+    control_sethandler(button, FUNC_ONCLICK, "handler_on_change_city");
+    control_settag(button, 0, 1);
+
+    gui_addlabel(194, 206, "Britain", 1, 73);
+    button = gui_addbutton(176, 200, 0x4b9, 0x4ba, 0x4ba);
+    control_sethandler(button, FUNC_ONCLICK, "handler_on_change_city");
+    control_settag(button, 0, 2);
+
+    gui_addlabel(310, 165, "Moonglow", 1, 73);
+    button = gui_addbutton(375, 155, 0x4b9, 0x4ba, 0x4ba);
+    control_sethandler(button, FUNC_ONCLICK, "handler_on_change_city");
+    control_settag(button, 0, 3);
+
+    gui_addlabel(230, 305, "Trinsic", 1, 73);
+    button = gui_addbutton(205, 300, 0x4b9, 0x4ba, 0x4ba);
+    control_sethandler(button, FUNC_ONCLICK, "handler_on_change_city");
+    control_settag(button, 0, 4);
+
+    gui_addlabel(352, 235, "Magincia", 1, 73);
+    button = gui_addbutton(335, 245, 0x4b9, 0x4ba, 0x4ba);
+    control_sethandler(button, FUNC_ONCLICK, "handler_on_change_city");
+    control_settag(button, 0, 5);
+
+    gui_addlabel(100, 395, "Jhelom", 1, 73);
+    button = gui_addbutton(165, 390, 0x4b9, 0x4ba, 0x4ba);
+    control_sethandler(button, FUNC_ONCLICK, "handler_on_change_city");
+    control_settag(button, 0, 6);
+
+    gui_addlabel(77, 265, "Skara", 1, 73);
+    gui_addlabel(80, 280, "Brae", 1, 73);
+    button = gui_addbutton(100, 245, 0x4b9, 0x4ba, 0x4ba);
+    control_sethandler(button, FUNC_ONCLICK, "handler_on_change_city");
+    control_settag(button, 0, 7);
+
+    gui_addlabel(290, 130, "Vesper", 1, 73);
+    button = gui_addbutton(265, 130, 0x4b9, 0x4ba, 0x4ba);
+    control_sethandler(button, FUNC_ONCLICK, "handler_on_change_city");
+    control_settag(button, 0, 8);
+
+
+
+if (location == 0) // Brit = 0
+{
+    gui_addlabel(510, 90, "Yew", 10, 1);
+}
+else if (location == 1)
+{
+    gui_addlabel(510, 90, "Minoc", 10, 1);
+    gui_addlabel(467, 120, "The mines frontier", 1, 1);
+    gui_addlabel(467, 160, "Minoc is by far", 1, 1);
+    gui_addlabel(467, 180, "the most popular", 1, 1);
+    gui_addlabel(467, 200, "spot for both new", 1, 1);
+    gui_addlabel(467, 220, "and experienced", 1, 1);
+    gui_addlabel(467, 240, "miners and", 1, 1);
+    gui_addlabel(467, 260, "blacksmiths to", 1, 1);
+    gui_addlabel(467, 280, "practice their", 1, 1);
+    gui_addlabel(467, 300, "skills.", 1, 1);
+}
+else if (location == 3)
+{
+    gui_addlabel(510, 90, "Moonglow", 10, 1);
+}
+else if (location == 4)
+{
+    gui_addlabel(510, 90, "Trinsic", 10, 1);
+}
+else if (location == 5)
+{
+    gui_addlabel(510, 90, "Magincia", 10, 1);
+}
+else if (location == 6)
+{
+    gui_addlabel(510, 90, "Jhelom", 10, 1);
+}
+else if (location == 7)
+{
+    gui_addlabel(510, 90, "Skara Brae", 10, 1);
+}
+else if (location == 8)
+{
+    gui_addlabel(510, 90, "Vesper", 10, 1);
+}
+else // brit = 2
+{
+    gui_addlabel(510, 90, "Britain", 10, 1);
+    gui_addlabel(467, 120, "The capital of", 1, 1);
+    gui_addlabel(467, 140, "Britannia.", 1, 1);
+    gui_addlabel(467, 160, "Caters for all", 1, 1);
+    gui_addlabel(467, 180, "professions", 1, 1);
+}
+
+
+//	gui_addlabel(90, 115, "Yew", 1, 0);
+//    button = gui_addbutton(98, 130, 0x4b9, 0x4ba, 0x4ba);
+
+    button = gui_addbutton(610, 450, 0x15a4, 0x15a5, 0x15a6);
+    control_sethandler(button, FUNC_ONCLICK, "handler_on_new_char_4");
+
+    button = gui_addbutton(585, 450, 0x15a1, 0x15a2, 0x15a3);
+    control_sethandler(button, FUNC_ONCLICK, "handler_on_new_char_2");
+}
+
+display_gender_gump()
+{
+	gender_gump = gui_addcontainer(0,0, 0, 0);
+	gui_setcontainer(gender_gump);
+		if(gender == 0) 
+		{
+			gui_addgump(241, 90, 0x761, 0);
+
+			gui_addgump(241, 90, 0x762, 0);
+			gui_addgump(241, 90, 0x738, 0);
+			gui_addgump(241, 90, 0x739, 0);
+
+			gui_addgump(241, 90, 0x753, 0);
+		}
+		else 
+		{
+			gui_addgump(241, 90, 0x760, 0);
+
+			gui_addgump(241, 90, 0x763, 0);
+			gui_addgump(241, 90, 0x713, 0);
+			gui_addgump(241, 90, 0x714, 0);
+			gui_addgump(241, 90, 0x764, 0);
+
+			gui_addgump(241, 90, 0x72d, 0);
+		}
+	gui_setcontainer();
+}
+
+display_delete_char()
+{
+
+	if(del_char == 0) 
+	{
+		del_char = 1;
+		var container = gui_addcontainer(130,190, 280, 150);
+		gui_setcontainer(container);
+		control_sethandler(container, FUNC_ONCLOSE, "handler_on_close_del_char");
+
+    		var border = gui_addborder(-5, -5, 0xa28, 0);
+    		control_setsize(border, 400, 180);
+
+    		var label = gui_addlabel(100, 50, "Permanently delete", 0, 0);
+    		label = gui_addlabel(110, 80, charlist_names[charlist_marked] | "?", 0, 0);
+
+    		var button = gui_addbutton(285, 130, 0x47e, 0x47f, 0x480);
+    		control_sethandler(button, FUNC_ONCLICK, "handler_on_cancel");
+
+    		button = gui_addbutton(80, 130, 0x481, 0x482, 0x483);
+    		control_sethandler(button, FUNC_ONCLICK, "handler_on_delete_character");
+
+		gui_setcontainer();
+	}
+}

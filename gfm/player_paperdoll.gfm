@@ -1,0 +1,53 @@
+<?xml version='1.0'?>
+<form width='262' height='324' alpha='0' flags='0' shape='shape'>
+ <fade alpha='255' time='600'/>
+ <event onclick='' onclose='handler_on_close_paperdoll' onmouseup='' onmousedown='' onkeypressed=''/>
+<control class='picture' name='shape' left='0' top='0' width='262' height='324' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <gump>0x7D0</gump>
+</control>
+<control class='paperdoll' name='paperdoll' left='5' top='15' width='260' height='237' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <gump>0xC</gump>
+</control>
+<control class='button' name='button_7eb' left='183' top='234' width='65' height='22' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='handler_on_status' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <gump normal='0x7EB' over='0x7ED' pressed='0x7EC'/>
+</control>
+<control class='button' name='peace' left='183' top='209' width='64' height='22' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='handler_on_warpeace_toggle' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <gump normal='0x7E5' over='0x7E7' pressed='0x7E6'/>
+</control>
+<control class='button' name='button_7e2' left='183' top='181' width='64' height='21' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <gump normal='0x57B2' over='0x57B3' pressed='0x57B4'/>
+</control>
+<control class='button' name='button_7df' left='183' top='153' width='65' height='21' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='handler_on_skills' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <gump normal='0x7DF' over='0x7E1' pressed='0x7E0'/>
+</control>
+<control class='button' name='button_7dc' left='183' top='125' width='65' height='21' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='handler_on_quest' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <gump normal='0x57B5' over='0x57B6' pressed='0x57B7'/>
+</control>
+<control class='button' name='button_7d9' left='183' top='97' width='64' height='22' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='handler_on_askquit' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <gump normal='0x7D9' over='0x7DB' pressed='0x7DA'/>
+</control>
+<control class='button' name='button_7d6' left='183' top='70' width='64' height='21' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='handler_on_options' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <gump normal='0x7D6' over='0x7D8' pressed='0x7D7'/>
+</control>
+<control class='button' name='button_7ef' left='183' top='45' width='64' height='21' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='handler_on_help' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <gump normal='0x7EF' over='0x7F1' pressed='0x7F0'/>
+</control>
+<control class='label' name='status_name' left='37' top='268' width='125' height='25' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='3' hue='0x1' align='left'>status_name</text>
+</control>
+<control class='button' name='button_7d2' left='25' top='195' width='19' height='51' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <gump normal='0x7D2' over='0x7D2' pressed='0x7D2'/>
+</control>
+</form>

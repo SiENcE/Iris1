@@ -1,0 +1,65 @@
+<?xml version='1.0'?>
+<form width='640' height='480' alpha='0' flags='0' shape=''>
+ <fade alpha='0' time='0'/>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+<control class='label' name='label' left='260' top='54' width='105' height='20' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='0' hue='0x95' align='left'>Credits</text>
+</control>
+<control class='label' name='label' left='101' top='102' width='158' height='31' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='0' hue='0x3CE' align='left'>Programming:</text>
+</control>
+<control class='label' name='label' left='198' top='125' width='323' height='31' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='0' hue='0x3CE' align='left'>Tensor, Darkstorm, Blobba, ArT-iX</text>
+</control>
+<control class='label' name='label' left='198' top='148' width='326' height='31' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='0' hue='0x3CE' align='left'>Soulburner, Gigi, netzzwerg, SiENcE</text>
+</control>
+<control class='label' name='label' left='198' top='171' width='326' height='31' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='0' hue='0x3CE' align='left'>Nuno Ramiro</text>
+</control>
+<control class='label' name='label' left='101' top='200' width='158' height='31' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='0' hue='0x3CE' align='left'>3D Design:</text>
+</control>
+<control class='label' name='label' left='198' top='223' width='265' height='31' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='0' hue='0x3CE' align='left'>Stygius, Alamar, Thorgrim</text>
+</control>
+<control class='label' name='label' left='101' top='252' width='238' height='31' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='0' hue='0x3CE' align='left'>Additional Contributions:</text>
+</control>
+<control class='label' name='label' left='199' top='275' width='357' height='31' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='0' hue='0x3CE' align='left'>x.diablo, Tharsade, Hitman</text>
+</control>
+<control class='label' name='label' left='198' top='298' width='357' height='31' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='0' hue='0x3CE' align='left'>Zeus, Scull, Emrysk, DC, Horian, Doc</text>
+</control>
+<control class='label' name='label' left='101' top='327' width='176' height='31' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='0' hue='0x3CE' align='left'>Special Thanks to:</text>
+</control>
+<control class='label' name='label' left='198' top='350' width='264' height='31' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='0' hue='0x3CE' align='left'>Imion, Johwood, Luckyluke,</text>
+</control>
+<control class='label' name='label' left='198' top='373' width='265' height='31' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='0' hue='0x3CE' align='left'>Winterbreeze, Psy, Phlegyas</text>
+</control>
+<control class='label' name='label' left='130' top='444' width='438' height='31' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='7' hue='0x3CE' align='left'>Visit http://ultimairis.sourceforge.net/ for more information</text>
+</control>
+<control class='button' name='button_15a1' left='592' top='444' width='19' height='21' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='handler_on_main' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <gump normal='0x15A1' over='0x15A2' pressed='0x15A3'/>
+</control>
+</form>

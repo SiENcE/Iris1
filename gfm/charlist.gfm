@@ -1,0 +1,69 @@
+<?xml version='1.0'?>
+<form width='640' height='480' alpha='0' flags='0' shape=''>
+ <fade alpha='0' time='0'/>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+<control class='border' name='border_a28' left='130' top='80' width='400' height='365' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <gump>0xA28</gump>
+</control>
+<control class='label' name='label' left='182' top='107' width='299' height='28' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='0' hue='0x95' align='center'>Character Selection</text>
+</control>
+<control class='border' name='char_border0' left='170' top='160' width='320' height='35' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='handler_on_charlist_borderclick' onkeypressed=''/>
+ <gump>0xBB8</gump>
+</control>
+<control class='label' name='char_label0' left='182' top='164' width='288' height='22' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='handler_on_charlist_borderclick' onkeypressed=''/>
+ <text font='8' hue='0x1' align='center'>label</text>
+</control>
+<control class='border' name='char_border1' left='171' top='206' width='320' height='35' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='handler_on_charlist_borderclick' onkeypressed=''/>
+ <gump>0xBB8</gump>
+</control>
+<control class='label' name='char_label1' left='182' top='213' width='288' height='22' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='handler_on_charlist_borderclick' onkeypressed=''/>
+ <text font='8' hue='0x1' align='center'>label</text>
+</control>
+<control class='border' name='char_border2' left='171' top='250' width='320' height='35' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='handler_on_charlist_borderclick' onkeypressed=''/>
+ <gump>0xBB8</gump>
+</control>
+<control class='label' name='char_label2' left='182' top='257' width='288' height='22' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='handler_on_charlist_borderclick' onkeypressed=''/>
+ <text font='8' hue='0x1' align='center'>label</text>
+</control>
+<control class='border' name='char_border3' left='170' top='293' width='320' height='35' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='handler_on_charlist_borderclick' onkeypressed=''/>
+ <gump>0xBB8</gump>
+</control>
+<control class='label' name='char_label3' left='182' top='300' width='288' height='22' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='handler_on_charlist_borderclick' onkeypressed=''/>
+ <text font='8' hue='0x1' align='center'>label</text>
+</control>
+<control class='border' name='char_border4' left='171' top='337' width='320' height='35' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='handler_on_charlist_borderclick' onkeypressed=''/>
+ <gump>0xBB8</gump>
+</control>
+<control class='label' name='char_label4' left='182' top='344' width='288' height='22' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='handler_on_charlist_borderclick' onkeypressed=''/>
+ <text font='8' hue='0x1' align='center'>label</text>
+</control>
+<control class='button' name='button_159d' left='202' top='386' width='62' height='23' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='handler_on_new_char' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <gump normal='0x159D' over='0x159E' pressed='0x159F'/>
+</control>
+<control class='button' name='button_159a' left='417' top='384' width='62' height='23' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='handler_on_delete_char' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <gump normal='0x159A' over='0x159B' pressed='0x159C'/>
+</control>
+<control class='button' name='button_15a1' left='577' top='444' width='19' height='21' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='handler_on_main' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <gump normal='0x15A1' over='0x15A2' pressed='0x15A3'/>
+</control>
+<control class='button' name='button_15a4' left='604' top='444' width='19' height='21' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='handler_on_charlist_ok' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <gump normal='0x15A4' over='0x15A5' pressed='0x15A6'/>
+</control>
+</form>

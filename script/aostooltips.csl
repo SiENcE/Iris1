@@ -1,0 +1,57 @@
+var tooltip = 0;
+
+net_onaostooltip(const id, const count, const x, const y)
+{
+//log("TOOLTIP");
+	control_close(tooltip);
+	
+	if(id == 0) {
+		control_close(tooltip);
+		//tooltip = 0;
+		return;
+	}
+
+	tooltip = gui_addcontainer(x+10,y+10,100,100);
+	
+	if(tooltip > 6000000){
+		control_close(tooltip);
+		return;
+	}
+	
+	gui_setcontainer(tooltip);
+	
+	var gump = gui_addgump(0,0,0x588,0);
+
+	control_setsize(gump, 80, 15 * count);
+	control_setalpha(gump, 220);
+	gui_setcontainershape(gump);
+	
+	var message, lab, highlight, labheight;
+	var maxsize = 0;
+	var yalign = 0;
+
+	for(var i = 0; i < count; i++) {
+		message = net_getaostooltip(id, i);
+//log("MSG: " + message);
+		highlight = char_gethighlighthue(id);
+		lab = gui_addlabel(1, yalign, message, 1);
+		var labsize = label_getwidth(lab);
+		labheight = label_getheight(lab);
+		if(labsize>maxsize)
+			maxsize = labsize;
+		
+		if(i == 0) {
+			if(highlight != -1)
+				label_sethue(lab, highlight);
+			else
+				label_sethue(lab, 55);
+		}
+		
+		yalign += labheight + 2;
+	}
+
+	control_setsize(gump, maxsize + 1, (labheight + 2) * count);
+	control_setalpha(gump, 170);
+	gui_setcontainershape(gump);
+	gui_setcontainer();
+}

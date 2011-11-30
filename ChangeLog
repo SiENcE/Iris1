@@ -1,0 +1,700 @@
+11.06.2006
+Changes by Florian Fischer (SiENcE)
+	-CodeBlocks Sollution Update (Icon)
+	-Fixed: Client.cpp UOMapLoader updated for UOMap/Diff-Loader
+	-Fixed: Cal3d Code removed from Renderer3d.cpp
+
+10.06.2006
+Changes by Florian Fischer (SiENcE) & Kelon (Schattenwelt - Shard)
+	-Diff support Added for Iris Mulloader (changes to UOMap.cpp/h)
+
+02.05.2006
+Changes by Florian Fischer (SiENcE)
+	- Added: Solution for Code::Blocks added
+	- Fixed: Walkbug fixed (hack from Ghoulsblade)
+
+22.04.2006
+Changes by Florian Fischer (SiENcE)
+	- Added: boat support for all Boats not just the small Boat (hardcoded in Client.cpp -> later in a seperate XML-File)
+	- Added: robstring1.2.cpp/h, pathsearch.cpp/h for Case-Insensitve loading of Models and Textures
+		 This fixes our Problem with Linux and the granny-filenames
+		 Makefile, Devcpp and VS.2003 solutions updated (VS2005 needed!)
+		 therefore: grannyfile.cpp and Texture.cpp changed
+	- Fixed: MapBlock3D.cpp missing static Water Tiles added to Waterfilter
+
+19.04.2006
+Changes by Florian Fischer (SiENcE)
+	- Updated: Temporarilly disabled day&night cycle in script/iris.csl (to enable remove comment from load_world_light_map/ ~_fog_map)
+	- Fixed: changed "signed char z;" to "signed short z;" in Multiloader.h
+
+14.04.2006
+Changes by Florian Fischer (SiENcE)
+	- Added: Artix's speech.mul Configuration (for Emus doN't using speech.mul keywords)
+	- Added: <USE_SPEECH> added to config.xml
+	- Updated: Skybox disabled (because with new lightning and fog it doesn't look good)
+	- Updated: Fog modified in SDLScreen.cpp
+	- Added: QuestGump Handler added to papderdoll.gfm, iris.csl and CSLHandler.cpp
+	- Added: Paperdolls added for all Humans (like Savage, Dupre, L.British, Blackthorn, Player-ghost)
+	- Fixed: HandleGumpDialogEvent (we should put this function into GUI
+	- Fixed: Font definition in Config.xml (now standard XML)
+
+12.04.2006
+Changes by Nuno Ramiro
+	- Fixed: Formula for Groundtextures updated
+	- Fixed: GUIHandler.cpp - Mousehandling changed
+
+10.04.2006
+Changes by Florian Fischer (SiENcE)
+	- Added: Formula to detect the Groundtexturesize added (old one was only for 64 or 128x128)
+
+10.04.2006
+Changes by Nuno Ramiro
+	- Fixed: Act_BadLog was not beeing called, instead was beeing spammed "SDLNet_TCP_Recv:".
+	- Fixed: Includes under WorldEnviroment.
+
+10.04.2006
+Changes by Florian Fischer (SiENcE)
+	- Update: VS2003 and DevCpp solutions (SynchronizedTime.cpp added, cleaned)
+	- Update: Makefile.am (removed memguard.cpp, added SynchronizedTime.cpp)
+	- Added:  new Iris.ico added (new Iris Color is: BROWN - R 90, G 61, B 27)
+
+09.04.2006
+Changes by Nuno Ramiro
+	- Updated: VS 05 solution.
+	- Fixed: SphereR packets - it is now compatible with 56b.
+	- Reverted: Reverted MemGuard changes, it was not a good idea.
+	- Removed: AnimationSmoothness was not doing anything other than overload.
+	- Organized: Client packets are more organized.
+	- Added: Time packet is active again, note that it is sent once at login.
+	- Added: SynchronizedTime class, you receive the time from the server at login, and it stores it into the class.
+		Whenever you need Hours/Minutes/Seconds use SynchronizedTime::GetHours()/GetMinutes()/GetSeconds().
+
+09.04.2006
+Changes by Florian Fischer (SiENcE)
+	- Update: DevCpp and VS 2003 solution
+	- Fixed: packed attribute in MultisLoader.h
+	- Removed: Cal3D - isn't used anymore
+
+07.04.2006
+Changes by Florian Fischer (SiENcE)
+	- old Container.cpp/h restored, because the new one had strange bugs (look at out bugtracker)
+	- updated & reorganized the vs2003 project files
+	- renamed the DevCpp project files to Iris
+	- removed some unused variables
+
+04.04.2006
+Changes by Alexander Oster (Tensor) &  Florian Fischer (SiENcE)
+	- WorldEnvironment.cpp added to renderer3D
+	- lightning changed to gradient bmp files <- they should be added to textures dir
+	- function added to csl to load this gradient textures
+	- p.engine bug fixed
+	- granny_aos.xml updated to support all AoS Models
+	- modelsinfo.xml: scaling fixed for rabbit and rat
+
+03.04.2006
+Changes by Florian Fischer (SiENcE)
+	- some csl things cleaned
+	- cliloc_getmessage added to CSLHandler.cpp for PopUp-Menu
+	- Comments Added to Maps.xml & Macros.xml
+
+03.04.2006
+Changes by Nuno Ramiro
+	- Updated: Removed some files from makefile (still need to add Font.h/cpp and FontManager.h/cpp)
+	- Updated: VS 03 solution.
+	- Removed: Removed the CheckBox and RadioButton suport for this release since they were not working correctly.
+
+02.04.2006
+Changes by Florian Fischer (SiENcE)
+	-Updated: Dev-cpp solution.
+
+02.04.2006
+Changes by Nuno Ramiro
+	- Fixed: A bug with Container (Necromancer book was empty and probably other stuff bugged).
+	- Rewritten: Font system has been rewritten from scratch.	
+	- Removed: Debug Outputs.
+	- Added: Copyright/GPL stuff under new files.
+
+01.04.2006
+Changes by Nuno Ramiro
+	- Fixed: Crash bug (ImageArt).
+	- Refactoring: ImageArt & Container.
+	- Removed: SetLight() from SDLScreen, was not beeing used.
+
+01.04.2006
+Changes by Florian Fischer (SiENcE)
+	- Fixed: Soundbug fixed (now you can play soundeffects independent from music)
+	- Added: check if sound is enabled, otherwise Iris crashes if sound is off and server sends sound packet
+	- Needs Fixing: if mp3 is 0 midi should be played -> don't work!
+	- Added: displaying of Elf Paperdolls
+	- Added: paperdoll support for Lord_British aso. (we should receive this from granny_aos.xml)
+	- Fixed: corrected constants.csl
+
+31.03.2006
+Changes by Nuno Ramiro
+	- Fixed: More memory leaks under MapBlock3D (FPS Improvement).
+	- Fixed: Linux compatibility.
+	- Fixed: Memory leak under grnbones and grnanim.
+	- Fixed: Particle Effect crash bug (iterator going out of scope).
+	- Fixed: Memory leaks under Textures (FPS Improvement).
+
+30.03.2006
+Changes by Florian Fischer (SiENcE)
+	- Changed: tooltip position
+	- Changed: api_net_selectchar in cslhandler.cpp
+	- Changed: login procedure
+	- Added: cClient::Get_Local_IP() for Send_SelectChar packet
+	- Added: Mix_HookMusic(NULL, NULL) in Music.cpp
+
+28.03.2006
+Changes by Nuno Ramiro
+	- Fixed: Client crash.
+	- Changed: Small changes under Client (packets).
+	- Fixed: Sound has been fixed.
+	- Fixed: Light bug created by the last patch.
+
+27.03.2006
+Changes by Nuno Ramiro
+	- Fixed: Memory leak under ArtLoader.
+	- Fixed: Memory leak under MotiveBasedLight.
+
+26.03.2006
+Changes by Florian Fischer (SiENcE)
+	- Huecolor Bug fixed: just added id--; to cHueLoader::getHue.
+	- removed several hue-1 hacks from TextManager.cpp.
+
+26.03.2006
+Changes by Nuno Ramiro
+	- Stability: More memory leaks.
+	- Code cleanup.
+	- Loading improvements.
+	- Fixed: Gump Memory leak.
+
+25.03.2006
+Changes by Nuno Ramiro
+	- Stability: Fixed more memory leaks.
+
+24.03.2006
+Changes by Nuno Ramiro	
+	- Changed: More debug under RadioBoxes / Checkboxes.
+	- Added: Gumps can now have flag "noclose".
+
+23.03.2006
+Changes by Nuno Ramiro
+	- Changed: RadioBoxes should now show (work in progress).
+	- Added: Gumps can now have the flag "noresize".
+
+24.03.2006
+Changes by Florian Fischer (SiENcE)
+	- updated granny_aos.xml to support 8th Aniv. additions
+
+22.03.2006
+Changes by Nuno Ramiro
+	- Fixed: 110k Memory leaks (No joking) under Granny models.
+	- Fixed: Granny Bones memory leak.
+	- Fixed: Linux compatibility.
+	- Added: RemoveFlag( int flag ) under control.
+	- Added: Act_GumpDialog's noresize handler.
+
+21.03.2006
+Changes by Nuno Ramiro
+	- Added: Pause() and Stop() under Music.
+	- Fixed: Many Drag&Drop memory leaks.
+	- Fixed: Texture/Bitmask memory leak.
+
+14.03.2006
+Changes by Nuno Ramiro
+	- Paperdoll open memory leak.
+	- Paperdoll close memory leak.
+	- BackPack memory leak.
+
+13.03.2006
+Changes by Nuno Ramiro
+	- Stability.
+	- Debug.
+	- Crash fixes.
+	- Chat / Talk bug fix.
+	- GUI/Menu click crash fix.
+
+12.03.2006
+Changes by Nuno Ramiro
+	- More debug.
+	- Small fixes / Memory leaks.
+
+11.03.2006
+Changes by Nuno Ramiro
+	- Small debug changes.
+	- Memory leaks (mainly CSL and GUI files).
+	- Debug.
+
+10.03.2006
+Changes by Nuno Ramiro
+	- Logger was not working 100% under linux (Fixed).
+
+10.03.2006
+Changes by Florian Fischer (SiENcE)
+	- Small fix to SDLScreen.cpp to give GetDefaultHue a return 0;
+	- Devcpp Project updated (btree.cpp removed)
+
+9.03.2006
+Changes by Nuno Ramiro
+	- Linux compatibility.
+	- Logger improvment.
+	- Some cleanup.
+	- Got rid of network.h, btree.h and btree.cpp they weren't beeing used.
+	- Updated Linux Makefile and VS05 Solution.
+	- Updated ReadMe.
+
+8.03.2006
+Changes by Nuno Ramiro
+	- Stability improvements.
+	- Memory leaks.
+	- Macros class fix.
+	- Write bug.
+	- Small fixes.
+	- XML problem fix.
+	- Small Logger fix, added tests (assertions).
+	- Added WriteDebug, should be used when testing output values.
+	- Credits add/fix.
+
+6.03.2006
+Changes by Florian Fischer (SiENcE)
+	- iris.csl - deinit and init removed from handler_deinit
+
+1.03.2006
+Changes by Florian Fischer (SiENcE)
+	- Characters.cpp - Quick fix to get walking working again (m_moving = -1;) - must be recoded
+
+1.03.2006
+Changes by Nuno Ramiro
+	- Speed improvements.
+	- Small fixes.
+	- Removed console under windows and when not debugging.
+
+28.02.2006
+Changes by Nuno Ramiro
+	- Small fixes.
+	- Debugs.
+	- Memory leaks.
+	- Some warnings.
+	- Stability.
+	- Mouse Move highlight bug fixed.
+	- Fixed walking.
+	- Linux compatibility.
+
+27.02.2006
+26.02.2006
+25.02.2006
+24.02.2006
+Changes by Nuno Ramiro
+	- Debugs.
+	- Memory leaks.
+	- Stability.
+
+23.02.2006
+Changes by Nuno Ramiro
+	- Code simplification (Logger files).
+	- Cleaned SDLScreen class and added some documentation.
+	- Memory leak fixed under SpeechLoader.
+	- Some more leaks fixed.
+
+22.02.2006
+Changes by Nuno Ramiro
+	- Cleaned SDLEvent class a bit and documented it (doxygen).
+	- Small changes under other files.
+	- Fixed a small bug that would not allow you to walk.
+	- Fixes under granny_aos.xml (upper/lower cases).
+
+21.02.2006
+Changes by Nuno Ramiro
+	- speech.mul; Cliloc.enu - Linux fix (upper case/lower case were not correct).
+
+20.02.2006
+Changes by Nuno Ramiro
+	- Linux Makefile Fix
+
+19.02.2006
+Changes by SiENcE (Florian Fischer)
+	granny_aos.xml
+	- Male & Female Elf model added
+
+	ModelsInfo.xml
+	- Male & Female Elf Model definitions added
+
+19.02.2006
+Changes by Nuno Ramiro
+	- Config.h/.cpp was not ISO, it is now.
+	- Grannyfile.cpp was not ISo, it is now.
+	- Small changes under loading.
+	- New Solution for Visual 2005 (2003 is kept under other name)
+	- Small change under CSL wasn't working with VS 2005
+	- Fixes to compile under Linux
+
+18.02.2006
+Changes by Nuno Ramiro
+	- Some changes to Game.cpp / Game.h.
+	- Fixed some bugs with the other changes.
+
+17.02.2006
+Changes by Nuno Ramiro
+	- Rebuilt Config class, it is now a static class with it's variables. (Should be faster and fixed also memory leaks)
+	- Made sure Config class was beeing displayed properly under doxygen documentation.
+
+16.02.2006
+Changes by Nuno Ramiro
+	- Reworking Config class (rebuilding it)
+
+	--> Removed cal3d was doing nothing, if we need it later we will add.
+	--> Added Doxygen.h.
+	--> Removed Debug.h and Debug.cpp
+	--> Created a new Logger.h and Logger.cpp (should be faster).
+
+	UOMap.cpp
+	- Removed #include <fstream>
+	- Removed #include <stdlib.h>
+	- Removed #include <cstring>
+	- Removed #include "Debug.h"
+	- Removed #include "iris_endian.h"
+	- Removed #include <iostream>
+	- Removed #include "loaders/MapInfo.h"
+	- Removed #include "Exception.h"
+	- Removed #include "Config.h"
+	- Renamed mapstream, staticstream, staidxstream to m_...
+	- Made m_mapstream, m_staticstream, m_staidxstream = NULL under destructor
+	- Removed using namespace std;
+
+	UOMap.h
+	- Removed #include <windows.h>
+	- Added #include "loaders/MapInfo.h"
+	- Added #include "Exception.h"
+	- Renamed mapstream, staticstream, staidxstream to m_...
+	- Renamed width and height to m_iWidth/m_iHeight
+
+	ui3.cpp --> Renamed to main.cpp
+	- Removed using namespace std;
+	- Removed #include <iostream>
+	- Removed #include "gui/Image.h"
+	- Removed #include "net/Client.h"
+	- Removed #include "uotype.h"
+	- Removed all those lines initializing Debug replaced with pDebug.Init();
+
+	SoundMixer.h
+	- Added #include <windows.h>
+
+	SpeechLoader.h
+	- Added #include "SDL/SDL.h"
+
+	Config.cpp
+	- Removed using namespace std;
+	- Removed #include <string>
+	- Removed #include "Debug.h"
+	- Removed #include "Exception.h"
+	- Removed #include "xml.h"
+	- Removed #include "renderer/SDLScreen.h"
+	- Removed struct ParserData
+	- Removed #define's
+	- Added Config class source.
+
+	Config.h
+	- Added #include "Exception.h"
+	- Added #include "xml.h"
+	- Added #include "renderer/SDLScreen.h"
+	- Added struct ParserData
+	- Added enum DataType
+	- Added Config class.
+	- Made enum start at 0.
+	- Added struct FontInfo
+
+	Logger.cpp
+	- Tested and fixed lastest bugs
+
+10.02.2006
+Changes by SiENcE (Florian Fischer)
+	- script/Iris.csl -> Paperdoll Warmode Button fixed
+
+8.02.2006
+Changes by Harkon & SiENcE (Florian Fischer)
+	-ClilocLoader.cpp temp. fixed
+	-HTMLGumpParser.cpp infinite loop fixed
+	-Client.cpp function Send_SpeechUNICODE added
+
+	-SpeechLoader.cpp debuglog disabled
+
+25.01.2006
+Changes by SiENcE (Florian Fischer)
+	-ClilocLoader fixed
+
+24.01.2006
+Changes by SiENcE (Florian Fischer)
+	-Gloves and Hands are rendered together (we need to find a better way to detect hands or gloves)
+
+23.01.2006
+Changes by SiENcE (Florian Fischer)
+	-SpeechLoader.cpp header changed 
+
+21.01.2006
+Changes by Artix & SiENcE (Florian Fischer)
+	-Speech.mul support added (SpeechLoader.cpp)
+	-boat handling works now also for RunUO (Artix)
+	-Damage Info-Paket added (Harkon)
+	-minor Gump bugfixes
+
+11.01.2006
+Changes by SiENcE (Florian Fischer)
+	-SDL bug fixed
+
+10.01.2006
+Changes by Artix & SiENcE (Florian Fischer)
+	-Boat handling added for POL (not RunUO ready yet, because RunUO uses speech.mul)
+	-Female Granny Animations fixed (granny_aos.xml)
+        -bugfix strdup, strcasecmp (Client.h, grannyfile.cpp)
+
+06.01.2006
+Changes by SiENcE (Florian Fischer)
+	-Map-Fogfix
+	-Map-Networkpacket added to Client.cpp
+
+06.01.2006
+Changes by Harkon & SiENcE (Florian Fischer)
+	-some Granny Animations bugfixed
+	-Weapon on the ground - bugfixed
+	-Several Memory leaks bugfixed
+
+24.10.2005:
+Changes by Artix & SiENcE (Florian Fischer)
+	-Particles for some Spells and Statics added
+	-new ML models added to granny_aos.xml
+	-global scale factor for granny models in ModelsInfo.xml
+	-Individual scale factor changed from INT to FLOAT, because of SE and ML scale factors
+	-Macro support for Iris + Switchable skybox/fog color
+	-Auto roof fade in first person and while camera/zoom changes
+	-Config::maxangle raisen to 90 (formerly 80)
+	-right+left mouse rotate camera (and rotates character while moving,only in  perspective1)
+	-improved 1st person macros
+	-cursor doesn't move when camera rotates by right+left
+	-down cursor (arrow key) rotates character to the opposite direction
+	-toggle run mode macro (F7)
+	-right mouse move (UO style) works only in perspective 0
+	-fog color switches just after the first map change
+	-Hue bugs fixed
+	-HTMLGumpRenderer improved
+	-several CSL Script changes
+	-new Help Gump
+	-minor bug fixes on some Gumps
+
+	Bug fixed:
+	-objects are now clickable when in 1st person
+	-fixed a serious bug with aostooltips (seg fault with object tooltips)
+	-fixed fog color for iris start
+	-fixed serious bug in buy item with Pol emulator (seg fault)
+
+	TODO:
+	-csl api to add/edit macros.xml (example: gui interface in paperdoll->options)
+	-MAKEFILE Update for GCC/Linux
+
+27.07.2005:
+Changes by SiENcE (Florian Fischer)
+	-external Skybox support added, look into xml/Maps.xml
+	 you have to specify the rel. path and the firstname of the skybox
+	-xml/MusicList.xml updated for the new UO M.Legacy Expansion
+
+12.06.2005:
+Changes by SiENcE (Florian Fischer)
+	-bugreport from Grandmaster, popupx and popupy moved to Client.h
+
+xx.07.2005:
+Changes by Tensor
+	-please write down your changes
+
+11.07.2005:
+Changes by Tensor & SiENcE
+	-several changes o the init process
+	-we removed mapcompression, 2d renderer, localmappatches.cpp/h and mappatches.h
+	-kdevelop project files
+
+12.06.2005:
+Changes by SiENcE (Florian Fischer)
+	Fixed
+	------
+	Cliloc: now the Cliloc.enu is always loaded at first
+	and second the foreign Cliloc.* strings are exchanged with the english ones
+
+	Cursorbug: in 2D rendermode the graphical Cursor wasn't displayed
+
+	Pathloaderbug: if the mulpath had no "/" or "\" at the end Iris crashes
+
+	Vs2003 Project file added (lot's of bugs crashes Iris during Runtime if compiled with VS)
+
+	Gumps: status_aos.gfm, status.gfm, player_paperdoll.gfm, askquit.gfm, healthbar.gfm added
+
+	Scripts: iris.csl modified for new Gumps support; options.csl modified
+
+	Fontcolor: Bug fixed with HTMLGumps Fontcolors - now they look like OSI Client
+
+	Network: some packets are added; packetlogger added (thx to x.diablo)
+		 time packet added
+
+	XML: granny_aos.xml modified - dublicate models removed (some filenames are already wrong),
+	     added the ability to configure the TTF-Fonts in the config.xml File.
+
+	Multis: support added (thx to x.diablo) (custom Multis are missing right now)
+
+	Music: Musicloader rewritten (existing errors: midi is only mono; smpeg crashes sometimes loading mp3)
+
+18.04.2005:
+Changes by SiENcE (Florian Fischer)
+	-added Visual Studio 2003 Project Files
+	changed: ZRegEx.h, grntextchunk.cpp, decompress.cpp, uotype.h, ui3.cpp, ZBase.h
+	added: ZRegEx.c
+
+18.04.2005:
+Changes by SiENcE (Florian Fischer)
+	-fixed txt in /gfm/loading.gfm
+
+08.04.2005:
+Changes by SiENcE (Florian Fischer)
+	-applied endian patches from tharsade (StaticModelRaster.cpp, StaticModels.cpp)
+	-modified StaticTextureLoader.cpp because of the same fault
+
+08.04.2005:
+Changes by SiENcE (Florian Fischer)
+	-fixed Midi deinit Bug on Music.cpp, thx to tharsade
+
+22.03.2005:
+Changes by SiENcE (Florian Fischer)
+	-changed StaticModels.cpp; Bugfix
+
+22.03.2005:
+Changes by SiENcE (Florian Fischer)
+	-changed: $ui5_dir/include/loaders/StaticModelRaster.h to #include "irisgl.h"
+	-thanks to tharsade
+
+22.03.2005:
+Changes by SiENcE (Florian Fischer)
+	-changed StaticModels.cpp; Bugfix
+
+22.03.2005:
+Changes by SiENcE (Florian Fischer)
+	-changed: $ui5_dir/include/loaders/StaticModelRaster.h to #include "irisgl.h"
+	-thanks to tharsade
+
+22.03.2005:
+Changes by SiENcE (Florian Fischer)
+	-added FONTSET Configuration to config.xml
+	-files changed: Config.cpp, Config.h, ui3.cpp, iris.csl, config.xml
+
+02.03.2005:
+Changes by SiENcE (Florian Fischer)
+	-added "math.h" to soundmixer.cpp
+
+01.03.2005:
+Changes by Lucas C Vella
+	-added support for starting location server list
+
+01.03.2005:
+Changes by SiENcE (Florian Fischer)
+	- updated the DevCpp Project
+
+23.02.2005:
+Changes by ArT-iX
+	-fixed crash on DeInitRenderer
+
+23.02.2005:
+Changes by SiENcE (Florian Fischer)
+	-added <IS_UOX3>0</IS_UOX3> and <CLIENT_KEY>1</CLIENT_KEY> to xml/config.xml
+
+22.02.2005:
+Changes by SiENcE (Florian Fischer)
+	-xml/particles.xml updated with some effects from Thorgrim
+	-some DTD files where updated (xml/dtd/*)
+
+22.02.2005:
+Changes by ArT-iX
+	-fixed many Labels bugs
+	-temporary fixed  memory leaks with mounts (but need to find a better solution in the future)
+	-other minor fixes
+
+20.02.2005:
+Changes by ArT-iX
+	-fixed mapinfoloader deallocation into DeIniRender (Game.cpp)
+	-fixed a memory leak in Label.cpp
+
+19.02.2005:
+Changes by SiENcE (Florian Fischer)
+	-startup.csl : net_createchar was modified from "charlist_count+1" to charlist_count
+
+17.02.2005:
+Changes by Gordrim (Matt Stentiford)
+	-iris.csl - net_status is included
+	-net_statchange(); : statusInitialised=1
+
+17.02.2005:
+Changes by SiENcE (Florian Fischer)
+	-Serverpacket Idle Warning [0x53] is now handled
+	-Act_ClientState (packet); needs more modifications because only "Generic Network Error" is shown
+
+16.02.2005:
+Changes by SiENcE (Florian Fischer)
+	-fixed "charlist_count" bug in startup.csl
+	-fixed Bugs reported in forum by "X.diablo"
+		-MapBlock2D.h (virtual void Render (int base_x, int base_y) = 0;)
+		-csl/ZTrace.cpp (#include <fstream>)
+		-Music.cpp (Music::Music ())
+		-Game.cpp (void Game::InitRenderer (std::string mulpath))
+		-StaticModels.cpp (Visual C pragma)
+	-Implementation of iris_init(); and iris_deinit(); in CSLHandler.cpp for scripthandling
+	-modified handler_deinit (const sender) from iris.csl for deinit and init process
+	(this should solve all problems disconnecting and connceting to differect servers and logging
+	in with different charcters into different worlds)
+
+15.02.2005:
+Changes by ArT-iX
+	-added support for old spellbook protocol...(iris will support out-to-dated emulators spellbooks)
+	-htmlgumps temporarily disabled until i'll fix some ugly bug
+      - Multimap support added...
+
+14.02.2005:
+Changes by ArT-iX
+	-fixed moveable labels
+
+11.02.2005:
+Changes by ArT-iX
+	-fixed a bug with <a href> tag in htmlgumps
+	-fixed htmlgumps multilabel destructor
+	-fixed problems with apices into html attributes
+	-added clickability to Labels
+
+09.02.2005:
+Changes by SiENcE (Florian Fischer)
+	-added gfm/connecting.gfm
+	 modified startup.csl for connecting
+	-modified startup.csl for individual server select (handler_on_serverlistclick)
+	-modified startup.csl and gfm/serverlist.gfm for handler_on_serverlistclick support
+
+09.02.2005:
+Changes by ArT-iX
+	started endian compatibility for modelinfoloader, htmlgumps and musiclistloader
+	fixed highlighting bug with UOX3
+	added IS_UOX3 in config
+
+08.02.2005:
+Changes by SiENcE (Florian Fischer)
+	gfm/main_menu.gfm
+	script/startup.csl : added Ultima Iris Version String
+
+07.02.2005:
+Changes by SiENcE (Florian Fischer)
+	Added GFM File Support for Gumps (Menue-GFX). Thanks to Seung Yong, Choi !
+	Add the GFM-Directory to your root Iris directory.
+	Use the new CSL Scripts (startup.csl!).
+	Modify a GFM Files (Menue-GFX) with the "Gump Form Editor" 0.31
+	Take it from our repository at:
+	http://sourceforge.net/project/showfiles.php?group_id=79197
+	
+	(remeber to edit the <MULPATH> to your UO AoS/TD in the xml/confix.xml File)
+
+Changes by Lucas C Vella:
+	Added support for character deletion
+
+Changes by Lucas C Vella:
+	Init SDL and SDL_net from main
+	Added network support for character creation

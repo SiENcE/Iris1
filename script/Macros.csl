@@ -1,0 +1,200 @@
+/*
+
+ macros.xml by ArT-iX
+
+ Warning:               macro functions can have no more than 4 parameters. Parameters (and function names)
+                        are set into macros.xml. Put all your integer parameters before 
+                        string parameters into function declaration. Do not invert or mess up
+                        this order or your macro will not work!!
+        
+*/
+
+
+var firstpers_hide=0;
+
+macro_say(const text)
+{
+	net_sendspeech(text);
+}
+
+macro_open(const text)
+{
+	if((text == "backpack") && (backpackopen == 0))
+	{
+		net_openbackpack();
+		backpackopen = 1;
+	}
+	else
+		if((text=="paperdoll") && (paper_doll_open == 0))
+		{
+			display_player_paperdoll(net_getplayercharacter());
+			paper_doll_open = 1;
+		}
+		else
+			if((text=="skills") && (skills_open == 0))
+			{
+				control_close(skills_min);
+				display_skills();
+				skills_open = 1;
+			} 
+}
+
+
+macro_warmode()
+{
+	net_warmode (!warmode);
+	warmode = !warmode;
+}
+
+macro_lasttarget()
+{
+	net_sendtarget(net_lasttarget());
+}
+
+macro_targetself()
+{
+	net_sendtarget(net_getplayercharacter());
+}
+
+macro_lastobject()
+{
+	net_senddoubleclick(net_lastobject());
+}
+
+macro_opendoor()
+{
+	net_doaction(2,0);
+}
+
+macro_useskill(const skill)
+{
+	log("USESKILL");
+	net_doaction(0,skill);
+}
+
+macro_castspell(const id)
+{
+	net_castspell(id);
+}
+
+macro_lastspell()
+{
+	net_castspell(net_lastspell());
+}
+
+macro_lastskill()
+{
+	net_doaction(0,net_lastskill());
+	net_waitfortarget("test_wft");
+}
+
+macro_healself()
+{
+//net_doaction(0,net_lastskill());
+	net_castspell(4);
+	net_waitfortarget("macro_targetself");
+}
+
+macro_camup()
+{
+	camera_move(1, 3);
+}
+
+macro_camdown()
+{
+	camera_move(0, 3);
+}
+
+macro_zoomin()
+{
+	camera_zoom(0, 3);
+}
+
+macro_zoomout()
+{
+	camera_zoom(1, 3);
+}
+
+macro_toggleperspective()
+{
+	var perspective = config_getvalue(10);
+	config_setvalue(10, !perspective);
+}
+
+macro_camleft()
+{
+	config_setvalue(10, 0);
+	camera_move(2, 3);
+}
+
+macro_camright()
+{
+	config_setvalue(10, 0);
+	camera_move(3, 3);
+}
+
+macro_firstperson()
+{
+ //config_setvalue(22, -1);
+	config_setvalue(10, 1);
+	camera_firstperson(0);
+}
+
+macro_hideplayer()
+{
+ //config_setvalue(22, -1);
+	config_setvalue(10, 1);
+ 	camera_firstperson(1);
+ //camera_move(0,6);
+ //firstpers_hide=1;
+}
+
+macro_lookup()
+{
+	if(firstpers_hide==0)
+	{
+		camera_firstperson(1);
+		firstpers_hide=1;
+	}
+	camera_move(0, 3);
+}
+
+macro_bow()
+{
+	log("BOW");
+	net_doaction(3,0);
+}
+
+macro_salute()
+{
+	log("SALUTE");
+	net_doaction(4,0);
+}
+
+macro_togglerooffading()
+{
+	if(config_getvalue(23) == 1)	
+		config_setvalue(23, 0);
+	else
+		config_setvalue(23, 1); 
+ //camera_move(0,1);
+ //camera_move(1,1);
+	log("ROOF: " + config_getvalue(22));
+}
+
+macro_topview()
+{
+	config_setvalue(23, 1);
+	camera_reset(); 
+	log("top");
+}
+
+macro_quit()
+{
+	iris_quit();
+}
+
+macro_runmode()
+{
+	net_toggle_runmode();
+}

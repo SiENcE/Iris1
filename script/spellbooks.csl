@@ -1,0 +1,850 @@
+/*
+-------------------------------------------------------------------------------------------------
+	spellbooks.csl
+        Written by ArT-iX
+        Note : you must set CLIENT_IDENTIFICATION to a version >= 4.0.* in config.xml to support this
+------------------------------------------------------------------------------------------------
+*/
+
+//
+var circles[8];
+
+
+const SpellNames[8][8] = {
+
+
+{"Clumsy", "Create Food", "FeebleMind", "Heal", "Magic Arrow", "Night Sight", "Reactive Armor", "Weaken"},
+{"Agility", "Cunning", "Cure", "Harm", "Magic Trap", "Magic Untrap", "Protection", "Strength"},
+{"Bless", "Fire Ball", "Magic Lock", "Poison", "Telekinesis", "Teleport", "Unlock", "Wall of Stone"},
+{"Arch Cure", "Arch Protection", "Curse", "Fire Field", "Greater Heal", "Lightning", "Mana Drain", "Recall"},
+{"Blade Spirit", "Dispel Field", "Incognito", "Spell Reflection", "Mind Blast", "Paralyze", "Poison Field", "Summ.Creature"},
+{"Dispel", "Energy Bolt", "Explosion", "Invisibility", "Mark", "Mass Curse", "Paralyze Field", "Reveal"},
+{"Chain Lightning", "Energy Field", "FlameStrike", "Gate", "Mana Vampire", "Mass Dispel", "Meteor Swarm", "Polymorph"},
+{"Earthquake", "Energy Vortex", "Resurrection", "Air Elemental", "Summon Daemon", "Earth Elemental", "Fire Elemental", "Water Elemental"}
+
+
+};
+
+const NecroSpells[2][8] = 
+{
+{"Animate Dead", "Blood Oath", "Corpse Skin", "Curse Weapon", "Evil Omen", "Horrific Beast", "Lich Form", "Mind Rot"},
+{"Pain Spike", "Poison Strike", "Strangle", "Summon Familiar", "Vampiric Embrace", "Vengeful Spirit", "Wither", "WraithForm"}
+};
+
+const PaladinSpells[10] = 
+{
+"Cleanse By Fire", "Close Wounds", "Consecrate Weapon", "Dispel Evil", "Divine Fury", "Enemy of one", "Holy Light", "Noble Sacrifice", "Remove Curse", "Sacred Journey"
+};
+
+const circle_names[8] = 
+{
+
+"First Circle",
+"Second Circle",
+"Third Circle",
+"Fourth Circle",
+"Fifth Circle",
+"Sixth Circle",
+"Seventh Circle",
+"Eighth Circle"
+
+};
+
+const reagents[8] = 
+{
+
+"Black Pearl",
+"Blood Moss",
+"Garlic",
+"Ginseng",
+"Mandrake",
+"Nightshade",
+"Spider Silk",
+"Sulphurous Ash"
+
+};
+
+const necro_reagents[5] =
+{
+"Bat Wing",
+"Grave Dust",
+"Daemon Blood",
+"Nox Crystal",
+"Pig Iron"
+};
+
+const paladin_reqs[10][3] =
+{
+{10,10,5},
+{10,10,0},
+{10,10,15},
+{10,10,35},
+{10,15,25},
+{10,20,45},
+{10,10,55},
+{30,20,65},
+{10,20,5},
+{15,10,15}
+};
+
+const necrospell_reags[16][5] =
+{
+{0,1,1,0,0},
+{0,0,1,0,0},
+{1,1,0,0,0},
+{0,0,0,0,1},
+{1,0,0,1,0},
+{1,0,1,0,0},
+{0,1,1,1,0},
+{1,0,1,0,1},
+{0,1,0,0,1},
+{0,0,0,1,0},
+{0,0,1,1,0},
+{1,1,1,0,0},
+{1,0,0,1,1},
+{1,0,1,0,1},
+{0,1,0,1,1},
+{0,0,0,1,1}
+};
+
+const spell_reags[64][8] = 
+{
+{0,1,0,0,0,1,0,0},
+{0,0,1,1,1,0,0,0},
+{0,1,0,0,0,1,0,0},
+{0,0,1,1,0,0,1,0},
+{1,0,0,0,0,1,0,0},
+{0,0,0,0,0,0,1,1},
+{0,0,1,0,0,0,1,1},
+{0,0,1,0,0,1,0,0},
+{0,1,0,0,1,0,0,0},
+{0,0,0,0,1,1,0,0},
+{0,0,1,1,0,0,0,0},
+{0,0,0,0,0,1,1,0},
+{0,0,1,0,0,0,1,1},
+{0,1,0,0,0,0,0,1},
+{0,0,1,1,0,0,0,1},
+{0,0,0,0,1,1,0,0},
+{0,0,1,0,1,0,0,0},
+{1,0,0,0,0,0,0,1},
+{0,1,1,0,0,0,0,1},
+{0,0,0,0,0,1,0,0},
+{0,1,0,0,1,0,0,0},
+{0,1,0,0,1,0,0,0},
+{0,1,0,0,0,0,0,1},
+{0,1,1,0,0,0,0,0},
+{0,0,1,1,1,0,0,0},
+{0,0,1,1,1,0,0,1},
+{0,0,1,0,0,1,0,1},
+{1,0,0,0,0,0,1,1},
+{0,0,1,1,1,0,1,0},
+{1,0,0,0,1,0,0,1},
+{1,0,0,0,1,0,1,0},
+{1,1,0,0,1,0,0,0},
+{1,0,0,0,1,1,0,0},
+{1,0,1,0,0,0,1,1},
+{0,1,1,0,0,1,0,0},
+{0,0,1,0,1,0,1,0},
+{1,0,0,0,1,1,0,1},
+{0,0,1,0,1,0,1,0},
+{1,0,0,0,0,1,1,0},
+{0,1,0,0,1,0,1,0},
+{0,0,1,0,1,0,0,1},
+{1,0,0,0,0,1,0,0},
+{1,0,0,0,1,0,0,1},
+{0,1,0,0,0,1,0,0},
+{1,1,0,0,1,0,0,0},
+{0,0,1,0,1,1,0,1},
+{1,0,0,1,0,0,1,0},
+{0,1,0,0,0,0,0,1},
+{1,1,0,0,1,0,0,1},
+{1,0,0,0,1,0,1,1},
+{0,0,0,0,0,0,1,1},
+{1,0,0,0,1,0,0,1},
+{1,1,0,0,1,0,1,0},
+{1,0,1,0,1,0,0,1},
+{0,1,0,0,1,0,1,1},
+{0,1,0,0,1,0,1,0},
+{0,1,0,1,1,0,0,1},
+{1,1,0,0,1,1,0,0},
+{0,1,1,1,0,0,0,0},
+{0,1,0,0,1,0,1,0},
+{0,1,0,0,1,0,1,1},
+{0,1,0,0,1,0,1,0},
+{0,1,0,0,1,0,1,1},
+{0,1,0,0,1,0,1,0}
+
+};
+
+//net_spellbookdisplay(var id, var model);
+
+handler_on_pageselectorclick(const sender)
+{
+ var parent = control_getparent(sender);
+ container_setcurrentpage(parent, button_getdestinationpage(sender));
+ //log(button_getdestinationpage(sender));
+}
+
+handler_on_browseback(const sender)
+{
+ var parent = control_getparent(sender);
+ //container_setcurrentpage(parent, container_getcurrentpage(parent) - 1);
+ if(container_getcurrentpage(parent) == 1)
+ {return;}
+ if(container_getcurrentpage(parent) == 2)
+ {
+  //log("MIN PAGE");
+  control_setalpha(sender, 0);
+
+ }
+
+ 
+ container_setcurrentpage(parent, container_getcurrentpage(parent) - 1);
+
+ if(container_getcurrentpage(parent) > 1)
+ {
+  //gui_setcontainer(parent);
+  //var browse_back = gui_addbutton(44,8,0x8bb, 0x8bb, 0x8bb);
+  //control_sethandler(browse_back, FUNC_ONCLICK, "handler_on_browseback");
+  control_setalpha(control_gettag(sender, 0), 250);
+ }
+}
+
+handler_on_browseforward(const sender)
+{
+ var parent = control_getparent(sender);
+ var maxpage = control_gettag(parent, 0);// - 1;
+ var currentpage = container_getcurrentpage(parent);
+ if(currentpage == maxpage)
+ {
+  return;
+ }
+ else if((maxpage - currentpage) == 1)
+ {
+  control_setalpha(sender, 0);
+ }
+ container_setcurrentpage(parent, container_getcurrentpage(parent) + 1);
+ if(container_getcurrentpage(parent) > 1)
+ {
+  //gui_setcontainer(parent);
+  //var browse_back = gui_addbutton(44,8,0x8bb, 0x8bb, 0x8bb);
+  //control_sethandler(browse_back, FUNC_ONCLICK, "handler_on_browseback");
+  control_setalpha(control_gettag(sender, 0), 250);
+ }
+}
+
+handler_on_spellbutton(const sender)
+{
+ 
+ var spellid = control_gettag(sender, 0);
+ //log(spellid);
+ net_castspell(spellid);
+}
+
+handler_icon_click(const sender)
+{
+ var parent = control_getparent(sender);
+ if(control_gettag(sender, 1) != control_getx(parent) || control_gettag(sender, 2) != control_gety(parent))
+ {return;}
+ var bookid = control_gettag(sender, 0);
+ //log(bookid);
+ net_senddoubleclick(bookid); 
+ control_close(parent);
+}
+
+handler_icon_mousedown(const sender)
+{
+ var parent = control_getparent(sender);
+ control_settag(sender, 1, control_getx(parent));
+ control_settag(sender, 2, control_gety(parent));
+}
+
+handler_on_reduceicon(const sender)
+{
+ //log("ICON");
+
+ var parent = control_getparent(sender);
+ //log(parent);
+ control_close(parent); 
+ gui_setcontainer();
+ var bookiconcont = gui_addcontainer(17, 122, 50, 80);
+ gui_setcontainer(bookiconcont);
+ var icongraphic = control_gettag(sender, 1);
+ //var bookicon = gui_addbutton(17, 122, icongraphic, icongraphic, icongraphic);
+ var bookicon = gui_addgump(0,0,icongraphic,0);
+ control_settag(bookicon, 0, control_gettag(sender, 0));
+ control_settag(bookicon, 1, control_getx(bookiconcont));
+ control_settag(bookicon, 2, control_gety(bookiconcont));
+ control_sethandler(bookicon, FUNC_ONMOUSEDOWN, "handler_icon_mousedown");
+ control_sethandler(bookicon, FUNC_ONMOUSEUP, "handler_icon_click");
+ gui_setcontainer();
+}
+
+handler_floaticon_click(const sender)
+{
+ var parent = control_getparent(sender);
+ if(control_gettag(sender, 1) != control_getx(parent) || control_gettag(sender, 2) != control_gety(parent))
+ {return;}
+ var tag = control_gettag(sender, 0);
+ net_castspell(tag);
+}
+
+handler_floaticon_mousedown(const sender)
+{
+ var parent = control_getparent(sender);
+ control_settag(sender, 1, control_getx(parent));
+ control_settag(sender, 2, control_gety(parent));
+
+}
+
+handler_on_spellicon(const sender)
+{
+ var spell_id = control_gettag(sender, 0);
+ //log(spell_id);
+ var parent = control_getparent(sender);
+ gui_setcontainer();
+ var right_check = control_gettag(sender, 1);
+ var iconcontainer = gui_addcontainer(control_getx(parent) + (93 + right_check),  control_gety(parent) + 53, 50, 50);
+ var booktype = control_gettag(sender, 2);
+ var iconoffset;
+ if(booktype == 0)
+ {iconoffset = 0x8c0;}
+ else if(booktype == 1)
+ {iconoffset = 0x5000;}
+  else if(booktype == 2)
+ {iconoffset = 0x5100;}
+ gui_setcontainer(iconcontainer);
+
+ var icon = gui_addgump(0,0,iconoffset + ((spell_id - booktype * 100) - 1),0);
+ 
+ gui_setcontainershape(icon);
+
+ //var float_spellicon = gui_addbutton(1, 1, 0x8c0 + (spell_id - 1), 0x8c0 + (spell_id - 1), 0x8c0 + (spell_id - 1));
+
+ control_settag(icon, 0, spell_id);
+ control_settag(icon, 1, control_getx(iconcontainer));
+ control_settag(icon, 2, control_gety(iconcontainer));
+ control_sethandler(icon, FUNC_ONMOUSEDOWN, "handler_floaticon_mousedown");
+ control_sethandler(icon, FUNC_ONMOUSEUP, "handler_floaticon_click");
+
+
+ 
+ 
+ 
+ //gui_setcontainershape(float_spellicon);
+ 
+}
+
+
+handler_on_label(const sender)
+{
+ //log("LABEL");
+}
+
+handle_browsers(var id)
+{
+ //log("HANDLE BROWSERS");
+ gui_setcontainer();
+ control_setalpha(id, 0);
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+net_spellbookdisplay(var id, var model)
+{
+ //log("Spellbook");
+ var spellbook = gui_addcontainer(100,100, 400, 300);
+ 
+ control_setalpha(spellbook, 0);
+ control_fade(spellbook, 255, 600);
+ 
+ gui_setcontainer(spellbook);
+
+ var bookgraphic;
+ 
+ 
+ switch(model)
+    {
+     case 0xEFA:
+         bookgraphic = 0x8AC;     
+              break;
+     case 0x2252:
+         bookgraphic = 0x2B01;     
+              break;
+     case 0x2253:
+         bookgraphic = 0x2B00;     
+              break;
+     default:
+          log("Error: Unknown SpellBook Type");
+           
+          bookgraphic = 0;       
+    }
+ 
+ var gump = gui_addgump(0, 0, bookgraphic, 0);
+ gui_setcontainershape(gump);
+ 
+ if(model == 0xEFA)
+ {
+      for(var idx = 1; idx <= 4; idx++){
+      
+      var index_label= gui_addlabel(100, 12, "INDEX", 1, 1108);
+      control_setpage(index_label, idx);
+      index_label = gui_addlabel(260, 12, "INDEX", 1, 1108);
+      control_setpage(index_label, idx);
+      }
+     
+     
+     
+      var browse_back = gui_addbutton(48,10,0x8bb, 0x8bb, 0x8bb);
+      control_sethandler(browse_back, FUNC_ONCLICK, "handler_on_browseback");
+      
+     
+      var browse_forward = gui_addbutton(322,9,0x8bc, 0x8bc, 0x8bc);
+      control_sethandler(browse_forward, FUNC_ONCLICK, "handler_on_browseforward");
+
+      control_settag(browse_back, 0 , browse_forward);
+      control_settag(browse_forward, 0, browse_back);
+
+      //control_setalpha(browse_back, 0);
+      //control_setalpha(browse_forward, 0);
+     
+     var reduce_icon = gui_addbutton(7, 104, 0x837, 0x838, 0x838);
+     control_sethandler(reduce_icon, FUNC_ONCLICK, "handler_on_reduceicon");
+     control_settag(reduce_icon, 0, id);
+     control_settag(reduce_icon, 1, 0x8ba);
+
+     var pageselector;
+     var is_pair = 0;
+     var dispair_index = 0;
+     var fix_layout;
+     
+     for(var i = 1; i <= 8; i++)
+     {
+      //(i > 4)?fix_layout = 50 : fix_layout= 20;
+      
+      if(i > 4)
+      {fix_layout = 50;}
+      else
+      	{fix_layout = 20;}
+      
+      pageselector = gui_addbutton(fix_layout + (i * 35), 170, 0x8b0 + i, 0x8b0 + i, 0x8b0 + i);
+     
+      //pageselector->SetPageSelector(true);
+      //pageselector->SetCloseGump(false);
+      //pageselector->SetButton(BUTTONGUMP_NORMAL, (0x8b0 + i));
+      //pageselector->SetButton(BUTTONGUMP_MOUSEOVER, (0x8b0 + i));
+      //pageselector->SetButton(BUTTONGUMP_PRESSED, (0x8b0 + i));
+      
+      
+      if(is_pair == 0){
+       //pageselector->SetDestinationPage(i - dispair_index++);
+       button_setdestinationpage(pageselector, i - dispair_index++);
+       is_pair=1;
+       }
+      else
+      {
+       //pageselector->SetDestinationPage(i / 2);
+       button_setdestinationpage(pageselector, i / 2);
+       is_pair = 0;
+      } 
+      
+      //pageselector->OnClick(HandleGumpDialogEvent);
+      //pageselector->SetPage(0);
+      control_sethandler(pageselector, FUNC_ONCLICK, "handler_on_pageselectorclick");
+      control_setpage(pageselector, 0);
+      //spellbook->AddControl(pageselector);
+      //var spell_circle = gui_addlabel();
+     }
+     
+     var spellname;
+     //Label * spellname = NULL; 837/838
+     var spellbutton;
+
+
+    var top_align = 0; 
+    var right_page = 0;
+    /*
+    for(var l = 0; l < 8; l++)
+    {
+    //log(circles[l]);
+    } */
+
+    var spellpage = 5;
+    var right_check = 0;
+    var spell_circle;
+
+    for(var c = 0; c <= 7; c++)
+    {
+     top_align=0;
+     spell_circle = gui_addlabel(80 + right_page, 25, circle_names[c], 1, 1105);
+     if(c <= 1) {
+       
+  
+         control_setpage(spell_circle, 1);}
+       else if(c <= 3)
+      
+      {
+         control_setpage(spell_circle, 2);}
+       else if(c <= 5)
+        
+       {
+         control_setpage(spell_circle, 3);}
+       else if(c <= 7)
+       {
+       
+         control_setpage(spell_circle, 4);}
+     for(var q = 0; q <= 7; q++)
+     {
+      //if(circles[i] & (1 << q))
+      if(utils_bit_and(circles[c], utils_bit_leftshift(1, q)) != 0)
+      {
+       spellname = gui_addlabel(80 + right_page, 30 + (((q + 1) * 15) - top_align), SpellNames[c][q]);
+       //spellname = new Label(70 + right_page, 15 + (((q + 1) * 15) - top_align), SpellNames[i][q].c_str());
+       control_sethandler(spellname, FUNC_ONMOUSEDOWN, "handler_on_label");       
+
+       spellbutton = gui_addbutton(60 + right_page, 33 + (((q + 1) * 15) - top_align), 0x837, 0x838, 0x838);
+       control_settag(spellbutton, 0, (c * 8) + (q + 1));
+       control_sethandler(spellbutton, FUNC_ONCLICK, "handler_on_spellbutton");
+       
+       label_sethue(spellname, 1022 /*46*/);
+       label_setfont(spellname, 1);
+       
+       if(c <= 1) 
+       
+        {control_setpage(spellname, 1);
+         control_setpage(spellbutton, 1);
+         control_setpage(spell_circle, 1);}
+       else if(c <= 3)
+      
+        {control_setpage(spellname, 2);
+         control_setpage(spellbutton, 2);
+         control_setpage(spell_circle, 2);}
+       else if(c <= 5)
+        
+        {control_setpage(spellname, 3);
+         control_setpage(spellbutton, 3);
+         control_setpage(spell_circle, 3);}
+       else if(c <= 7)
+       
+        {control_setpage(spellname, 4);
+         control_setpage(spellbutton, 4);
+         control_setpage(spell_circle, 4);}
+       
+       var spelltitle = gui_addlabel(60 + right_check, 30, SpellNames[c][q], 1, 1108);
+       var circle_label = gui_addlabel(80 + right_check, 15, circle_names[c], 1, 1109);
+       control_setpage(spelltitle, spellpage);
+       control_setpage(circle_label, spellpage);
+       var spellicon = gui_addbutton(90 + right_check, 50, 0x8c0 + ((c * 8) + q), 0x8c0 + ((c * 8) + q), 0x8c0 + ((c * 8) + q));
+       control_setpage(spellicon, spellpage);
+       control_settag(spellicon, 0, (c * 8) + (q + 1));
+       control_settag(spellicon, 1, right_check);
+       control_settag(spellicon, 2, 0);
+       control_sethandler(spellicon, FUNC_ONCLICK, "handler_on_spellicon");
+       var reag_label;
+       var yinc = 0;
+       for(var r = 0; r <= 7; r++)
+       {
+        if(spell_reags[(c * 8) + q][r]){
+         reag_label = gui_addlabel(60 + right_check, 100 + yinc, reagents[r], 1, 1109);
+         control_setpage(reag_label, spellpage);
+         yinc = yinc+15;
+        }
+       }
+
+       yinc = 0;               
+
+       if(right_check == 0)
+        {right_check = 160;}
+       else
+        {right_check = 0; ++spellpage;}
+        //log("PAGE : " + spellpage);
+       //spellbook->AddControl(spellname); 
+      }
+      else
+      {
+       top_align = top_align + 15;
+      }
+    // }
+     
+     
+    }
+    if(right_page == 0)
+      {right_page = 150;}
+     else
+      {right_page = 0;} 
+  } 
+  
+  if(right_check == 0)
+  {spellpage = spellpage--;}
+
+  /*r_page = 0;
+  
+  for(var s = 0; s <= 63; s++)
+  {
+
+   
+   var spellicon = gui_addbutton(30 + r_page, 30, 0x8c0 + s, 0x8c0 + s, 0x8c0 + s);
+   
+   
+
+  }*/
+  control_settag(spellbook, 0, spellpage);
+  container_setcurrentpage(spellbook, 1);
+  //handle_browsers(browse_back);
+  //log(container_getcurrentpage(spellbook));
+ }
+ else if(model == 0x2253)
+ {
+      
+      //log("NECRO");
+      var index_label= gui_addlabel(100, 12, "INDEX", 1, 1108);
+      control_setpage(index_label, 1);
+      var index_label2 = gui_addlabel(260, 12, "INDEX", 1, 1108);
+      control_setpage(index_label2, 1);
+      
+     
+     
+     
+      var browse_back = gui_addbutton(48,10,0x8bb, 0x8bb, 0x8bb);
+      control_sethandler(browse_back, FUNC_ONCLICK, "handler_on_browseback");
+      
+     
+      var browse_forward = gui_addbutton(322,9,0x8bc, 0x8bc, 0x8bc);
+      control_sethandler(browse_forward, FUNC_ONCLICK, "handler_on_browseforward");
+
+      control_settag(browse_back, 0 , browse_forward);
+      control_settag(browse_forward, 0, browse_back);
+
+      //control_setalpha(browse_back, 0);
+      //control_setalpha(browse_forward, 0);
+     
+     var reduce_icon = gui_addbutton(7, 104, 0x837, 0x838, 0x838);
+     control_sethandler(reduce_icon, FUNC_ONCLICK, "handler_on_reduceicon");
+     control_settag(reduce_icon, 0, id);
+     control_settag(reduce_icon, 1, 0x2b03);
+
+
+     var spellname;
+     
+     var spellbutton;
+
+
+    var top_align = 0; 
+    var right_page = 0;
+    
+ 
+
+    var spellpage = 2;
+    var right_check = 0;
+    var spell_circle;
+
+    for(var c = 0; c <= 1; c++)
+    {
+     top_align=0;
+   
+     
+     for(var q = 0; q <= 7; q++)
+     {
+   
+      if(utils_bit_and(circles[c], utils_bit_leftshift(1, q)) != 0)
+      {
+       spellname = gui_addlabel(80 + right_page, 30 + (((q + 1) * 15) - top_align), NecroSpells[c][q]);
+     
+       //control_sethandler(spellname, FUNC_ONMOUSEDOWN, "handler_on_label");       
+
+       spellbutton = gui_addbutton(60 + right_page, 33 + (((q + 1) * 15) - top_align), 0x837, 0x838, 0x838);
+       control_settag(spellbutton, 0, 100 + (c * 8) + (q + 1));
+       control_sethandler(spellbutton, FUNC_ONCLICK, "handler_on_spellbutton");
+       
+       label_sethue(spellname, 1022 /*46*/);
+       label_setfont(spellname, 1);
+       
+        
+       
+         control_setpage(spellname, 1);
+         control_setpage(spellbutton, 1);
+       
+     
+      
+       
+       var spelltitle = gui_addlabel(60 + right_check, 30, NecroSpells[c][q], 1, 1108);
+
+       control_setpage(spelltitle, spellpage);
+    
+       var spellicon = gui_addbutton(90 + right_check, 50, 0x5000 + ((c * 8) + q), 0x5000 + ((c * 8) + q), 0x5000 + ((c * 8) + q));
+       control_setpage(spellicon, spellpage);
+       control_settag(spellicon, 0, 100 + (c * 8) + (q + 1));
+       control_settag(spellicon, 1, right_check);
+       control_settag(spellicon, 2, 1);
+       control_sethandler(spellicon, FUNC_ONCLICK, "handler_on_spellicon");
+       
+       var reag_label;
+       var yinc = 0;
+       for(var r = 0; r <= 4; r++)
+       {
+        if(necrospell_reags[(c * 8) + q][r]){
+         reag_label = gui_addlabel(60 + right_check, 100 + yinc, necro_reagents[r], 1, 1109);
+         control_setpage(reag_label, spellpage);
+         yinc = yinc+15;
+        }
+       }
+
+       yinc = 0;              
+       
+       if(right_check == 0)
+        {right_check = 160;}
+       else
+        {right_check = 0; ++spellpage;}
+
+       
+     
+      }
+      else
+      {
+       top_align = top_align + 15;
+      }
+
+     
+     
+    }
+    if(right_page == 0)
+      {right_page = 150;}
+     else
+      {right_page = 0;} 
+  } 
+  
+  if(right_check == 0)
+  {spellpage = spellpage--;}
+  control_settag(spellbook, 0, spellpage);
+  container_setcurrentpage(spellbook, 1);
+  //handle_browsers(browse_back);
+  //log(container_getcurrentpage(spellbook));
+
+ }
+
+ else if(model == 0x2252)
+ {
+      
+      //log("PALADIN");
+      var index_label= gui_addlabel(100, 12, "INDEX", 1, 1108);
+      control_setpage(index_label, 1);
+      var index_label2 = gui_addlabel(260, 12, "INDEX", 1, 1108);
+      control_setpage(index_label2, 1);
+      
+     
+     
+     
+      var browse_back = gui_addbutton(48,10,0x8bb, 0x8bb, 0x8bb);
+      control_sethandler(browse_back, FUNC_ONCLICK, "handler_on_browseback");
+      
+     
+      var browse_forward = gui_addbutton(322,9,0x8bc, 0x8bc, 0x8bc);
+      control_sethandler(browse_forward, FUNC_ONCLICK, "handler_on_browseforward");
+
+      control_settag(browse_back, 0 , browse_forward);
+      control_settag(browse_forward, 0, browse_back);
+
+     
+     var reduce_icon = gui_addbutton(7, 104, 0x837, 0x838, 0x838);
+     control_sethandler(reduce_icon, FUNC_ONCLICK, "handler_on_reduceicon");
+     control_settag(reduce_icon, 0, id);
+     control_settag(reduce_icon, 1, 0x2b04);
+     
+     net_statusrequest(net_getplayercharacter());
+     var tith1 = gui_addlabel(60, 150, "Tithing points", 1, 1);    
+     var tith2 = gui_addlabel(60, 175, "Available: " + char_getstatus(net_getplayercharacter(), STATUS_TITH), 1, 1); 
+     gui_rewind(spellbook);
+     var spellname;
+     
+     var spellbutton;
+
+
+    var top_align = 0; 
+    var right_page = 0;
+    
+ 
+
+    var spellpage = 2;
+    var right_check = 0;
+    var spell_circle;
+
+    for(var c = 0; c <= 9; c++)
+    {
+     
+     if(c > 4)
+     {
+      right_page = 150;
+      top_align=75;
+     }
+     
+  
+       spellname = gui_addlabel(80 + right_page, 30 + (((c + 1) * 15) - top_align), PaladinSpells[c]);
+     
+            
+
+       spellbutton = gui_addbutton(60 + right_page, 33 + (((c + 1) * 15) - top_align), 0x837, 0x838, 0x838);
+       control_settag(spellbutton, 0, 200 + (c + 1));
+       control_sethandler(spellbutton, FUNC_ONCLICK, "handler_on_spellbutton");
+       
+       label_sethue(spellname, 1044 /*46*/);
+       label_setfont(spellname, 1);
+       
+        
+       
+         control_setpage(spellname, 1);
+         control_setpage(spellbutton, 1);
+       
+     
+      
+       
+       var spelltitle = gui_addlabel(60 + right_check, 30, PaladinSpells[c], 1, 1108);
+
+       control_setpage(spelltitle, spellpage);
+    
+       var spellicon = gui_addbutton(90 + right_check, 50, 0x5100 + c, 0x5100 + c, 0x5100 + c);
+       control_setpage(spellicon, spellpage);
+       control_settag(spellicon, 0, 200 + (c + 1));
+       control_settag(spellicon, 1, right_check);
+       control_settag(spellicon, 2, 2);
+       control_sethandler(spellicon, FUNC_ONCLICK, "handler_on_spellicon");
+       /*
+       var reag_label;
+       var yinc = 0;
+       for(var r = 0; r <= 7; r++)
+       {
+        if(spell_reags[(c * 8) + q][r]){
+         reag_label = gui_addlabel(60 + right_check, 100 + yinc, reagents[r], 1, 1109);
+         control_setpage(reag_label, spellpage);
+         yinc = yinc+15;
+        }
+       }
+
+       yinc = 0;               
+       */
+       if(right_check == 0)
+        {right_check = 160;}
+       else
+        {right_check = 0; ++spellpage;}
+
+       
+     
+      }
+   
+
+     
+     
+  
+  //} 
+  
+  if(right_check == 0)
+  {spellpage = spellpage--;}
+  control_settag(spellbook, 0, spellpage);
+  container_setcurrentpage(spellbook, 1);
+  //handle_browsers(browse_back);
+  //log(container_getcurrentpage(spellbook));
+
+ }
+
+
+}

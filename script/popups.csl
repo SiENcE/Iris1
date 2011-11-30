@@ -1,0 +1,165 @@
+/*
+-------------------------------------------------------------------------------------------------
+popups.csl
+Written by ArT-iX, SiENcE & Harkon
+------------------------------------------------------------------------------------------------
+*/
+
+
+/*
+-------------------------------------------------------------------------------------------------
+global vars
+------------------------------------------------------------------------------------------------
+*/
+
+var popup_count = 0;
+var popup_entries[1];
+var popup_tags[1];
+var popup_list[1];
+var popup_clicklist[1];
+var active_popup;
+var popup_x = 0;
+var popup_y = 0;
+
+
+// POPUP STYLES
+const UO_DEFAULT = 0xa3c;
+const FRAMED_BLACK = 0x2436;
+const FRAMED_GRAY = 0xe10;
+const FRAMED_DOUBLE = 0x2422;
+const FANCY = 0x53;
+
+/*
+-------------------------------------------------------------------------------------------------
+ forward declarations
+-------------------------------------------------------------------------------------------------
+*/
+
+display_popup(var count);
+GetEntryString(var entry);
+
+/*
+-------------------------------------------------------------------------------------------------
+ Net Events
+-------------------------------------------------------------------------------------------------
+*/
+
+net_displaypopup(const count, const x, const y)
+{
+	if(active_popup)
+	{
+		control_close(active_popup);
+	}
+
+	resize popup_entries[count]; 
+	resize popup_tags[count]; 
+	popup_count = count;
+
+	for(var i = 0; i < count; i++)
+	{
+		popup_entries[i] = net_getpopupentry(i);
+		popup_tags[i] = net_getpopuptag(i);
+	}
+	popup_x = x;
+	popup_y = y;
+	display_popup(count);
+}
+
+
+handler_on_close_popup(const sender)
+{
+	var close = 0;
+	
+	for(var i = 0; i < popup_count; i++)
+	{
+		control_close(popup_list[i]);
+		popup_entries[i] = 0;
+		popup_tags[i] = 0;
+	}
+	resize popup_entries[1];
+	resize popup_tags[1];
+	popup_count=0;
+}
+
+
+handler_on_popup_click(const sender)
+{
+	var index = 0;
+	for(var i = 0; i < popup_count; i++)
+	{
+		if(popup_clicklist[i] = sender)
+		{
+			index = i;
+		}
+	}
+	var tag = control_gettag(sender, 0);
+	label_sethue(popup_list[index], 90);
+	net_sendpopupchoice(tag);
+	control_close(active_popup);
+}
+
+
+display_popup(var count)
+{
+	var menu_model = FRAMED_GRAY;
+	var menu_alpha = 100;
+	var menu_margin = 10;
+	var entry;
+	var tag;
+	var entry_string;
+	resize popup_list[count];
+	resize popup_clicklist[count];
+
+//	var container = gui_addcontainer(popup_x, popup_y, 185, (menu_margin * 2) + count * 25);
+	var container = gui_addcontainer(popup_x, popup_y, 225, (menu_margin * 2) + count * 25);
+	control_setalpha(container, 0);
+	control_fade(container, menu_alpha, 500);
+	gui_setcontainer(container);
+	control_setflag (container, FLAG_CLOSABLE, 1);
+	control_sethandler(container, FUNC_ONCLOSE, "handler_on_close_popup");
+	var border = gui_addborder(0, 0, menu_model, 0);
+//	control_setsize(border, 175, (menu_margin * 2) + count * 25);
+	control_setsize(border, 215, (menu_margin * 2) + count * 25);
+
+	for(var i = 0; i < count; i ++)
+	{
+		entry = popup_entries[i];
+		entry_string = GetEntryString(entry);
+		tag = popup_tags[i];
+
+		popup_clicklist[i] = gui_addgump(15, 15 + i * 25, (menu_model + 4));
+		popup_list[i] = gui_addlabel(15, 15 + i * 25, entry_string);
+
+		//var entrylen = strLength(entry_string);
+		//label_sethue(popup_list[i], 90);
+
+		control_setalpha(popup_clicklist[i], 0);
+		control_setsize(popup_clicklist[i], 155, 25);
+		control_settag(popup_list[i], 0, tag);
+		control_settag(popup_clicklist[i], 0, tag);
+		control_sethandler(popup_list[i], FUNC_ONMOUSEDOWN, "handler_on_popup_click");
+		control_sethandler(popup_clicklist[i], FUNC_ONMOUSEDOWN, "handler_on_popup_click");
+	}
+	gui_setcontainer();
+    active_popup = container;
+}
+
+
+/*
+ Index for Entrys come from cliloc.enu ...
+ Its maybe better to get also the names directly from there
+*/
+GetEntryString(var entry)
+{
+	var entrystr;
+	
+	// get locale string from cliloc.*
+	entrystr = cliloc_getmessage(3000000 + entry);
+
+	if (entrystr != "")
+	{
+		return entrystr;
+	}
+
+	return entrystr = "Not Defined";
+}

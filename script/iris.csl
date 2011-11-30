@@ -1,0 +1,968 @@
+/*
+-------------------------------------------------------------------------------------------------
+iris.csl
+Written by Tensor, Johwood, Thorgrim and SiENcE
+------------------------------------------------------------------------------------------------
+*/
+
+#include "script/constants.csl"
+#include "script/startup.csl"
+#include "script/skills.csl"
+#include "script/help.csl"
+#include "script/popups.csl"
+#include "script/spellbooks.csl"
+#include "script/trade.csl"
+#include "script/aostooltips.csl"
+#include "script/options.csl"
+
+/*
+-------------------------------------------------------------------------------------------------
+global vars
+------------------------------------------------------------------------------------------------
+*/
+
+var commandline = 0;
+
+var paperdoll_x = 350;
+var paperdoll_y = 200;
+var status_x = 340;
+var status_y = 5;
+
+var backpackopen = 0;
+var paper_doll_open = 0;
+var status_open = 0;
+var quit_open = 0;
+var reg_counter_open = 0;
+
+var console = 0;
+
+var hitsbar;
+var stambar;
+var manabar;
+
+var input_x;
+var input_y;
+var input_z;
+
+var warmode;
+var war_peace_button;
+
+var count = 0;
+var gump = 0x03c;
+
+var status_bar;
+
+var reg[11];
+
+var last_speech[NUM_LAST_SPEECH];
+var temp_speech[NUM_LAST_SPEECH];
+
+//for AOS Status support
+var aos_flag = 0;
+
+var statusInitialised = 0;
+
+/*
+-------------------------------------------------------------------------------------------------
+ forward declarations
+-------------------------------------------------------------------------------------------------
+*/
+
+display_game_ui();
+display_player_paperdoll(var charid);
+display_enemy_paperdoll(var charid);
+display_healthbar();
+//display_message(const text);
+create_new_statusbar(const charid, const x, const y);
+
+/*
+-------------------------------------------------------------------------------------------------
+ Display Updates
+-------------------------------------------------------------------------------------------------
+*/
+
+//Macro support
+#include "script/Macros.csl"
+
+update_paperdoll(const container, const charid)
+{
+	var label = control_gettag(container, 2);
+	label_settext(label, char_getstatus(charid, STATUS_NAME));
+}
+
+update_status(const container, const charid)
+{
+
+	gui_rewind(container);
+	var control = 0;
+	while (control = gui_findnext(container)) {
+		if (control_gettag(control, 0) == 1) {
+			var type = control_gettag(control, 1);
+			var text = char_getstatus(charid, type);
+			label_settext(control, text);
+		}
+	}	
+}
+
+update_statusbar(const charid)
+{ 
+	var str = char_getstatus(charid, STATUS_STR);
+	var int = char_getstatus(charid, STATUS_INT);
+	var dex = char_getstatus(charid, STATUS_DEX);
+
+	
+	var hits = char_getstatus(charid, STATUS_HITS);
+	var mana = char_getstatus(charid, STATUS_MANA);
+	var stam = char_getstatus(charid, STATUS_STAMINA);
+
+	var percent;
+
+	if (str > 0){
+		percent = 109 * hits / str;
+		if ((percent < 109)&&(percent > 1))
+    			control_setsize(hitsbar, percent, 11);
+		else if (percent > 1)
+    			control_setsize(hitsbar, 109, 11);
+		else
+    			control_setsize(hitsbar, 1, 11);
+	}
+		else
+    			control_setsize(hitsbar, 109, 11);
+
+	if (int > 0){
+		percent = 109 * mana / int;
+		if ((percent < 109)&&(percent > 1))
+  	  		control_setsize(stambar, percent, 11);
+		else if (percent > 1)
+    			control_setsize(stambar, 109, 11);
+		else
+    			control_setsize(stambar, 1, 11);
+	}
+		else
+    			control_setsize(stambar, 109, 11);
+
+	if (dex > 0){
+		percent = 109 * stam / dex;
+		if ((percent < 109)&&(percent > 1))
+   	 		control_setsize(manabar, percent, 11);
+		else if (percent > 1)
+    			control_setsize(manabar, 109, 11);
+		else
+    			control_setsize(manabar, 1, 11);
+	}
+		else
+    			control_setsize(manabar, 109, 11);
+
+}
+
+update_statusbar_value(const charid, const type, const value, const maxVal)
+{
+	var percent;
+
+	if (type == 1)
+	{
+	if (maxVal > 0){
+		percent = 109 * value / maxVal;
+
+		if ((percent < 109)&&(percent > 1))
+    			control_setsize(hitsbar, percent, 11);
+		else if (percent > 1)
+    			control_setsize(hitsbar, 109, 11);
+		else
+    			control_setsize(hitsbar, 1, 11);
+	}
+		else
+    			control_setsize(hitsbar, 1, 11);
+	}
+	else if (type == 2)
+	{
+	if (maxVal > 0){
+		percent = 109 * value / maxVal;
+		if ((percent < 109)&&(percent > 1))
+  	  		control_setsize(stambar, percent, 11);
+		else if (percent > 1)
+    			control_setsize(stambar, 109, 11);
+		else
+    			control_setsize(stambar, 1, 11);
+	}
+		else
+    			control_setsize(stambar, 1, 11);
+	}
+	else if (type == 3)
+	{
+	if (maxVal > 0){
+		percent = 109 * value / maxVal;
+		if ((percent < 109)&&(percent > 1))
+   	 		control_setsize(manabar, percent, 11);
+		else if (percent > 1)
+    			control_setsize(manabar, 109, 11);
+		else
+    			control_setsize(manabar, 1, 11);
+	}
+		else
+    			control_setsize(manabar, 1, 11);
+	}
+}
+
+update_enemy_statusbar(const container, const charid)
+{
+	var maxhits = char_getstatus(charid, STATUS_MAXHITS);
+
+	var control;
+
+	while (control = gui_findnext(container)) {
+		if (control_gettag(control, 0) == 1) {
+        		label_settext(control, char_getstatus(charid, STATUS_NAME));
+		}
+	}
+
+
+	if (maxhits != 0)
+		{
+		var percent = 109*char_getstatus(charid, STATUS_HITS)/maxhits;
+		if (percent < 109)
+    			control_setsize(control_gettag(container, 2), percent, 11);
+		else
+    			control_setsize(control_gettag(container, 2), 109, 11);
+		}
+
+	control_settag(container, 0, 0);
+
+	gui_rewind();
+	var display=1;
+	while (control = gui_findnext()) 
+		{
+		if ((control_gettag(control, 0) == charid)&&(control_gettag(control, 1) == 3))
+			control_close(container);
+		}
+
+	control_settag(container, 0, charid);
+}
+
+
+/*
+-------------------------------------------------------------------------------------------------
+ Net Events
+-------------------------------------------------------------------------------------------------
+*/
+
+main ()
+{
+	load_world_light_map ("textures/ambient_light_gradient.bmp", "textures/sun_light_gradient2.bmp");
+	load_world_fog_map ("textures/ambient_light_gradient.bmp");
+
+	gui_translate((config_getvalue(CONFIG_WIDTH)-640)/2, (config_getvalue(CONFIG_HEIGHT)-480) /2);
+	display_main_menu();	
+}
+
+
+net_speech (const text, const speaker, const speakerid, const color) 
+{
+    if (!char_addtext(speakerid, text, 6000, color)) {
+       if (speakerid)
+           textbox_addmessage(console, speaker + ': ' + text, 6000, color);
+       else 
+           textbox_addmessage(console, text, 6000, color);
+    }
+}
+
+net_startgame ()
+{
+	var width = config_getvalue(CONFIG_WIDTH);
+	var height = config_getvalue(CONFIG_HEIGHT);
+	gui_clear();
+	display_game_ui();
+	commandline = gui_addinput(5, height-35, width - 30, 0);
+	control_sethandler(commandline, FUNC_ONKEYPRESSED, "handler_on_keypressed");
+	gui_setfocus(commandline);
+	gui_setdefaultfocus(commandline);
+	
+}
+
+
+
+net_paperdoll(const charid, const text, const flag)
+{
+	if (charid == net_getplayercharacter())
+		{
+		if (paper_doll_open == 0)
+			{
+			display_player_paperdoll(charid);
+			paper_doll_open = 1;
+			}
+		}
+	else
+		{
+		gui_rewind();
+		var display=1;
+		var control;  
+		while (control = gui_findnext()) 
+			{
+			if ((control_gettag(control, 0) == charid)&&(control_gettag(control, 1) == 1))
+    				display = 0;
+				//update_paperdoll(control, charid);
+			}
+			if (display == 1)
+				display_enemy_paperdoll(charid);  
+		}
+}
+
+net_status(const charid, const s_flag)
+{
+	var playerchar = net_getplayercharacter();
+	if (statusInitialised == 0)
+	{
+		//playerchar = net_getplayercharacter();
+		statusInitialised = 1;
+		net_statusrequest(playerchar);
+	}
+
+	gui_rewind();
+	var control = 0;
+	while (control = gui_findnext())
+	{
+		var id = control_gettag(control, 0);
+		if (id == charid) {
+			var type = control_gettag(control, 1);
+			if (type == 1)
+ 				update_paperdoll(control, charid);
+			if (type == 2)
+				update_status(control, charid);
+			if (type == 3)
+				update_enemy_statusbar(control, charid);
+		}
+                else if (id == 0) {
+			var type = control_gettag(control, 1);
+			control_settag(control, 1, charid);
+			if (type == 1)
+ 				update_paperdoll(control, charid);
+			else if (type == 2)
+				update_status(control, charid);
+		}
+	}
+	if (charid == playerchar)
+		update_statusbar(charid);
+}
+
+net_offline ()
+{
+}
+
+net_containercontent(const contid) 
+{
+}
+
+net_opencontainer(const contid, const gumpid)
+{
+	var container = gui_addcontainer(100,100,250,250);
+	gui_setcontainer(container);
+	control_setalpha(container, 0);
+	control_fade(container, 255, 400);
+	
+	var gump = gui_addgump(0, 0, gumpid, 0);
+	gui_setcontainershape(gump);
+	
+	gui_additemcontainer(0, 0, contid);
+	
+	gui_setcontainer();
+	
+}
+
+net_dyewindow(const id,const model)
+{
+	log ("Dye Window");
+}
+
+net_warmodechange(const mode)
+{
+	log ("Warmode Change ..");
+	warmode = mode;
+
+	if(warmode == 1) {
+		button_setgump(war_peace_button, 0, 0x7e8);
+		button_setgump(war_peace_button, 1, 0x7ea);
+		button_setgump(war_peace_button, 2, 0x7e9);
+		button_setgump(status_bar, 0, 0x807);
+		button_setgump(status_bar, 1, 0x807);
+		button_setgump(status_bar, 2, 0x807);
+	}
+	else {
+		button_setgump(war_peace_button, 0, 0x7e5);
+		button_setgump(war_peace_button, 1, 0x7e7);
+		button_setgump(war_peace_button, 2, 0x7e6);
+		button_setgump(status_bar, 0, 0x803);
+		button_setgump(status_bar, 1, 0x803);
+		button_setgump(status_bar, 2, 0x803);
+	}
+//	gui_setcontainer();
+}
+
+net_attackreply(const id)
+{
+	log ("Attack reply");
+}
+
+net_statchange(const charid, const type, const value, const maxvalue)
+{
+	var playerchar = net_getplayercharacter();
+	if (statusInitialised == 0)
+	{
+		//playerchar = net_getplayercharacter();
+		statusInitialised = 1;
+		net_statusrequest(playerchar);
+	}
+	gui_rewind();
+ 	var control = 0;
+	while (control = gui_findnext()) {
+		var id = control_gettag(control, 0);
+		if (id == charid) {
+
+			var type = control_gettag(control, 1);
+
+			if (type == 1) 
+				update_paperdoll(control, charid);
+			else if (type == 2)
+				update_status(control, charid);
+			//if (type == 3)
+			//	update_enemy_statusbar(control, charid);
+		}
+                else if (id == 0) {
+			var type = control_gettag(control, 1);
+
+			control_settag(control, 1, charid);
+
+			if (type == 1) 
+				update_paperdoll(control, charid);
+			else if (type == 2)
+				update_status(control, charid);
+		}
+	}
+	if (charid == playerchar)
+		update_statusbar(charid);//, type, value, maxvalue);
+}
+
+
+net_onlightlevel (const level)
+{
+//    log ("Script_Lightlevel: "+level);
+    iris_setlightlevel(level);
+}
+
+net_onstatusdrag (const charid, const x, const y)
+{
+   if (net_getplayercharacter() != charid)
+   {
+      net_statusrequest(charid);  
+      create_new_statusbar(charid, x, y);
+   }
+}
+
+net_menuitems (const id, const context, const count, const text)
+{
+   var width = config_getvalue(CONFIG_WIDTH);
+   var height = config_getvalue(CONFIG_HEIGHT);
+   
+   var index;
+   var container = gui_addcontainer((width - 400) / 2, (height - (count * 20 + 70)) / 2,400, count * 50 + 90);
+   
+   gui_setcontainer(container);
+   
+   var border = gui_addborder(0,0, 0xa28, 0);
+   control_setsize( border, 400, count * 50 + 90);
+   gui_setcontainershape(border);
+   
+   var label = gui_addlabel(200, 20, text, 3, 1);
+   label_setalign(label, ALIGN_CENTER);
+   
+   for (index = 0; index < count; index ++) {
+      var model = 0;
+      var name = net_getmenuitem(index, model);
+      label = gui_addlabel(60, 50 + index * 50, name, 7, 1);
+      gui_addart(260 + (((index % 2)-1)*50), 32 + index * 50, model + 16384, 0);
+      //label_setalign(label, ALIGN_CENTER);
+      var button = gui_addbutton(30, 50 + index * 50, 0x845, 0x846, 0x846);
+      //- gui_gettextwidth(name, 7) / 2
+      control_sethandler(button, FUNC_ONCLICK, "handler_on_menuitemclick");
+      control_settag(button, 0, container);
+      control_settag(button, 1, id);
+      control_settag(button, 2, index + 1);
+      control_settag(button, 3, model);
+      control_settag(button, 4, context);
+   }
+   
+   
+   gui_setcontainer();
+   
+   //log(context);
+   //log(text);
+}
+
+/*
+-------------------------------------------------------------------------------------------------
+ Event Handelers
+-------------------------------------------------------------------------------------------------
+*/
+
+handler_onitemclick(const sender)
+{
+	var count = control_gettag(sender, 0);
+	textbox_addmessage(console, "Amount:" + count, 6000);
+}
+
+
+handler_on_keypressed (const sender, const key)
+{
+	var i;
+	if (key==13) {
+		net_sendspeech(input_gettext(commandline));
+		for(i=NUM_LAST_SPEECH-1; i > 0; i--)
+		{
+		last_speech[i] = last_speech[i-1];
+		}
+		last_speech[i] = input_gettext(commandline);
+		input_settext(commandline, "");
+		for (i=0; i < NUM_LAST_SPEECH; i++)
+		{
+		temp_speech[i] = last_speech[i];
+		}
+	}
+	else if (key==9) {
+		if(temp_speech[0] != "")
+		input_settext(commandline, temp_speech[0]);
+
+		for(i=0; i < NUM_LAST_SPEECH-1; i++)
+		{
+		temp_speech[i] = temp_speech[i+1];
+		}
+		temp_speech[i] = "";
+	}
+}
+
+
+handler_on_askquit (const sender)
+{
+        if (!quit_open)
+        {
+		quit_open = 1;
+		var container = gui_addform(100,50, "gfm/askquit.gfm", 1);
+	}
+}
+
+handler_on_close_quit(const sender)
+{
+	quit_open = 0;
+}
+
+handler_deinit (const sender)
+{
+	gui_rewind();
+	var display=1;
+	var control;
+	while (control = gui_findnext())
+	{
+		control_close(control);
+	}
+
+	paper_doll_open = 0;
+	status_open = 0;
+	quit_open = 0;
+	reg_counter_open = 0;
+	statusInitialised = 0;
+	backpackopen = 0;
+
+	gui_clear();
+	iris_disconnect();
+
+	gui_translate((config_getvalue(CONFIG_WIDTH)-640)/2, (config_getvalue(CONFIG_HEIGHT)-480) /2);
+	display_main_menu();
+}
+
+handler_on_cancel (const sender)
+{
+	control_close(control_getparent(sender));
+}
+
+handler_on_warpeace_toggle(const sender)
+{
+		net_warmode (!warmode);
+}
+
+handler_on_menuitemclick (const sender)
+{
+        var dialog = control_gettag(sender, 0);
+        var id = control_gettag(sender, 1);
+        var choice = control_gettag(sender, 2);
+        var model = control_gettag(sender, 3);
+        var context = control_gettag(sender, 4);
+        net_selectmenu(id, context, choice, model);
+        control_close(dialog);
+}
+
+handler_on_close_paperdoll (const sender)
+{
+	paperdoll_x = control_getx (sender);
+	paperdoll_y = control_gety (sender);
+	paper_doll_open = 0;
+}
+
+handler_on_paperdoll (const sender)
+{
+	if (paper_doll_open == 0)
+	{
+		//net_statusrequest(control_gettag(sender, 0));
+		display_player_paperdoll(control_gettag(sender, 0));
+		paper_doll_open = 1;
+	}
+}
+
+handler_on_close_status (const sender)
+{
+	status_x = control_getx (sender);
+	status_y = control_gety (sender);
+	status_open = 0;
+}
+
+
+handler_on_backpack (const sender)
+{
+//Currently doesn't work; Backpack is Equipment; must be hardcoded
+//	if (backpackopen == 0)
+//	{
+		net_openbackpack();
+		backpackopen = 1;
+//	}
+}
+
+//function to open the new Quest Gump in Paperdoll
+/*
+handler_on_quest (const sender)
+{
+	log("Quest Gump");
+	log(net_getplayercharacter());
+	net_openquestgump( net_getplayercharacter(), 0x32 );
+}
+*/
+
+handler_on_close_backpack (const sender)
+{
+	backpackopen = 0;
+}
+
+handler_on_status (const sender)
+{
+	if(!status_open)
+	{
+
+	net_statusrequest(net_getplayercharacter());
+
+	status_open = 1;
+
+	var charid = net_getplayercharacter();
+
+        if (aos_flag == 1)
+        {
+
+		var container = gui_addform(50,200, "gfm/status_aos.gfm", 1);
+		control_settag(container, 0, charid);
+		control_settag(container, 1, 2);
+		gui_setcontainer(container);
+		control_setposition (container, status_x, status_y);
+
+		const labels[4][2] = {
+			{ "status_name",	STATUS_NAME    },
+			{ "status_gold",	STATUS_GOLD    },
+			{ "status_petscurr",	STATUS_PETSCURR},
+			{ "status_petsmax",	STATUS_PETSMAX },
+			{ "status_str",		STATUS_STR },
+			{ "status_dex",		STATUS_DEX },
+			{ "status_int",		STATUS_INT },
+			{ "status_hits",	STATUS_HITS },
+			{ "status_stamina",	STATUS_STAMINA },
+			{ "status_mana",	STATUS_MANA },
+			{ "status_weight",	STATUS_WEIGHT },
+
+			{ "status_maxhits",	STATUS_MAXHITS },
+			{ "status_maxstamina",	STATUS_MAXSTAMINA },
+			{ "status_maxmana",	STATUS_MAXMANA },
+			{ "status_luck",	STATUS_LUCK },
+			{ "status_mindamage",	STATUS_MINDAMAGE },
+			{ "status_maxdamage",	STATUS_MAXDAMAGE },
+			{ "status_armor",	STATUS_ARMOR },
+			{ "status_fireres",	STATUS_FIRERES },
+			{ "status_coldres",	STATUS_COLDRES },
+			{ "status_poisres",	STATUS_POISRES },
+			{ "status_energres",	STATUS_ENERGRES }
+
+		};
+		for (var i=0; i < 22; i++) {
+			var label = control_getid(labels[i][0]);
+			label_settext(label, char_getstatus(charid, labels[i][1]));
+			control_settag(label, 0, 1);
+			control_settag(label, 1, labels[i][1]);
+		}
+		gui_setcontainer();
+
+	}
+	else if(aos_flag == 0)
+	{
+
+		var container = gui_addform(50,200, "gfm/status.gfm", 1);
+		control_settag(container, 0, charid);
+		control_settag(container, 1, 2);
+		gui_setcontainer(container);
+		control_setposition (container, status_x, status_y);
+		const labels[11][2] = {
+			{ "status_name",    STATUS_NAME    },
+			{ "status_str",     STATUS_STR     },
+			{ "status_int",     STATUS_INT     },
+			{ "status_dex",     STATUS_DEX     },
+			{ "status_sex",     STATUS_SEX     },
+			{ "status_armor",   STATUS_ARMOR   },
+			{ "status_hits",    STATUS_HITS    },
+			{ "status_mana",    STATUS_MANA    },
+			{ "status_stamina", STATUS_STAMINA },
+			{ "status_gold",    STATUS_GOLD    },
+			{ "status_weight",  STATUS_WEIGHT  }
+		};
+		for (var i=0; i < 11; i++) {
+			var label = control_getid(labels[i][0]);
+			label_settext(label, char_getstatus(charid, labels[i][1]));
+			control_settag(label, 0, 1);
+			control_settag(label, 1, labels[i][1]);
+		}
+		gui_setcontainer();
+
+	}
+
+	}
+}
+
+
+create_new_statusbar(const charid, const x, const y)
+{
+	var container = gui_addcontainer(x, y, 150, 75);
+	control_setalpha(container, 0);
+	control_fade(container, 255, 400);
+	gui_setcontainer(container);
+       	gui_addgump(-5, -5, 0x804, 0);
+
+	var label;
+	label = gui_addlabel(11, 5, char_getstatus(charid, STATUS_NAME), 3, 0);
+	control_settag(label, 0, 1);
+	control_settag(label, 1, STATUS_NAME);
+
+	gui_addgump(30, 33, 0x805, 0);
+
+	var i = 0;
+
+	var gump = gui_addgump(30, 33, 0x806, 0);
+
+	var maxhits = char_getstatus(charid, STATUS_MAXHITS);
+
+	if (maxhits != 0)
+		{
+		var percent = 109*char_getstatus(charid, STATUS_HITS)/maxhits;
+		if (percent < 109)
+    			control_setsize(gump, percent, 11);
+		else
+    			control_setsize(gump, 109, 11);
+		}
+
+	control_settag(container, 0, charid);
+	control_settag(container, 1, 3);
+	control_settag(container, 2, gump);
+
+	gui_setcontainer(); 
+}
+
+handler_on_enemy_status (const sender)
+{
+   	var charid = control_gettag(sender, 0);
+	gui_rewind();  
+	var display=1;
+	var control;
+	while (control = gui_findnext()) 
+		{
+		if ((control_gettag(control, 0) == charid)&&(control_gettag(control, 1) == 2))
+			display = 0;
+		}
+
+	if(display==1)
+	{
+	   net_statusrequest(charid);  
+           create_new_statusbar(charid, 350, 200);
+	}
+}
+
+//Display Menu on 1st Startup
+display_game_ui()
+{
+   	gui_translate(0, 0);
+
+	var width = config_getvalue(CONFIG_WIDTH);
+	var height = config_getvalue(CONFIG_HEIGHT);
+
+	//var charid = net_getplayercharacter();
+	//net_statusrequest(charid);
+
+	paper_doll_open = 0;
+	status_open = 0;
+	aos_flag = config_getvalue(CONFIG_AOS);
+
+	quit_open = 0;
+	reg_counter_open = 0;
+	statusInitialised = 0;
+
+	gui_clear();
+	var charid = net_getplayercharacter();
+	net_statusrequest(charid);
+	display_healthbar();
+
+	var border = gui_addborder(-5, height - 35, 0xbb8, 0);
+	control_setsize(border, width+10, 35);
+	control_setalpha(border, 130);
+
+	if(paper_doll_open == 0)
+	{
+    		var paperdoll_min = gui_addbutton(70, 64, 0x07ee, 0x07ee, 0x07ee);
+
+//just for test custom textures
+//var newgump = gui_registergump("./textures/water1.png"); 
+//var paperdoll_min = gui_addgump(64, 64, newgump, 0);
+//control_setsize(paperdoll_min, 64, 64);
+
+    		control_sethandler(paperdoll_min , FUNC_ONCLICK, "handler_on_paperdoll");
+	}
+
+	// GUI: show Backpack
+	var backpack = gui_addbutton(7, 62, 0x0050, 0x0050, 0x0050);
+//unnessessary
+//	control_sethandler(backpack , FUNC_ONCLOSE, "handler_on_close_backpack");
+	control_sethandler(backpack , FUNC_ONCLICK, "handler_on_backpack");
+
+	console = gui_addtextbox();
+  	control_setposition(console, 5, height - 40);
+	control_sethandler(console, FUNC_ONKEYPRESSED, "handler_on_keypressed");
+
+	//if(!warmode)
+	net_warmode (0);
+
+	serverlist_marked = 0;
+	serverlist_scroll = 0;
+	serverlist_count = 0;
+	charlist_marked = 0;
+	charlist_count = 0;
+
+	var i;
+	for (i = 0; i < NUM_LAST_SPEECH; i++)
+	{
+		last_speech[i] = "";
+	}
+	update_statusbar(charid);
+	net_statusrequest(charid, REQUEST_SKILLS);
+}
+
+
+//Display Healthbar on 1st Startup
+display_healthbar()
+{
+	var container = gui_addcontainer(50,200, 300, 150);
+
+	if(warmode)
+    		status_bar = gui_addbutton(-5, -5, 0x807, 0x807, 0x807);
+	else
+    		status_bar = gui_addbutton(-5, -5, 0x803, 0x803, 0x803);
+
+    	control_sethandler(status_bar , FUNC_ONCLICK, "handler_on_status");
+
+	var button = gui_addbutton(30, 7, 0x805, 0x805, 0x805);
+    	control_sethandler(button , FUNC_ONCLICK, "handler_on_status");
+        button = gui_addbutton(30, 20, 0x805, 0x805, 0x805);
+    	control_sethandler(button , FUNC_ONCLICK, "handler_on_status");
+        button = gui_addbutton(30, 33, 0x805, 0x805, 0x805);
+    	control_sethandler(button , FUNC_ONCLICK, "handler_on_status");
+
+	hitsbar = gui_addgump(30, 7, 0x806, 0);
+    	control_sethandler(hitsbar , FUNC_ONMOUSEDOWN, "handler_on_status");
+	stambar = gui_addgump(30, 20, 0x806, 0);
+    	control_sethandler(stambar , FUNC_ONMOUSEDOWN, "handler_on_status");
+	manabar = gui_addgump(30, 33, 0x806, 0);
+    	control_sethandler(manabar , FUNC_ONMOUSEDOWN, "handler_on_status");
+
+	gui_setcontainer();
+}
+
+display_player_paperdoll(var charid)
+{
+	var paperdoll = gui_addform(paperdoll_x, paperdoll_y, "gfm/player_paperdoll.gfm", 1);
+	control_settag(paperdoll, 0, charid);
+	control_settag(paperdoll, 1, 1);
+	
+	gui_setcontainer(paperdoll);
+	//control_setposition (paperdoll, paperdoll_x, paperdoll_y);
+	charid = net_getplayercharacter();
+	net_statusrequest(charid);
+	var paperdollid = control_getid("paperdoll");
+	paperdoll_refresh(paperdollid, charid);
+
+	war_peace_button = control_getid("peace");
+	if(warmode == 1) {
+		//war
+		button_setgump(war_peace_button, 0, 0x7e8);
+		button_setgump(war_peace_button, 1, 0x7ea);
+		button_setgump(war_peace_button, 2, 0x7e9);
+	}
+
+	var label = control_getid("status_name");
+	label_settext(label, char_getstatus(charid, STATUS_NAME));
+	control_settag(paperdoll, 2, label);
+	gui_setcontainer();
+}
+
+display_enemy_paperdoll(var charid)
+{
+	var container = gui_addcontainer(50,200, 220, 310);
+	control_setalpha(container, 0);
+	control_fade(container, 255, 600);
+	control_settag(container, 0, charid);
+	control_settag(container, 1, 1);
+	gui_setcontainer(container);
+        gui_addgump(-5, -15, 0x7d1, 0);
+	var paperdollid = gui_addpaperdoll(0, 0);
+	paperdoll_refresh(paperdollid, charid);
+
+    	var button = gui_addbutton(180, 218, 0x7eb, 0x7ed, 0x7ec);
+    	control_sethandler(button, FUNC_ONCLICK, "handler_on_enemy_status");
+	control_settag(button, 0, charid);
+
+	net_statusrequest(charid);
+    	var label = gui_addlabel(35, 250, char_getstatus(charid, STATUS_NAME) , 2, 1);
+	
+	control_settag(container, 2, label);
+	gui_setcontainer();
+}
+
+handler_onamount_ok(const sender)
+{
+	var amount = input_gettext(control_gettag(sender, 0));
+	net_sendpickup(control_gettag(sender,1), control_gettag(sender,2), amount);
+	control_close(control_getparent(sender));
+}
+
+net_ondynamicdrag(const id, const model, const count, const x, const y, const container)
+{
+	var cont_x = control_getx(container);
+	var cont_y = control_gety(container);
+	var cont = gui_addcontainer(x + cont_x, y + cont_y, 100, 100);
+	gui_setcontainer(cont);
+	var gump = gui_addgump(0, 0, 0x85c,0);
+	gui_setcontainershape(gump);
+	var amount_input = gui_addinput(30, 25, 50, 30, 1, 1);
+	input_settext(amount_input, count);
+	var confirm = gui_addbutton(97,38,0x85d,0x85e,0x85f);
+	control_settag(confirm, 0, amount_input);
+	control_settag(confirm, 1, id);
+	control_settag(confirm, 2, model);
+	control_sethandler(confirm,FUNC_ONCLICK,"handler_onamount_ok");
+	gui_setcontainer();
+}

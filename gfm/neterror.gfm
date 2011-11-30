@@ -1,0 +1,21 @@
+<?xml version='1.0'?>
+<form width='640' height='480' alpha='0' flags='0' shape=''>
+ <fade alpha='0' time='0'/>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+<control class='border' name='border_a28' left='126' top='146' width='409' height='182' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <gump>0xA28</gump>
+</control>
+<control class='label' name='message' left='218' top='230' width='221' height='24' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='3' hue='0x95' align='center'>Unknown net error</text>
+</control>
+<control class='button' name='button_47e' left='318' top='270' width='28' height='21' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='handler_on_main' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <gump normal='0x47E' over='0x47F' pressed='0x47E'/>
+</control>
+<control class='label' name='label' left='254' top='195' width='155' height='24' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='0' hue='0x95' align='center'>Network Error</text>
+</control>
+</form>

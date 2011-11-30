@@ -1,0 +1,77 @@
+<?xml version='1.0'?>
+<form width='640' height='480' alpha='0' flags='0' shape=''>
+ <fade alpha='0' time='0'/>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+<control class='border' name='border_a28' left='130' top='78' width='400' height='365' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <gump>0xA28</gump>
+</control>
+<control class='label' name='label' left='182' top='116' width='299' height='19' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='0' hue='0x95' align='center'>Select Server To Play On</text>
+</control>
+<control class='picture' name='picture_28c8' left='80' top='73' width='82' height='414' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <gump>0x28C8</gump>
+</control>
+<control class='picture' name='picture_28c9' left='498' top='73' width='82' height='414' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <gump>0x28C9</gump>
+</control>
+<control class='button' name='button_fb' left='490' top='158' width='15' height='21' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='handler_on_scroll' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <gump normal='0xFB' over='0xFB' pressed='0xFA'/>
+</control>
+<control class='button' name='button_fd' left='490' top='363' width='15' height='21' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='handler_on_scroll' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <gump normal='0xFD' over='0xFD' pressed='0xFC'/>
+</control>
+<control class='border' name='border_list0' left='177' top='162' width='304' height='36' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='handler_on_serverlist_borderclick' onkeypressed=''/>
+ <gump>0xBB8</gump>
+</control>
+<control class='label' name='server_list0' left='182' top='168' width='288' height='28' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='handler_on_serverlist_borderclick' onkeypressed=''/>
+ <text font='8' hue='0x1' align='center'>label</text>
+</control>
+<control class='border' name='border_list1' left='177' top='204' width='304' height='36' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='handler_on_serverlist_borderclick' onkeypressed=''/>
+ <gump>0xBB8</gump>
+</control>
+<control class='label' name='server_list1' left='184' top='210' width='288' height='28' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='handler_on_serverlist_borderclick' onkeypressed=''/>
+ <text font='8' hue='0x1' align='center'>label</text>
+</control>
+<control class='border' name='border_list2' left='178' top='248' width='304' height='36' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='handler_on_serverlist_borderclick' onkeypressed=''/>
+ <gump>0xBB8</gump>
+</control>
+<control class='label' name='server_list2' left='183' top='254' width='288' height='28' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='handler_on_serverlist_borderclick' onkeypressed=''/>
+ <text font='8' hue='0x1' align='center'>label</text>
+</control>
+<control class='border' name='border_list3' left='179' top='293' width='304' height='36' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='handler_on_serverlist_borderclick' onkeypressed=''/>
+ <gump>0xBB8</gump>
+</control>
+<control class='border' name='border_list4' left='179' top='339' width='304' height='36' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='handler_on_serverlist_borderclick' onkeypressed=''/>
+ <gump>0xBB8</gump>
+</control>
+<control class='label' name='server_list4' left='182' top='342' width='288' height='28' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='handler_on_serverlist_borderclick' onkeypressed=''/>
+ <text font='8' hue='0x1' align='center'>label</text>
+</control>
+<control class='label' name='server_list3' left='183' top='298' width='288' height='28' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='handler_on_serverlist_borderclick' onkeypressed=''/>
+ <text font='8' hue='0x1' align='center'>label</text>
+</control>
+<control class='button' name='button_back' left='578' top='444' width='19' height='21' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='handler_on_main' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <gump normal='0x15A1' over='0x15A2' pressed='0x15A3'/>
+</control>
+<control class='button' name='button_to_charchoose' left='604' top='444' width='19' height='21' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='handler_on_serverlistclick' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <gump normal='0x15A4' over='0x15A5' pressed='0x15A6'/>
+</control>
+</form>

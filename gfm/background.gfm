@@ -1,0 +1,25 @@
+<?xml version='1.0'?>
+<form width='640' height='480' alpha='0' flags='0' shape=''>
+ <fade alpha='0' time='0'/>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+<control class='border' name='border_a3c' left='1' top='1' width='650' height='490' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <gump>0xA3C</gump>
+</control>
+<control class='picture' name='picture_e14' left='7' top='5' width='640' height='480' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <gump>0xE14</gump>
+</control>
+<control class='picture' name='picture_157c' left='6' top='5' width='640' height='480' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <gump>0x157C</gump>
+</control>
+<control class='picture' name='picture_15a0' left='6' top='6' width='96' height='142' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <gump>0x15A0</gump>
+</control>
+<control class='button' name='button_1589' left='559' top='8' width='36' height='36' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='handler_on_quit' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <gump normal='0x1589' over='0x158A' pressed='0x158B'/>
+</control>
+</form>

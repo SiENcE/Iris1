@@ -1,0 +1,50 @@
+<MAPS>
+
+ <MAP>
+  <NAME>Trammel</NAME>
+  <ID>0</ID>
+  <WIDTH>896</WIDTH>
+  <HEIGHT>512</HEIGHT>
+  <SKYBOX>./textures/skybox/skybox</SKYBOX>
+  <FOG_COLOR red="168" green="168" blue="180"/>
+ </MAP>
+
+ <MAP>
+  <NAME>Felucca</NAME>
+  <ID>1</ID>
+  <WIDTH>896</WIDTH>
+  <HEIGHT>512</HEIGHT>
+  <BASE_ID>0</BASE_ID>
+  <SKYBOX>./textures/skybox/darksun</SKYBOX>
+  <FOG_COLOR red="97" green="76" blue="33"/>
+ </MAP>
+
+ <MAP>
+  <NAME>Ilshenar</NAME>
+  <ID>2</ID>
+  <WIDTH>288</WIDTH>
+  <HEIGHT>200</HEIGHT>
+  <SKYBOX>./textures/skybox/skybox</SKYBOX>
+  <FOG_COLOR red="168" green="168" blue="180"/>
+ </MAP>
+
+
+ <MAP>
+  <NAME>Malas</NAME>
+  <ID>3</ID>
+  <WIDTH>320</WIDTH>
+  <HEIGHT>256</HEIGHT>
+  <SKYBOX>./textures/skybox/sunset</SKYBOX>
+  <FOG_COLOR red="132" green="92" blue="82"/>
+ </MAP>
+
+ <MAP>
+  <NAME>Tokuno</NAME>
+  <ID>4</ID>
+  <WIDTH>181</WIDTH>
+  <HEIGHT>181</HEIGHT>
+  <SKYBOX>./textures/skybox/darksun</SKYBOX>
+  <FOG_COLOR red="97" green="76" blue="33"/>
+ </MAP> 
+
+</MAPS>

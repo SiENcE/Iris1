@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+	Here you can override settings in granny_aos.xml (do not change anything in granny.xml/granny_aos.xml) file.
+	You can specify a global Scalefactor for all Granny models.
+	Example: <SCALE_FACTOR>0.9</SCALE_FACTOR>
+
+	Also you can specify different Settings for every Model:
+	Structure is like that:
+	<MODEL>
+		<ID> Model_ID </ID>						-taken from granny_aos.xml 
+		<SCALE_X>0.6</SCALE_X>						-choose on your own maybe look at UO/Models/Model.txt
+		<SCALE_Y>0.6</SCALE_Y>
+		<SCALE_Z>0.6</SCALE_Z>
+		<CUSTOM_TEXTURE>./skins/name_of_the_skin.tga</CUSTOM_TEXTURE>	-choose a custom Model Texture
+		<ALPHA> 100 </ALPHA>						-Transparency (0->100)
+		<ALT_BODY> 204 </ALT_BODY>					-Alternative Model_ID from granny_aos.xml
+		<DEFAULT_HUE>90</DEFAULT_HUE>					-choose Default Hue (Color)
+	</MODEL>
+
+	Remember: If you wanna use customized textures you must put them into a folder named "skins" into your Iris root!
+-->
+
+<MODELS>
+      <SCALE_FACTOR>0.9</SCALE_FACTOR>
+	<!-- rabbit -->
+	<MODEL>
+		<ID>205</ID>
+		<SCALE_X>0.3</SCALE_X>
+		<SCALE_Y>0.3</SCALE_Y>
+		<SCALE_Z>0.3</SCALE_Z>
+	</MODEL>
+	<!-- rabbit -->
+	<MODEL>
+		<ID>835</ID>
+		<SCALE_X>0.5</SCALE_X>
+		<SCALE_Y>0.5</SCALE_Y>
+		<SCALE_Z>0.5</SCALE_Z>
+	</MODEL>
+	<!-- cat -->
+	<MODEL>
+		<ID>201</ID>
+		<SCALE_X>0.4</SCALE_X>
+		<SCALE_Y>0.4</SCALE_Y>
+		<SCALE_Z>0.4</SCALE_Z>
+	</MODEL>
+	<!-- canines_dog_hound -->
+	<MODEL>
+		<ID>217</ID>
+		<SCALE_X>0.8</SCALE_X>
+		<SCALE_Y>0.8</SCALE_Y>
+		<SCALE_Z>0.8</SCALE_Z>
+	</MODEL>
+	<!-- rodents_rat_sewer_lod2 -->
+	<MODEL>
+		<ID>238</ID>
+		<SCALE_X>0.3</SCALE_X>
+		<SCALE_Y>0.3</SCALE_Y>
+		<SCALE_Z>0.3</SCALE_Z>
+	</MODEL>
+
+	<!-- Succubus -->
+	<MODEL>
+		<ID>174</ID>
+		<SCALE_X>2.0</SCALE_X>
+		<SCALE_Y>2.0</SCALE_Y>
+		<SCALE_Z>2.0</SCALE_Z>
+	</MODEL>
+	<!-- Orc Lord -->
+	<MODEL>
+		<ID>189</ID>
+		<SCALE_X>2.5</SCALE_X>
+		<SCALE_Y>2.5</SCALE_Y>
+		<SCALE_Z>2.5</SCALE_Z>
+	</MODEL>
+	<!-- Ethereal Horse (removed from granny_aos.xml) -->
+	<MODEL>
+		<ID>115</ID>
+		<ALPHA>100</ALPHA>
+		<ALT_BODY>204</ALT_BODY>
+		<DEFAULT_HUE>90</DEFAULT_HUE>
+	</MODEL>
+	<!-- Ethereal Horse (removed from granny_aos.xml) -->
+	<MODEL>
+		<ID>195</ID>
+		<ALPHA>100</ALPHA>
+		<ALT_BODY>791</ALT_BODY>
+	</MODEL>
+	<!-- Horde Medium -->
+	<MODEL>
+		<ID>795</ID>
+		<SCALE_X>2.0</SCALE_X>
+		<SCALE_Y>2.0</SCALE_Y>
+		<SCALE_Z>2.0</SCALE_Z>
+	</MODEL>
+	<!-- Horde Giant -->
+	<MODEL>
+		<ID>796</ID>
+		<SCALE_X>3.0</SCALE_X>
+		<SCALE_Y>3.0</SCALE_Y>
+		<SCALE_Z>3.0</SCALE_Z>
+	</MODEL>
+	<!-- Snake -->
+	<MODEL>
+		<ID>52</ID>
+		<SCALE_X>0.4</SCALE_X>
+		<SCALE_Y>0.4</SCALE_Y>
+		<SCALE_Z>0.4</SCALE_Z>
+	</MODEL>
+	<!-- Snake Ice-->
+	<MODEL>
+		<ID>837</ID>
+		<SCALE_X>0.4</SCALE_X>
+		<SCALE_Y>0.4</SCALE_Y>
+		<SCALE_Z>0.4</SCALE_Z>
+	</MODEL>
+	<!-- Snake Lava-->
+	<MODEL>
+		<ID>838</ID>
+		<SCALE_X>0.4</SCALE_X>
+		<SCALE_Y>0.4</SCALE_Y>
+		<SCALE_Z>0.4</SCALE_Z>
+	</MODEL>
+	<!-- Gargoyle Slave -->
+	<MODEL>
+		<ID>753</ID>
+		<SCALE_X>1.1</SCALE_X>
+		<SCALE_Y>1.1</SCALE_Y>
+		<SCALE_Z>1.1</SCALE_Z>
+	</MODEL>
+	<!-- Gargoyle Enforced -->
+	<MODEL>
+		<ID>754</ID>
+		<SCALE_X>1.2</SCALE_X>
+		<SCALE_Y>1.2</SCALE_Y>
+		<SCALE_Z>1.2</SCALE_Z>
+	</MODEL>
+	<!-- Gargoyle Guard -->
+	<MODEL>
+		<ID>755</ID>
+		<SCALE_X>2.0</SCALE_X>
+		<SCALE_Y>2.0</SCALE_Y>
+		<SCALE_Z>2.0</SCALE_Z>
+	</MODEL>
+	<!-- Gargoyle Shopkeep -->
+	<MODEL>
+		<ID>758</ID>
+		<SCALE_X>0.9</SCALE_X>
+		<SCALE_Y>0.9</SCALE_Y>
+		<SCALE_Z>0.9</SCALE_Z>
+	</MODEL>
+	<!-- Drake small -->
+	<MODEL>
+		<ID>60</ID>
+		<SCALE_X>0.7</SCALE_X>
+		<SCALE_Y>0.7</SCALE_Y>
+		<SCALE_Z>0.7</SCALE_Z>
+	</MODEL>
+	<!-- Drake small -->
+	<MODEL>
+		<ID>61</ID>
+		<SCALE_X>0.7</SCALE_X>
+		<SCALE_Y>0.7</SCALE_Y>
+		<SCALE_Z>0.7</SCALE_Z>
+	</MODEL>
+	<!-- Drake Wyrm -->
+	<MODEL>
+		<ID>61</ID>
+		<SCALE_X>1.2</SCALE_X>
+		<SCALE_Y>1.2</SCALE_Y>
+		<SCALE_Z>1.2</SCALE_Z>
+	</MODEL>
+
+      <!-- SE Models -->
+      <MODEL>
+		<ID>240</ID>
+		<SCALE_X>0.00035</SCALE_X>
+		<SCALE_Y>0.00035</SCALE_Y>
+		<SCALE_Z>0.00035</SCALE_Z>
+      </MODEL>
+
+      <MODEL>
+		<ID>241</ID>
+		<SCALE_X>0.00035</SCALE_X>
+		<SCALE_Y>0.00035</SCALE_Y>
+		<SCALE_Z>0.00035</SCALE_Z>
+      </MODEL>
+
+      <MODEL>
+		<ID>242</ID>
+		<SCALE_X>0.00035</SCALE_X>
+		<SCALE_Y>0.00035</SCALE_Y>
+		<SCALE_Z>0.00035</SCALE_Z>
+      </MODEL>
+
+      <MODEL>
+		<ID>243</ID>
+		<SCALE_X>0.00035</SCALE_X>
+		<SCALE_Y>0.00035</SCALE_Y>
+		<SCALE_Z>0.00035</SCALE_Z>
+	</MODEL>
+
+      <MODEL>
+		<ID>244</ID>
+		<SCALE_X>0.00035</SCALE_X>
+		<SCALE_Y>0.00035</SCALE_Y>
+		<SCALE_Z>0.00035</SCALE_Z>
+	</MODEL>
+
+      <MODEL>
+		<ID>245</ID>
+		<SCALE_X>0.00035</SCALE_X>
+		<SCALE_Y>0.00035</SCALE_Y>
+		<SCALE_Z>0.00035</SCALE_Z>
+	</MODEL>
+      
+      <MODEL>
+		<ID>246</ID>
+		<SCALE_X>0.00035</SCALE_X>
+		<SCALE_Y>0.00035</SCALE_Y>
+		<SCALE_Z>0.00035</SCALE_Z>
+	</MODEL>
+
+      <MODEL>
+		<ID>247</ID>
+		<SCALE_X>0.00035</SCALE_X>
+		<SCALE_Y>0.00035</SCALE_Y>
+		<SCALE_Z>0.00035</SCALE_Z>
+	</MODEL>
+
+      <MODEL>
+		<ID>248</ID>
+		<SCALE_X>0.00035</SCALE_X>
+		<SCALE_Y>0.00035</SCALE_Y>
+		<SCALE_Z>0.00035</SCALE_Z>
+	</MODEL>
+
+      <MODEL>
+		<ID>249</ID>
+		<SCALE_X>0.00035</SCALE_X>
+		<SCALE_Y>0.00035</SCALE_Y>
+		<SCALE_Z>0.00035</SCALE_Z>
+	</MODEL>
+
+      <MODEL>
+		<ID>250</ID>
+		<SCALE_X>0.00035</SCALE_X>
+		<SCALE_Y>0.00035</SCALE_Y>
+		<SCALE_Z>0.00035</SCALE_Z>
+	</MODEL>
+
+      <MODEL>
+		<ID>251</ID>
+		<SCALE_X>0.00035</SCALE_X>
+		<SCALE_Y>0.00035</SCALE_Y>
+		<SCALE_Z>0.00035</SCALE_Z>
+	</MODEL>
+
+      <MODEL>
+		<ID>252</ID>
+		<SCALE_X>0.00035</SCALE_X>
+		<SCALE_Y>0.00035</SCALE_Y>
+		<SCALE_Z>0.00035</SCALE_Z>
+	</MODEL>
+
+      <MODEL>
+		<ID>253</ID>
+		<SCALE_X>0.00035</SCALE_X>
+		<SCALE_Y>0.00035</SCALE_Y>
+		<SCALE_Z>0.00035</SCALE_Z>
+	</MODEL>
+
+      <MODEL>
+		<ID>254</ID>
+		<SCALE_X>0.00035</SCALE_X>
+		<SCALE_Y>0.00035</SCALE_Y>
+		<SCALE_Z>0.00035</SCALE_Z>
+	</MODEL>
+
+      <MODEL>
+		<ID>255</ID>
+		<SCALE_X>0.00035</SCALE_X>
+		<SCALE_Y>0.00035</SCALE_Y>
+		<SCALE_Z>0.00035</SCALE_Z>
+	</MODEL>
+
+	<!-- ML Models -->
+		
+	<!-- Changling -->
+	<MODEL>
+		<ID>264</ID>
+		<SCALE_X>0.00035</SCALE_X>
+		<SCALE_Y>0.00035</SCALE_Y>
+		<SCALE_Z>0.00035</SCALE_Z>
+	</MODEL>
+	<!-- DreadHorn -->
+	<MODEL>
+		<ID>257</ID>
+		<SCALE_X>0.00035</SCALE_X>
+		<SCALE_Y>0.00035</SCALE_Y>
+		<SCALE_Z>0.00035</SCALE_Z>
+	</MODEL>
+	<!-- Dryad -->
+	<MODEL>
+		<ID>266</ID>
+		<SCALE_X>0.00035</SCALE_X>
+		<SCALE_Y>0.00035</SCALE_Y>
+		<SCALE_Z>0.00035</SCALE_Z>
+	</MODEL>
+	<!-- Hydra -->
+	<MODEL>
+		<ID>265</ID>
+		<SCALE_X>0.00035</SCALE_X>
+		<SCALE_Y>0.00035</SCALE_Y>
+		<SCALE_Z>0.00035</SCALE_Z>
+	</MODEL>
+	<!-- LadyMelisande -->
+	<MODEL>
+		<ID>258</ID>
+		<SCALE_X>0.00035</SCALE_X>
+		<SCALE_Y>0.00035</SCALE_Y>
+		<SCALE_Z>0.00035</SCALE_Z>
+	</MODEL>
+	<!-- MinotaurArmored -->
+	<MODEL>
+		<ID>280</ID>
+		<SCALE_X>0.00035</SCALE_X>
+		<SCALE_Y>0.00035</SCALE_Y>
+		<SCALE_Z>0.00035</SCALE_Z>
+	</MODEL>
+	<!-- LeatherMinotaur -->
+	<MODEL>
+		<ID>281</ID>
+		<SCALE_X>0.00035</SCALE_X>
+		<SCALE_Y>0.00035</SCALE_Y>
+		<SCALE_Z>0.00035</SCALE_Z>
+	</MODEL>
+	<!-- Minotaur -->
+	<MODEL>
+		<ID>263</ID>
+		<SCALE_X>0.00035</SCALE_X>
+		<SCALE_Y>0.00035</SCALE_Y>
+		<SCALE_Z>0.00035</SCALE_Z>
+	</MODEL>
+	<!-- MonstrousInterredGrizzle -->
+	<MODEL>
+		<ID>259</ID>
+		<SCALE_X>0.00035</SCALE_X>
+		<SCALE_Y>0.00035</SCALE_Y>
+		<SCALE_Z>0.00035</SCALE_Z>
+	</MODEL>
+	<!-- MonstrousInterredGrizzle -->
+	<MODEL>
+		<ID>272</ID>
+		<SCALE_X>0.00035</SCALE_X>
+		<SCALE_Y>0.00035</SCALE_Y>
+		<SCALE_Z>0.00035</SCALE_Z>
+	</MODEL>
+	<!-- Paroxysmus -->
+	<MODEL>
+		<ID>256</ID>
+		<SCALE_X>0.00035</SCALE_X>
+		<SCALE_Y>0.00035</SCALE_Y>
+		<SCALE_Z>0.00035</SCALE_Z>
+	</MODEL>
+	<!-- Satyr -->
+	<MODEL>
+		<ID>271</ID>
+		<SCALE_X>0.00035</SCALE_X>
+		<SCALE_Y>0.00035</SCALE_Y>
+		<SCALE_Z>0.00035</SCALE_Z>
+	</MODEL>
+	<!-- TormentedMinotaur -->
+	<MODEL>
+		<ID>262</ID>
+		<SCALE_X>0.00035</SCALE_X>
+		<SCALE_Y>0.00035</SCALE_Y>
+		<SCALE_Z>0.00035</SCALE_Z>
+	</MODEL>
+	<!-- Troglodyte -->
+	<MODEL>
+		<ID>267</ID>
+		<SCALE_X>0.00035</SCALE_X>
+		<SCALE_Y>0.00035</SCALE_Y>
+		<SCALE_Z>0.00035</SCALE_Z>
+	</MODEL>
+	<!-- Shimmering_Effusion -->
+	<MODEL>
+		<ID>261</ID>
+		<SCALE_X>2.0</SCALE_X>
+		<SCALE_Y>2.0</SCALE_Y>
+		<SCALE_Z>2.0</SCALE_Z>
+	</MODEL>			
+	<!-- Fetid_Essence -->
+	<MODEL>
+		<ID>273</ID>
+		<SCALE_X>2.0</SCALE_X>
+		<SCALE_Y>2.0</SCALE_Y>
+		<SCALE_Z>2.0</SCALE_Z>
+	</MODEL>	
+	<!-- Raptalon -->
+	<MODEL>
+		<ID>276</ID>
+		<SCALE_X>0.00035</SCALE_X>
+		<SCALE_Y>0.00035</SCALE_Y>
+		<SCALE_Z>0.00035</SCALE_Z>
+	</MODEL>
+	<!-- CuShidhe -->
+	<MODEL>
+		<ID>277</ID>
+		<SCALE_X>0.00035</SCALE_X>
+		<SCALE_Y>0.00035</SCALE_Y>
+		<SCALE_Z>0.00035</SCALE_Z>
+	</MODEL>		
+	<!-- Squirrel -->
+	<MODEL>
+		<ID>278</ID>
+		<SCALE_X>0.00035</SCALE_X>
+		<SCALE_Y>0.00035</SCALE_Y>
+		<SCALE_Z>0.00035</SCALE_Z>
+	</MODEL>		
+	<!-- Ferret -->
+	<MODEL>
+		<ID>279</ID>
+		<SCALE_X>0.00035</SCALE_X>
+		<SCALE_Y>0.00035</SCALE_Y>
+		<SCALE_Z>0.00035</SCALE_Z>
+	</MODEL>
+ 	<!-- Parrot -->
+	<MODEL>
+		<ID>282</ID>
+		<SCALE_X>0.00035</SCALE_X>
+		<SCALE_Y>0.00035</SCALE_Y>
+		<SCALE_Z>0.00035</SCALE_Z>
+	</MODEL>
+ 	<!-- Crow -->
+	<MODEL>
+		<ID>283</ID>
+		<SCALE_X>0.00035</SCALE_X>
+		<SCALE_Y>0.00035</SCALE_Y>
+		<SCALE_Z>0.00035</SCALE_Z>
+	</MODEL>										
+ 	<!-- MondainSteed01 -->
+	<MODEL>
+		<ID>284</ID>
+		<SCALE_X>0.035</SCALE_X>
+		<SCALE_Y>0.035</SCALE_Y>
+		<SCALE_Z>0.035</SCALE_Z>
+	</MODEL>
+ 	<!-- ReaperForm -->
+	<MODEL>
+		<ID>285</ID>
+		<SCALE_X>0.00035</SCALE_X>
+		<SCALE_Y>0.00035</SCALE_Y>
+		<SCALE_Z>0.00035</SCALE_Z>
+	</MODEL>
+	<!-- Male Elf -->
+	<MODEL>
+		<ID>605</ID>
+		<SCALE_X>0.8</SCALE_X>
+		<SCALE_Y>0.8</SCALE_Y>
+		<SCALE_Z>0.92</SCALE_Z>
+	</MODEL>
+	<!-- Female Elf -->
+	<MODEL>
+		<ID>606</ID>
+		<SCALE_X>0.8</SCALE_X>
+		<SCALE_Y>0.8</SCALE_Y>
+		<SCALE_Z>0.92</SCALE_Z>
+	</MODEL>
+</MODELS>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Ultima Iris Configuration File
+-->
+
+<CONFIG>
+	<!-- remove this TTF-Fonts to use the old OSI-Fonts (wrong coloring) -->
+	<FONTSET>
+		<FONT FILE="fonts/font7.ttf" HUE="946" ID="0" NAME="Calligrapher" SIZE="18"></FONT>
+		<FONT FILE="fonts/font3.ttf" HUE="946" ID="1" NAME="Eire" SIZE="13"></FONT>
+		<FONT FILE="fonts/font3.ttf" HUE="946" ID="2" NAME="Eire" SIZE="16"></FONT>
+		<FONT FILE="fonts/font1.ttf" HUE="946" ID="3" NAME="Bunchlo" SIZE="15"></FONT>
+		<FONT FILE="fonts/font5.ttf" HUE="946" ID="4" NAME="Stonehenge" SIZE="16"></FONT>
+		<FONT FILE="fonts/font5.ttf" HUE="946" ID="5" NAME="Stonehenge" SIZE="15"></FONT>
+		<FONT FILE="fonts/font6.ttf" HUE="946" ID="6" NAME="Tuamach" SIZE="14"></FONT>
+		<FONT FILE="fonts/font7.ttf" HUE="946" ID="7" NAME="Calligrapher" SIZE="13"></FONT>
+		<FONT FILE="fonts/font8.ttf" HUE="946" ID="8" NAME="Carolingia" SIZE="19"></FONT>
+		<FONT FILE="fonts/font4.ttf" HUE="946" ID="9" NAME="RUNEnglish 2" SIZE="13"></FONT>
+		<FONT FILE="fonts/font2.ttf" HUE="946" ID="10" NAME="Celticmd" SIZE="13"></FONT>
+	</FONTSET>
+
+	<GFX>
+		<!-- Screen resolution -->
+		<WIDTH>640</WIDTH>
+		<HEIGHT>480</HEIGHT>
+		<BPP>32</BPP>
+		
+		<!-- Fullscreen mode? -->
+		<FULLSCREEN>0</FULLSCREEN>
+		
+		<!-- How fast the roof shall disappear (in ms, 0 = immediately) -->
+		<ROOF_FADE_TIME>2000</ROOF_FADE_TIME>
+		
+		<!-- 16, 24 or 32 (depends on your hardware) -->
+		<ZBUFFER_SIZE>24</ZBUFFER_SIZE>
+		
+		<!-- Perspective: 0 = RPG-Style (UO), 1 = Jump'n'Run style -->
+		<PERSPECTIVE>0</PERSPECTIVE>
+		
+		<!-- 0: System Cursor, 1: UO Cursor -->
+		<CURSOR>1</CURSOR>
+		
+		<!-- View Distance(>= 2): Default = 4 -->
+		<VIEWDISTANCE>6</VIEWDISTANCE>
+		
+		<!-- MaxZoom(>= 0): Default = 8 -->
+		<MAXZOOM>12</MAXZOOM>
+		
+		<!-- MaxAngle(10 - 80): Default = 45  -->
+		<MAXANGLE>90</MAXANGLE>
+		
+		<!-- Brightness (0-9): Default = 5 -->
+		<BRIGHTNESS>0</BRIGHTNESS>
+	</GFX>
+	
+	<NET>
+		<!-- Server Connection -->
+	    <SERVER>localhost</SERVER>
+	     <PORT>2593</PORT>
+	        
+		<LOGIN>admin</LOGIN>
+		<PASSWORD>admin</PASSWORD>
+		
+		<!-- Important! -->
+		<IS_UOX3>0</IS_UOX3>
+		<IS_SPHERE>0</IS_SPHERE>
+		<IS_SPHERE55R>0</IS_SPHERE55R>
+		<IS_POL>0</IS_POL>
+		<IS_RUNUO>1</IS_RUNUO>
+		
+		<CLIENT_KEY>1</CLIENT_KEY>
+	</NET>
+		
+	<UO>
+		<MULPATH>d:\games\uo</MULPATH>
+		<AOS>1</AOS>
+		<POPUP_MENU>1</POPUP_MENU>
+        
+		<!-- Client Identification: set to "none" if you don't want to emulate standard clients
+             set to a version > 4.0.0 (for example 4.0.0p) to use new features like spellbooks on RunUO server -->
+		<CLIENT_IDENTIFICATION>4.0.0p UO:3D Client</CLIENT_IDENTIFICATION>
+		<CLILOC_LANGUAGE>enu</CLILOC_LANGUAGE>
+		<SPEECH_HUE>100</SPEECH_HUE>
+		<AOSTOOLTIPS>0</AOSTOOLTIPS>
+
+		<!-- 1 - use keywords (Speech.mul), 0 - don't use keyword -->
+		<USE_SPEECH>1</USE_SPEECH>
+	</UO>
+        
+	<SOUND>
+		<MUSIC>0</MUSIC>
+		<SOUND>0</SOUND>
+		<STEREO>1</STEREO>
+		<FREQUENCY>22050</FREQUENCY>
+		<CHUNKSIZE>2048</CHUNKSIZE>
+		<MUSICVOLUME>90</MUSICVOLUME>
+		<SOUNDVOLUME>128</SOUNDVOLUME>
+
+		<!-- If you have Samurai Empire Expansion choose 1, because there are no Midi Files
+			 If you put OGG Files into MusicList.xml turn Midi on; You can also turn on the MidiPath -->
+		<MP3>1</MP3>
+		<FOOTSTEPS>0</FOOTSTEPS>
+	</SOUND>
+
+	<IRIS>
+		<SCRIPTS_PATH>root</SCRIPTS_PATH>
+
+		<!-- set it to 0 if you don't want mouseover checks (this will disable
+             characters highlight and aostooltips) set it to higher values
+             (in milliseconds) if your mouse is too slow -->
+		<MOUSEOVER_TIMER>50</MOUSEOVER_TIMER>
+	</IRIS>     
+</CONFIG>

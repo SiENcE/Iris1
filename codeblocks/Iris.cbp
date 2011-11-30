@@ -1,0 +1,600 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="4" />
+	<Project>
+		<Option title="Iris" />
+		<Option pch_mode="0" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Release (optimized)">
+				<Option output="bin\Iris.exe" />
+				<Option object_output="obj" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Option includeInTargetAll="1" />
+				<Option projectResourceIncludeDirsRelation="1" />
+				<Compiler>
+					<Add option="-march=pentium3" />
+					<Add option="-O3" />
+					<Add option="-O" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-g" />
+			<Add option="-D_DEBUG" />
+			<Add directory="..\include" />
+			<Add directory="..\devcpp\libs" />
+			<Add directory="..\include\csl" />
+			<Add directory="..\devcpp\libs\smpeg" />
+		</Compiler>
+		<Linker>
+			<Add option="../devcpp/libs/libSDL.a" />
+			<Add option="../devcpp/libs/libSDLmain.a" />
+			<Add option="../devcpp/libs/SDL_image.lib" />
+			<Add option="../devcpp/libs/SDL_mixer.lib" />
+			<Add option="../devcpp/libs/SDL_net.lib" />
+			<Add option="../devcpp/libs/SDL_ttf.lib" />
+			<Add option="../devcpp/libs/smpeg.lib" />
+			<Add library="opengl32" />
+			<Add library="glu32" />
+			<Add library="wsock32" />
+		</Linker>
+		<Unit filename="Iris.rc">
+			<Option compilerVar="WINDRES" />
+			<Option objectName="codeblocks\Iris.res" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\Buffer.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\Config.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\Exception.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\Font.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\FontManager.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\Game.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\Geometry.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\Logger.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\Macros.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\SDLEvent.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\SynchronizedTime.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\csl\Block.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\csl\CSLForm.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\csl\CSLHandler.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\csl\Compile.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\csl\Function.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\csl\Input.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\csl\Instruct.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\csl\Interprt.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\csl\Library.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\csl\Parametr.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\csl\Utility.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\csl\Variable.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\csl\ZAsync.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\csl\ZCsl.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\csl\ZDate.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\csl\ZDynLink.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\csl\ZExcept.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\csl\ZFile.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\csl\ZPlatfrm.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\csl\ZProcess.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\csl\ZProfile.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\csl\ZPtrlist.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\csl\ZResrce.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\csl\ZSql.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\csl\ZString.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\csl\ZTrace.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\granny\GrannyLoader.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\granny\GrannyModelAOS.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\granny\GrannyModelTD.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\granny\GrannyStream.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\granny\GrannyTextures.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\granny\grannyfile.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\granny\grnanim.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\granny\grnbones.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\granny\grnboneties.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\granny\grnitemlist.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\granny\grnmatrix.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\granny\grnmeshes.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\granny\grnobjects.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\granny\grntextchunk.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\granny\grntextureinfos.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\granny\grntextures.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\granny\grnunhandled.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\gui\Border.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\gui\Button.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\gui\Checkbox.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\gui\Container.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\gui\Control.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\gui\GUIHandler.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\gui\Gump.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\gui\GumpDialog.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\gui\HTMLGumpParser.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\gui\Image.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\gui\ImageArt.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\gui\InputField.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\gui\ItemContainer.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\gui\Label.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\gui\MultiLabel.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\gui\Paperdoll.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\gui\RadioButton.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\gui\Stack.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\gui\TextManager.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\gui\Textbox.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\iris_endian.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\loaders\ArtLoader.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\loaders\ClilocLoader.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\loaders\GroundTextures.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\loaders\GumpLoader.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\loaders\HueLoader.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\loaders\MapInfo.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\loaders\ModelInfoLoader.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\loaders\MultisLoader.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\loaders\PaperdollBuilder.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\loaders\SkillLoader.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\loaders\SoundLoader.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\loaders\SpeechLoader.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\loaders\StaticModelLoader.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\loaders\StaticModelRaster.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\loaders\StaticModels.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\loaders\StaticTextureLoader.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\loaders\StitchinLoader.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\loaders\StreamLoader.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\loaders\TileDataBuffer.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\loaders\TileDataLoader.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\loaders\UOMap.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\loaders\VerdataLoader.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\main.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\net\Client.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\net\Packet.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\net\unicode.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\net\uo_huffman.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\pathsearch.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\renderer\3D\CharacterLight.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\renderer\3D\Light3D.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\renderer\3D\LightNodeEnvironment.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\renderer\3D\LightNodes.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\renderer\3D\MapBlock3D.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\renderer\3D\MapBuffer3D.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\renderer\3D\MotiveBasedGroundLight.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\renderer\3D\MotiveBasedLight.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\renderer\3D\Renderer3D.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\renderer\3D\SceneMaker.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\renderer\3D\ShaderMatrixBlock.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\renderer\3D\WorldEnvironment.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\renderer\Bitmask.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\renderer\Camera.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\renderer\Characters.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\renderer\DynamicObjects.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\renderer\Fade.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\renderer\MapBlock.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\renderer\MapBuffer.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\renderer\Renderer.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\renderer\SDLScreen.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\renderer\StaticObjects.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\renderer\Texture.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\renderer\TextureBuffer.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\renderer\particles\ParticleEngine.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\renderer\particles\ParticleHandler.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\renderer\particles\ParticleLoader.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\renderer\particles\ParticleTextures.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\robstring1.2.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\sound\Music.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\sound\MusicListLoader.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\sound\SoundMixer.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\string_utils.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+		<Unit filename="..\src\xml.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Release (optimized)" />
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

@@ -1,0 +1,67 @@
+<?xml version='1.0'?>
+<form width='640' height='480' alpha='0' flags='0' shape=''>
+ <fade alpha='0' time='0'/>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+<control class='border' name='border_a3c' left='1' top='1' width='650' height='490' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <gump>0xA3C</gump>
+</control>
+<control class='picture' name='picture_2329' left='6' top='5' width='640' height='480' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <gump>0x2329</gump>
+</control>
+<control class='picture' name='picture_15a0' left='6' top='6' width='96' height='142' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <gump>0x15A0</gump>
+</control>
+<control class='button' name='button_quit' left='559' top='8' width='36' height='36' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='handler_on_quit' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <gump normal='0x1589' over='0x158A' pressed='0x158B'/>
+</control>
+<control class='button' name='button_15a7' left='524' top='457' width='62' height='23' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='handler_on_credits' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <gump normal='0x15A7' over='0x15A8' pressed='0x15A7'/>
+</control>
+<control class='button' name='button_15a4' left='604' top='444' width='19' height='21' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='handler_on_startgame' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <gump normal='0x15A4' over='0x15A5' pressed='0x15A6'/>
+</control>
+<control class='label' name='label' left='201' top='311' width='305' height='23' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='7' hue='0x35' align='center'>- Login in to Iris -</text>
+</control>
+<control class='label' name='label' left='199' top='387' width='89' height='19' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='2' hue='0x95' align='left'>Password:</text>
+</control>
+<control class='label' name='label' left='199' top='352' width='54' height='26' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='2' hue='0x95' align='left'>Login:</text>
+</control>
+<control class='border' name='border_bb8' left='299' top='343' width='239' height='35' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <gump>0xBB8</gump>
+</control>
+<control class='edit' name='input_username' left='304' top='353' width='229' height='20' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed='handler_on_main_keypressed'/>
+ <text font='7' hue='0x1' align='left'>Loginname</text>
+ <password>0</password>
+</control>
+<control class='border' name='border_bb8' left='300' top='379' width='239' height='35' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <gump>0xBB8</gump>
+</control>
+<control class='edit' name='input_password' left='306' top='388' width='227' height='22' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed='handler_on_main_keypressed'/>
+ <text font='7' hue='0x1' align='left'>password</text>
+ <password>1</password>
+</control>
+<control class='button' name='button_15a5' left='604' top='416' width='19' height='21' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='handler_on_quickstart' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <gump normal='0x15A5' over='0x15A5' pressed='0x15A6'/>
+</control>
+<control class='label' name='ultima_iris_version' left='222' top='460' width='285' height='20' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='7' hue='0x328' align='center'>Iris Version Number</text>
+</control>
+</form>

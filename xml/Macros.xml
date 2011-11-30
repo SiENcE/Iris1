@@ -1,0 +1,253 @@
+<!--
+
+Used for game macros
+--------------------
+Tags:
+-----
+       NAME:		just the name of the macro..
+
+       KEY:		the name of the keyboard key  associated to the macro(use names like space, backspace,esc, 
+			enter, ins, home, page_up, page_down, end, up, down,
+			left, right, F1, F2,...
+			or simply characters like a,b,c for characters keys)
+       
+       LEFT_SHIFT:	set 1 if you want the key to be pressed with right shift at the same time
+
+       RIGHT_SHIFT,
+       LEFT_CONTROL,
+       RIGHT_CONTROL,
+       LEFT_ALT,
+       RIGHT_ALT:	same as above
+
+       SCRIPT_FUNCTION:	the name of the CSL function (usually in macros.csl, but could be everywhere) to be executed 
+                        when the macro key is pressed.
+
+       PARAMETER:	you can add up-to 4 parameters to be passed to the function. You must specify the parameter
+			type with the attribute TYPE(for example PARAMETER TYPE="string". Legal values for type
+			are only "string" and "integer"
+
+       Note:		name attribute in parameter is not important, i used it just to let macros be more readable.
+-->
+
+<MACROS>
+
+
+<MACRO>
+ <ID>1</ID>
+ <NAME>open skill window</NAME>
+ <KEY>k</KEY>
+ <RIGHT_ALT>1</RIGHT_ALT>
+ <SCRIPT_FUNCTION>macro_open</SCRIPT_FUNCTION>
+ <PARAMETER TYPE="string" name="gump">skills</PARAMETER>
+</MACRO>
+
+<MACRO>
+ <ID>2</ID>
+ <NAME>Open Backpack</NAME>
+ <KEY>i</KEY>
+ <RIGHT_ALT>1</RIGHT_ALT>
+ <SCRIPT_FUNCTION>macro_open</SCRIPT_FUNCTION>
+ <PARAMETER TYPE="string" name="gump">backpack</PARAMETER>
+</MACRO>
+
+<MACRO>
+ <ID>3</ID>
+ <NAME>Open Paperdoll</NAME>
+ <KEY>p</KEY>
+ <RIGHT_ALT>1</RIGHT_ALT>
+ <SCRIPT_FUNCTION>macro_open</SCRIPT_FUNCTION>
+ <PARAMETER TYPE="string" name="gump">paperdoll</PARAMETER>
+</MACRO>
+
+<MACRO>
+ <ID>4</ID>
+ <NAME>Warmode</NAME>
+ <KEY>c</KEY>
+ <LEFT_ALT>1</LEFT_ALT>
+ <SCRIPT_FUNCTION>macro_warmode</SCRIPT_FUNCTION>
+</MACRO>
+
+<MACRO>
+ <ID>5</ID>
+ <NAME>Last target</NAME>
+ <KEY>F2</KEY>
+ <SCRIPT_FUNCTION>macro_lasttarget</SCRIPT_FUNCTION>
+</MACRO>
+
+<MACRO>
+ <ID>6</ID>
+ <NAME>Last Object</NAME>
+ <KEY>F1</KEY>
+ <SCRIPT_FUNCTION>macro_lastobject</SCRIPT_FUNCTION>
+</MACRO>
+
+<MACRO>
+ <ID>7</ID>
+ <NAME>Target Self</NAME>
+ <KEY>F3</KEY>
+ <SCRIPT_FUNCTION>macro_targetself</SCRIPT_FUNCTION>
+</MACRO>
+
+<MACRO>
+ <ID>8</ID>
+ <NAME>Open Door</NAME>
+ <KEY>F8</KEY>
+ <SCRIPT_FUNCTION>macro_opendoor</SCRIPT_FUNCTION>
+</MACRO>
+
+<MACRO>
+ <ID>9</ID>
+ <NAME>Last Spell</NAME>
+ <KEY>F10</KEY>
+ <RIGHT_SHIFT>1</RIGHT_SHIFT>
+ <SCRIPT_FUNCTION>macro_lastspell</SCRIPT_FUNCTION>
+</MACRO>
+
+<MACRO>
+ <ID>10</ID>
+ <NAME>Last Skill</NAME>
+ <KEY>F11</KEY>
+ <RIGHT_SHIFT>1</RIGHT_SHIFT>
+ <SCRIPT_FUNCTION>macro_lastskill</SCRIPT_FUNCTION>
+</MACRO>
+
+<MACRO>
+ <ID>11</ID>
+ <NAME>autoheal</NAME>
+ <KEY>F11</KEY>
+ <RIGHT_ALT>1</RIGHT_ALT>
+ <SCRIPT_FUNCTION>macro_healself</SCRIPT_FUNCTION>
+</MACRO>
+
+<MACRO>
+ <ID>12</ID>
+ <NAME>Camera Up</NAME>
+ <KEY>page_up</KEY>
+ <SCRIPT_FUNCTION>macro_camup</SCRIPT_FUNCTION>
+</MACRO>
+
+<MACRO>
+ <ID>13</ID>
+ <NAME>Camera Down</NAME>
+ <KEY>page_down</KEY>
+ <SCRIPT_FUNCTION>macro_camdown</SCRIPT_FUNCTION>
+</MACRO>
+
+<MACRO>
+ <ID>14</ID>
+ <NAME>Camera Zoom in</NAME>
+ <KEY>home</KEY>
+ <SCRIPT_FUNCTION>macro_zoomin</SCRIPT_FUNCTION>
+</MACRO>
+
+<MACRO>
+ <ID>15</ID>
+ <NAME>Camera Zoom out</NAME>
+ <KEY>end</KEY>
+ <SCRIPT_FUNCTION>macro_zoomout</SCRIPT_FUNCTION>
+</MACRO>
+
+<MACRO>
+ <ID>16</ID>
+ <NAME>Toggle perspective</NAME>
+ <KEY>ins</KEY>
+ <SCRIPT_FUNCTION>macro_toggleperspective</SCRIPT_FUNCTION>
+</MACRO>
+
+<MACRO>
+ <ID>17</ID>
+ <NAME>First Person</NAME>
+ <KEY>F1</KEY>
+ <LEFT_ALT>1</LEFT_ALT>
+ <SCRIPT_FUNCTION>macro_firstperson</SCRIPT_FUNCTION>
+</MACRO>
+
+<MACRO>
+ <ID>18</ID>
+ <NAME>First Person Hide Player</NAME>
+ <KEY>F2</KEY>
+ <LEFT_ALT>1</LEFT_ALT>
+ <SCRIPT_FUNCTION>macro_hideplayer</SCRIPT_FUNCTION>
+</MACRO>
+
+<MACRO>
+ <ID>19</ID>
+ <NAME>lookup</NAME>
+ <KEY>F3</KEY>
+ <RIGHT_ALT>1</RIGHT_ALT>
+ <SCRIPT_FUNCTION>macro_lookup</SCRIPT_FUNCTION>
+</MACRO>
+
+<MACRO>
+ <ID>20</ID>
+ <NAME>lookdown</NAME>
+ <KEY>F4</KEY>
+ <RIGHT_ALT>1</RIGHT_ALT>
+ <SCRIPT_FUNCTION>macro_lookdown</SCRIPT_FUNCTION>
+</MACRO>
+
+<MACRO>
+ <ID>21</ID>
+ <NAME>camleft</NAME>
+ <KEY>F3</KEY>
+ <LEFT_ALT>1</LEFT_ALT>
+ <SCRIPT_FUNCTION>macro_camleft</SCRIPT_FUNCTION>
+</MACRO>
+
+<MACRO>
+ <ID>22</ID>
+ <NAME>camright</NAME>
+ <KEY>F4</KEY>
+ <LEFT_ALT>1</LEFT_ALT>
+ <SCRIPT_FUNCTION>macro_camright</SCRIPT_FUNCTION>
+</MACRO>
+
+
+<MACRO>
+ <ID>23</ID>
+ <NAME>bow</NAME>
+ <KEY>b</KEY>
+ <LEFT_ALT>1</LEFT_ALT>
+ <SCRIPT_FUNCTION>macro_bow</SCRIPT_FUNCTION>
+</MACRO>
+
+<MACRO>
+ <ID>24</ID>
+ <NAME>salute</NAME>
+ <KEY>s</KEY>
+ <LEFT_ALT>1</LEFT_ALT>
+ <SCRIPT_FUNCTION>macro_salute</SCRIPT_FUNCTION>
+</MACRO>
+
+<MACRO>
+ <ID>25</ID>
+ <NAME>toggle roof fade</NAME>
+ <KEY>f</KEY>
+ <LEFT_ALT>1</LEFT_ALT>
+ <SCRIPT_FUNCTION>macro_togglerooffading</SCRIPT_FUNCTION>
+</MACRO>
+
+<MACRO>
+ <ID>26</ID>
+ <NAME>top view</NAME>
+ <KEY>t</KEY>
+ <LEFT_ALT>1</LEFT_ALT>
+ <SCRIPT_FUNCTION>macro_topview</SCRIPT_FUNCTION>
+</MACRO>
+
+<MACRO>
+ <ID>27</ID>
+ <NAME>quit iris</NAME>
+ <KEY>x</KEY>
+ <LEFT_CONTROL>1</LEFT_CONTROL>
+ <SCRIPT_FUNCTION>macro_quit</SCRIPT_FUNCTION>
+</MACRO>
+
+<MACRO>
+ <ID>28</ID>
+ <NAME>toggle run</NAME>
+ <KEY>F7</KEY>
+ <SCRIPT_FUNCTION>macro_runmode</SCRIPT_FUNCTION>
+</MACRO>
+
+</MACROS>

@@ -1,0 +1,251 @@
+/*
+-------------------------------------------------------------------------------------------------
+	skills.csl
+Written by Thorgrim
+------------------------------------------------------------------------------------------------
+*/
+
+/*
+-------------------------------------------------------------------------------------------------
+global vars
+------------------------------------------------------------------------------------------------
+*/
+var skills_open = 0;
+
+var skill_scroll = 0;
+var skill_name_list[49];
+var skill_num_list[49];
+var skill_value[51];
+var skill_name[49];
+var skill_value_unmoded[51];
+var skill_lock[49];
+var skills_min;
+var skill_mod = 1;
+var skill_button;
+var skills;
+var skill_total;
+
+var skills_x = 320;
+var skills_y = 300;
+
+/*
+-------------------------------------------------------------------------------------------------
+ forward declarations
+-------------------------------------------------------------------------------------------------
+*/
+
+display_skills();
+display_skills_list();
+display_skills_min();
+
+/*
+-------------------------------------------------------------------------------------------------
+Event Functions
+-------------------------------------------------------------------------------------------------
+*/
+
+net_skills(const skillid, const skillvalue)
+{
+
+	var name = "name";
+	var unmodified = "unmod";
+	var skillcap = 1;
+	var skilllock = 1;
+	var skill = "skill";
+	var skill_tot = 0;
+	var skill_button = 0;
+	
+	for (var i = 0; i< 49; i ++) {
+		skill = char_getskill(skillid, i, name, unmodified, skillcap, skilllock);
+		if (skill != "") {
+			skill_name[i] = name;
+			skill_value[i] = skill / 10;
+			skill_value_unmoded[i] = unmodified/10;
+			//skill_lock[i] = skilllock;
+			skill_tot = skill_tot + skill_value_unmoded[i];
+ 
+		}
+	}
+ 
+
+    	label_settext(skill_total, skill_tot);
+
+	display_skills_list();
+}
+
+/*
+-------------------------------------------------------------------------------------------------
+Event Handelers
+-------------------------------------------------------------------------------------------------
+*/
+
+handler_on_close_skills(const sender)
+{
+	skills_x = control_getx (skills);
+	skills_y = control_gety (skills);
+	skills_open = 0;
+	skill_scroll = 0;
+}
+
+handler_on_min_skills(const sender)
+{
+	skills_x = control_getx (skills);
+	skills_y = control_gety (skills);
+	control_close(skills);
+	skills_open = 0;
+	display_skills_min();
+}
+
+handler_on_skills(const sender)
+{
+	if (skills_open == 0)
+	{
+		control_close(skills_min);
+		display_skills();
+		skills_open = 1;
+	}
+}
+
+handler_on_skill_scroll_up (const sender)
+{
+		if (skill_scroll > 0) {
+			skill_scroll--;
+			display_skills_list();
+		}
+}
+
+handler_on_skill_scroll_down (const sender)
+{
+
+                if ((skill_scroll + 6) < 49 ) {
+                        skill_scroll++;
+			display_skills_list();
+		}
+}
+
+handler_on_skill_modify (const sender)
+{
+	if(skill_mod == 0){
+		skill_mod = 1;
+		button_setgump(skill_button, 0, 0xD3);
+		button_setgump(skill_button, 1, 0xD3);
+		button_setgump(skill_button, 2, 0xD3);
+	}
+	else {
+		skill_mod = 0;
+		button_setgump(skill_button, 0, 0xD2);
+		button_setgump(skill_button, 1, 0xD2);
+		button_setgump(skill_button, 2, 0xD2);
+	}
+
+	display_skills_list();
+}
+
+/*
+-------------------------------------------------------------------------------------------------
+Display Functions
+-------------------------------------------------------------------------------------------------
+*/
+
+display_skills()
+{
+	skills = gui_addcontainer(5,340, 280, 146);
+	gui_setcontainer(skills);
+
+	control_setposition (skills, skills_x, skills_y);
+
+	control_sethandler(skills, FUNC_ONCLOSE, "handler_on_close_skills");
+
+	var charid = net_getplayercharacter();
+
+    	var gump = gui_addgump(-5, -5, 0x820, 0);
+	//gui_setcontainershape(gump);
+    	gump = gui_addgump(13, 32, 0x822, 0);
+    	//gump = gui_addgump(8, 102, 0x821, 0);
+    	//control_setsize(gump , 300, 150);
+    	gump = gui_addgump(16, 102, 0x823, 0);
+
+    	gump = gui_addgump(45, 4, 0x834, 0);
+
+    	var button = gui_addbutton(251, 27, 0x824, 0x824, 0x824);
+	control_sethandler(button, FUNC_ONCLICK, "handler_on_skill_scroll_up");
+
+    	button = gui_addbutton(251, 84, 0x825, 0x825, 0x825);
+	control_sethandler(button, FUNC_ONCLICK, "handler_on_skill_scroll_down");
+
+	var name = "name";
+	var unmodified = "unmod";
+	var skillcap = 1;
+	var skilllock = 1;
+	var skill = "skill";
+	var skill_tot = 0;
+
+	for (var i = 0; i< 49; i ++) {
+		skill = char_getskill(charid, i, name, unmodified, skillcap, skilllock);
+		skill_name[i] = name;
+		skill_value[i] = skill/10;
+		skill_value_unmoded[i] = unmodified/10;
+		//skill_lock[i] = skilllock;
+		skill_tot = skill_tot + skill_value_unmoded[i];
+	//log(name+" "+i+" "+skill);
+	}
+
+    	if (skill_mod == 1){
+		for (i = 0; i< 5; i ++) {
+			skill_name_list[i] = gui_addlabel(22, 27 + 15*i, skill_name[i+1], 1, 1 );
+			skill_num_list[i] = gui_addlabel(201, 27 + 15*i, skill_value[i+1], 1, 1 );
+    			gump = gui_addgump(236, 27 + 15*i, 0x82c, 0);
+			//gui_addlabel(184, 6, skill_lock[i], 1, 1 );
+		}
+	}
+	else {
+		for (i = 0; i< 5; i ++) {
+			skill_name_list[i] = gui_addlabel(22, 27 + 15*i, skill_name[i+1], 1, 1 );
+			skill_num_list[i] = gui_addlabel(201, 27 + 15*i, skill_value_unmoded[i+1], 1, 1 );
+    			gump = gui_addgump(236, 27 + 15*i, 0x82c, 0);
+		}
+	}
+	skill_button = gui_addbutton(140, 3, 0xd3, 0xd3, 0xd3);
+	control_sethandler(skill_button, FUNC_ONCLICK, "handler_on_skill_modify");
+
+	skill_total = gui_addlabel(225, 114, skill_tot, 1, 1 );
+
+    	button = gui_addbutton(245, 4, 0x38, 0x38, 0x38);
+	control_sethandler(button, FUNC_ONCLICK, "handler_on_min_skills");
+
+	gui_addlabel(174, 6, "Modified", 1, 1 );
+
+    	button = gui_addbutton(130, 133, 0x82e, 0x82f, 0x82f);
+	//control_sethandler(button, FUNC_ONCLICK, "handler_on_skill_resize");
+
+    	button = gui_addbutton(247, 49, 0x828, 0x828, 0x828);
+	//control_sethandler(button, FUNC_ONCLICK, "handler_on_skill_scroll");
+
+	gui_setcontainer();
+}
+
+display_skills_min()
+{
+	skills_min = gui_addcontainer(0,0, 0, 0);
+	gui_setcontainer(skills_min);
+    	var button = gui_addbutton(70, 94, 0x839, 0x839, 0x839);
+	control_sethandler(button, FUNC_ONCLICK, "handler_on_skills");
+	gui_setcontainer();
+}
+
+display_skills_list()
+{
+
+    for (var i = 0; i < 5; i ++) {
+    	var j = i+skill_scroll;		
+
+    	if ((j < 49)&&(skill_mod == 1)){
+    		label_settext(skill_name_list[i], skill_name[j+1]);
+    		label_settext(skill_num_list[i], skill_value[j+1]);
+	}
+	else if (j < 49){
+    		label_settext(skill_name_list[i], skill_name[j+1]);
+    		label_settext(skill_num_list[i], skill_value_unmoded[j+1]);
+	}
+    }
+}

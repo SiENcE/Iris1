@@ -1,0 +1,673 @@
+/*
+
+ Trade Window, Buy Window and Sell Window
+ by ArT-iX
+
+*/
+
+handler_onitemclick(const sender);
+
+var butt1, butt2, window, trade1, trade2;
+
+update_check(var butt, var check)
+{
+
+ if(check == 1)
+ {
+  button_setgump(butt, 0, 0x869);
+  button_setgump(butt, 1, 0x86a);
+  button_setgump(butt, 2, 0x86a);
+ }
+ else
+ {
+  button_setgump(butt, 0, 0x867);
+  button_setgump(butt, 1, 0x868);
+  button_setgump(butt, 2, 0x868);
+ }
+ control_settag(butt, 0, check);
+}
+
+handler_tradecheck(const sender)
+{
+ //log("Check pressed!!!");
+ var newvalue = 0;
+ if(control_gettag(butt1, 0) == 0)
+ {newvalue = 1;}
+ net_sendtradecheck(trade1, newvalue, control_gettag(butt2, 0));
+}
+
+net_tradestart(const id1, const id2, const name)
+{
+ trade1 = id1;
+ trade2 = id2;
+ //log("TR1: " + trade1);
+ //log("TR2: " + trade2);
+ //log("TradeWin: " + window);
+ window = gui_addcontainer(100, 100, 100, 100);
+ //log("TradeWin: " + window);
+ gui_setcontainer(window);
+ var gump = gui_addgump(0,0, 0x866,0);
+ gui_setcontainershape(gump);
+ var playerchar = net_getplayercharacter();
+ log(playerchar);
+ log(char_getstatus(playerchar, 0));
+ //var myname = char_getstatus(playerchar, STATUS_NAME);
+ gui_addlabel(180, 168, name, 1, 1);
+ gui_addlabel(90, 40, char_getstatus(playerchar, 0), 1, 1);
+ butt1 = gui_addbutton(52, 31, 0x867, 0x868, 0x868);
+ butt2 = gui_addbutton(264, 162, 0x867, 0x868, 0x868);
+ control_settag(butt1, 0, 0);
+ control_settag(butt2, 0, 0);
+ control_sethandler(butt1, FUNC_ONCLICK, "handler_tradecheck");
+ var itemcont = gui_additemcontainer(0, 0, id1);
+ //control_setsize(itemcont, 100, 100); 
+ 
+}
+
+net_tradecheck(const check1, const check2, const closewin)
+{
+ if(closewin)
+ {
+  control_close(window);
+  return;
+ }
+ update_check(butt1, check1);
+ update_check(butt2, check2);
+
+}
+
+net_tradeadd(var model, const tradeid, const count, const hue, const x, const y)
+{
+
+ gui_setcontainer(window);
+ var xvalue = 40;
+ if(tradeid == trade2)
+ { log("trade 2");
+   xvalue = 180;
+ }
+ else
+ {
+  
+  log("trade 1");
+ }
+ log("model: " + model);
+ if(model == 0xEEA || model == 0xEED || model == 0xEF0)
+      {
+       if(count > 9 &&  count < 20)
+        model++;
+       else if(count >= 20)
+        model+=2;
+      }
+ var stackcheck = 1;
+       if((count > 1) && (model < 0xEEA || model > 0xEF2))
+         stackcheck = 2;
+   
+      for(var i = 0; i < stackcheck; i++){  
+ var art = gui_addart(xvalue + x + (6 * i), 60 + y + (6 * i), model, 0, hue);
+ control_settag(art, 0, count);
+ control_sethandler(art, FUNC_ONMOUSEDOWN, "handler_onitemclick");
+}
+}
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//                                        BUY WINDOW                                                              //
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+var buywin = 0;
+var yalign = 0;
+var buy_page = 1;
+
+var billwin = 0;
+var bill_yalign = 0;
+var bill_page = 1;
+
+handler_onbrowseup(const sender)
+{
+
+ log("UP");
+ var parent = control_getparent(sender);
+ var page = container_getcurrentpage(parent);
+ if(container_getcurrentpage(parent) > 1)
+ {
+   container_setcurrentpage(parent, page - 1);
+ }
+
+}
+
+handler_onbrowsedown(const sender)
+{
+
+ log("DOWN");
+ var parent = control_getparent(sender);
+ var page = control_gettag(parent, 0);
+ if(container_getcurrentpage(parent) < page)
+ {
+   container_setcurrentpage(parent, container_getcurrentpage(parent) + 1);
+ }
+
+}
+
+
+handler_onclose(const sender)
+{
+
+buywin = 0;
+yalign = 0;
+buy_page = 1;
+bill_yalign = 0;
+var bill_page = 1;
+control_close(billwin);
+billwin = 0;
+net_updatebuylist(0);
+}
+
+handler_buyaccept(const sender)
+{
+
+ net_buyitems();
+ control_close(buywin);
+}
+
+
+net_buywindow(const id)
+{
+ if(buywin != 0)
+ {return;}
+ yalign = 0;
+ buy_page = 1;
+ gui_setcontainer();
+
+ buywin = gui_addcontainer(150, 10, 100, 100);
+ gui_setcontainer(buywin);
+ var gump1 = gui_addgump(0, 0, 0x870, 0);
+ //var gump2 = gui_addgump(205, 208, 0x871, 0);
+ 
+ gui_setcontainer();
+ billwin = gui_addcontainer(315, 228, 100, 100);
+ gui_setcontainer(billwin);
+ var gump2 = gui_addgump(0, 0, 0x871, 0);
+ gui_setcontainershape(gump2);
+
+ /*control_setflag(billwin, FLAG_CLOSABLE, 0);
+
+ control_setflag(billwin, FLAG_MOVABLE , 1);
+ control_setflag(billwin, FLAG_FOCUSABLE, 1);*/
+
+ var browse_up2 = gui_addbutton(231, 49, 0x824, 0x824, 0x824);
+ var browse_down2 = gui_addbutton(231, 158, 0x825, 0x825, 0x825);
+ control_setpage(browse_up2, 0); 
+ control_setpage(browse_down2, 0);
+
+ control_sethandler(browse_up2, FUNC_ONCLICK, "handler_onbrowseup");
+ control_sethandler(browse_down2, FUNC_ONCLICK, "handler_onbrowsedown");
+ 
+ var total = gui_addlabel(72, 168, "0", 1, 1);
+ control_settag(billwin, 2, total);
+ control_setpage(total, 0);
+
+ var accept = gui_addbutton(22, 188, 0x5c, 0x5c, 0x5c);
+ control_setpage(accept, 0);
+ control_sethandler(accept, FUNC_ONCLICK, "handler_buyaccept"); 
+
+ gui_setcontainer(buywin);
+
+ gui_setcontainershape(gump1);
+ 
+ control_sethandler(buywin, FUNC_ONCLOSE, "handler_onclose");
+ var browse_up = gui_addbutton(231, 48, 0x824, 0x824, 0x824);
+ var browse_down = gui_addbutton(231, 193, 0x825, 0x825, 0x825);
+ control_setpage(browse_up, 0); 
+ control_setpage(browse_down, 0);
+ //control_settag(browse_up, 0, buywin);
+ //control_settag(browse_down, 0, buywin);
+ control_sethandler(browse_up, FUNC_ONCLICK, "handler_onbrowseup");
+ control_sethandler(browse_down, FUNC_ONCLICK, "handler_onbrowsedown");
+ 
+
+ var separator1 = gui_addgump(25, 105, 0x82B, 0);
+ var separator2 = gui_addgump(25, 165, 0x82B, 0);
+
+ control_setpage(separator1, 0);
+ control_setpage(separator2, 0);
+ 
+ container_setcurrentpage(buywin, 1);
+ container_setcurrentpage(billwin, 1);
+
+}
+
+//var clickname = "";
+
+handler_onincrbutton(const sender)
+{
+
+ var availcontrol = control_gettag(sender, 3);
+
+ var availcount = label_gettext(availcontrol);
+
+ 
+
+  if(availcount <= 0)
+ {
+  return;
+ }
+
+ availcount = availcount - 1;
+ label_settext(availcontrol, availcount);
+  
+ var amt=label_gettext(control_gettag(sender, 2));
+ amt = amt + 1;
+ label_settext(control_gettag(sender, 2), amt);
+ 
+ var price = control_gettag(control_gettag(sender, 0), 1);
+ var total = control_gettag(billwin, 2);
+ var oldtotal = label_gettext(total);
+ label_settext(total, oldtotal + price);
+ net_updatebuylist(1, control_gettag(control_gettag(sender, 0), 0), 1);
+ 
+}
+
+handler_ondecrbutton(const sender)
+{
+ 
+ log("DECR");
+ 
+  
+ var amt=label_gettext(control_gettag(sender, 2));
+ var availcontrol = control_gettag(sender, 3);
+
+  var availcount = label_gettext(availcontrol);
+ 
+ if(amt <= 0)
+ {
+  
+
+
+  control_close(control_gettag(sender, 1));
+  control_close(control_gettag(sender, 2));
+  control_settag(control_gettag(sender, 0), 2,0);
+ }
+ else{
+   availcount = availcount + 1;
+  label_settext(availcontrol, availcount);
+ amt = amt - 1;
+ label_settext(control_gettag(sender, 2), amt);
+ 
+ var price = control_gettag(control_gettag(sender, 0), 1);
+ var total = control_gettag(billwin, 2);
+ var oldtotal = label_gettext(total);
+ label_settext(total, oldtotal - price);
+ }
+ net_updatebuylist(2, control_gettag(control_gettag(sender, 0), 0), 1);
+}
+
+handler_onartmousedown(const sender)
+{
+
+ 
+ var parent = control_getparent(sender);
+ gui_setcontainer(billwin);
+ 
+ 
+ if(bill_yalign >= 100)
+ {
+  bill_yalign = 0;
+  bill_page = bill_page + 1;
+  container_setcurrentpage(billwin, bill_page);
+ }
+ 
+control_settag(billwin, 0, bill_page);
+
+ var availcontrol = control_gettag(sender, 3);
+
+ var availcount = label_gettext(availcontrol);
+ if(availcount <= 0)
+ {
+  return;
+ }
+ availcount = availcount - 1;
+ label_settext(availcontrol, availcount);
+
+ var total = control_gettag(billwin, 2);
+ var price = control_gettag(sender, 1);
+
+ var oldtotal = label_gettext(total);
+ label_settext(total, oldtotal + price);
+
+ if(control_gettag(sender, 2) == 0)
+ {/*
+  var incr_button = gui_addbutton(365, 275 + bill_yalign, 0x37, 0x37, 0x37);
+  var decr_button = gui_addbutton(385, 275 + bill_yalign, 0x38, 0x38, 0x38);
+  var new_label = gui_addlabel(260, 275 + bill_yalign, label_gettext(control_gettag(sender, 4)),1,1);
+  var amount = gui_addlabel(225, 275 + bill_yalign, 1, 1, 1); */
+
+  var incr_button = gui_addbutton(170, 65 + bill_yalign, 0x37, 0x37, 0x37);
+  var decr_button = gui_addbutton(195, 65 + bill_yalign, 0x38, 0x38, 0x38);
+  var new_label = gui_addlabel(70, 65 + bill_yalign, label_gettext(control_gettag(sender, 4)),1,1);
+  var amount = gui_addlabel(30, 65 + bill_yalign, 1, 1, 1); 
+
+  control_settag(sender, 2, amount);
+  
+  control_settag(incr_button, 0, sender);
+  control_settag(incr_button, 1, new_label);
+  control_settag(incr_button, 2, amount);
+  control_settag(incr_button, 3, availcontrol);
+
+  control_settag(decr_button, 0, sender);
+  control_settag(decr_button, 1, new_label);
+  control_settag(decr_button, 2, amount);
+  control_settag(decr_button, 3, availcontrol);
+
+  control_setpage(incr_button, bill_page);
+  control_setpage(decr_button, bill_page);
+  control_setpage(new_label, bill_page);
+  control_setpage(amount, bill_page);
+  
+
+  control_sethandler(incr_button, FUNC_ONCLICK, "handler_onincrbutton");
+  control_sethandler(decr_button, FUNC_ONCLICK, "handler_ondecrbutton");
+
+  bill_yalign = bill_yalign + 25;
+ }
+ else
+ {
+  var amt=label_gettext(control_gettag(sender, 2));
+  amt = amt + 1;
+  label_settext(control_gettag(sender, 2), amt);
+ }
+ net_updatebuylist(1, control_gettag(sender, 0), 1);
+}
+
+
+net_buywinadd(const id, const model, const count, const hue, const price, const name)
+{
+ if(yalign >= 180)
+ {
+  yalign = 0;
+  buy_page = buy_page + 1;
+ }
+ gui_setcontainer(buywin);
+ control_settag(buywin, 0, buy_page);
+ var itemmodel = gui_addart(25, 75 + yalign, model, 0 ,hue);
+ var it_label = gui_addlabel(75, 75 + yalign, name + ": " + price, 1, 1);
+ var avail = gui_addlabel(205, 75 + yalign, count, 1, 1);
+ control_settag(itemmodel, 0, id);
+ //
+ control_settag(itemmodel, 1, price);
+ control_settag(itemmodel, 2, 0);
+ control_settag(itemmodel, 3, avail);
+ control_settag(itemmodel, 4, it_label);
+ control_sethandler(itemmodel, FUNC_ONMOUSEDOWN, "handler_onartmousedown");
+ control_setpage(itemmodel, buy_page);
+ control_setpage(it_label, buy_page);
+ control_setpage(avail, buy_page);
+ yalign = yalign + 60;
+
+}
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//                                        SELL WINDOW                                                              //
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+var sellwin = 0;
+var sellyalign = 0;
+var sell_page = 1;
+
+var sell_billwin = 0;
+var sell_bill_yalign = 0;
+var sell_bill_page = 1;
+
+
+handler_onsellclose(const sender)
+{
+
+sellwin = 0;
+sellyalign = 0;
+sell_page = 1;
+sell_bill_yalign = 0;
+sell_bill_page = 1;
+control_close(sell_billwin);
+sell_billwin = 0;
+//net_updateselllist(0);
+}
+
+handler_sellaccept(const sender)
+{
+
+ net_sellitems(control_gettag(sellwin, 1));
+ control_close(sellwin);
+}
+
+
+net_sellwindow(const id)
+{
+ if(sellwin != 0)
+ {return;}
+ sellyalign = 0;
+ sell_page = 1;
+ gui_setcontainer();
+
+ sellwin = gui_addcontainer(150, 10, 100, 100);
+ gui_setcontainer(sellwin);
+ var gump1 = gui_addgump(0, 0, 0x872, 0);
+ //var gump2 = gui_addgump(185, 208, 0x871, 0);
+ 
+ gui_setcontainer();
+ sell_billwin = gui_addcontainer(315, 228, 100, 100);
+ gui_setcontainer(sell_billwin);
+ var gump2 = gui_addgump(0, 0, 0x873, 0);
+ gui_setcontainershape(gump2);
+
+
+ var browse_up2 = gui_addbutton(231, 49, 0x824, 0x824, 0x824);
+ var browse_down2 = gui_addbutton(231, 158, 0x825, 0x825, 0x825);
+ control_setpage(browse_up2, 0); 
+ control_setpage(browse_down2, 0);
+
+ control_sethandler(browse_up2, FUNC_ONCLICK, "handler_onbrowseup");
+ control_sethandler(browse_down2, FUNC_ONCLICK, "handler_onbrowsedown");
+ 
+ var total = gui_addlabel(72, 168, "0", 1, 1);
+ control_settag(sell_billwin, 2, total);
+ control_setpage(total, 0);
+
+ var accept = gui_addbutton(22, 188, 0x5c, 0x5c, 0x5c);
+ control_setpage(accept, 0);
+ control_sethandler(accept, FUNC_ONCLICK, "handler_sellaccept"); 
+
+ gui_setcontainer(sellwin);
+ control_settag(sellwin, 1, id);
+ gui_setcontainershape(gump1);
+ 
+ control_sethandler(sellwin, FUNC_ONCLOSE, "handler_onsellclose");
+ var browse_up = gui_addbutton(231, 48, 0x824, 0x824, 0x824);
+ var browse_down = gui_addbutton(231, 193, 0x825, 0x825, 0x825);
+ control_setpage(browse_up, 0); 
+ control_setpage(browse_down, 0);
+ //control_settag(browse_up, 0, buywin);
+ //control_settag(browse_down, 0, buywin);
+ control_sethandler(browse_up, FUNC_ONCLICK, "handler_onbrowseup");
+ control_sethandler(browse_down, FUNC_ONCLICK, "handler_onbrowsedown");
+ 
+
+ var separator1 = gui_addgump(25, 105, 0x82B, 0);
+ var separator2 = gui_addgump(25, 165, 0x82B, 0);
+
+ control_setpage(separator1, 0);
+ control_setpage(separator2, 0);
+ 
+ container_setcurrentpage(sellwin, 1);
+ container_setcurrentpage(sell_billwin, 1);
+
+}
+
+
+
+handler_onincr_sell(const sender)
+{
+
+ var availcontrol = control_gettag(sender, 3);
+
+ var availcount = label_gettext(availcontrol);
+
+ 
+
+  if(availcount <= 0)
+ {
+  return;
+ }
+
+ availcount = availcount - 1;
+ label_settext(availcontrol, availcount);
+  
+ var amt=label_gettext(control_gettag(sender, 2));
+ amt = amt + 1;
+ label_settext(control_gettag(sender, 2), amt);
+ 
+ var price = control_gettag(control_gettag(sender, 0), 1);
+ var total = control_gettag(sell_billwin, 2);
+ var oldtotal = label_gettext(total);
+ label_settext(total, oldtotal + price);
+ net_updateselllist(1, control_gettag(control_gettag(sender, 0), 0), 1);
+ 
+}
+
+handler_ondecr_sell(const sender)
+{
+ 
+ log("DECR");
+ 
+  
+ var amt=label_gettext(control_gettag(sender, 2));
+ var availcontrol = control_gettag(sender, 3);
+
+  var availcount = label_gettext(availcontrol);
+ 
+ if(amt <= 0)
+ {
+  
+
+
+  control_close(control_gettag(sender, 1));
+  control_close(control_gettag(sender, 2));
+  control_settag(control_gettag(sender, 0), 2,0);
+ }
+ else{
+   availcount = availcount + 1;
+  label_settext(availcontrol, availcount);
+ amt = amt - 1;
+ label_settext(control_gettag(sender, 2), amt);
+ 
+ var price = control_gettag(control_gettag(sender, 0), 1);
+ var total = control_gettag(sell_billwin, 2);
+ var oldtotal = label_gettext(total);
+ label_settext(total, oldtotal - price);
+ }
+ net_updateselllist(2, control_gettag(control_gettag(sender, 0), 0), 1);
+}
+
+handler_sellartmousedown(const sender)
+{
+
+ 
+ var parent = control_getparent(sender);
+ gui_setcontainer(sell_billwin);
+ 
+ 
+ if(sell_bill_yalign >= 100)
+ {
+  sell_bill_yalign = 0;
+  sell_bill_page = sell_bill_page + 1;
+  container_setcurrentpage(sell_billwin, sell_bill_page);
+ }
+ 
+control_settag(sell_billwin, 0, sell_bill_page);
+
+ var availcontrol = control_gettag(sender, 3);
+
+ var availcount = label_gettext(availcontrol);
+ if(availcount <= 0)
+ {
+  return;
+ }
+ availcount = availcount - 1;
+ label_settext(availcontrol, availcount);
+
+ var total = control_gettag(sell_billwin, 2);
+ var price = control_gettag(sender, 1);
+
+ var oldtotal = label_gettext(total);
+ label_settext(total, oldtotal + price);
+
+ if(control_gettag(sender, 2) == 0)
+ {
+
+  var incr_button = gui_addbutton(170, 65 + sell_bill_yalign, 0x37, 0x37, 0x37);
+  var decr_button = gui_addbutton(195, 65 + sell_bill_yalign, 0x38, 0x38, 0x38);
+  var new_label = gui_addlabel(70, 65 + sell_bill_yalign, label_gettext(control_gettag(sender, 4)),1,1);
+  var amount = gui_addlabel(30, 65 + sell_bill_yalign, 1, 1, 1); 
+
+  control_settag(sender, 2, amount);
+  
+  control_settag(incr_button, 0, sender);
+  control_settag(incr_button, 1, new_label);
+  control_settag(incr_button, 2, amount);
+  control_settag(incr_button, 3, availcontrol);
+
+  control_settag(decr_button, 0, sender);
+  control_settag(decr_button, 1, new_label);
+  control_settag(decr_button, 2, amount);
+  control_settag(decr_button, 3, availcontrol);
+
+  control_setpage(incr_button, sell_bill_page);
+  control_setpage(decr_button, sell_bill_page);
+  control_setpage(new_label, sell_bill_page);
+  control_setpage(amount, sell_bill_page);
+  
+
+  control_sethandler(incr_button, FUNC_ONCLICK, "handler_onincr_sell");
+  control_sethandler(decr_button, FUNC_ONCLICK, "handler_ondecr_sell");
+
+  sell_bill_yalign = sell_bill_yalign + 25;
+ }
+ else
+ {
+  var amt=label_gettext(control_gettag(sender, 2));
+  amt = amt + 1;
+  label_settext(control_gettag(sender, 2), amt);
+ }
+ net_updateselllist(1, control_gettag(sender, 0), 1);
+}
+
+
+net_sellwinadd(const id, const model, const count, const hue, const price, const name)
+{
+ if(sellyalign >= 180)
+ {
+  sellyalign = 0;
+  sell_page = sell_page + 1;
+ }
+ gui_setcontainer(sellwin);
+ control_settag(sellwin, 0, sell_page);
+ var itemmodel = gui_addart(25, 75 + sellyalign, model, 0, hue);
+ var it_label = gui_addlabel(75, 75 + sellyalign, name + ": " + price, 1, 1);
+ var avail = gui_addlabel(205, 75 + sellyalign, count, 1, 1);
+ control_settag(itemmodel, 0, id);
+ //
+ control_settag(itemmodel, 1, price);
+ control_settag(itemmodel, 2, 0);
+ control_settag(itemmodel, 3, avail);
+ control_settag(itemmodel, 4, it_label);
+ control_sethandler(itemmodel, FUNC_ONMOUSEDOWN, "handler_sellartmousedown");
+ control_setpage(itemmodel, sell_page);
+ control_setpage(it_label, sell_page);
+ control_setpage(avail, sell_page);
+ sellyalign = sellyalign + 60;
+
+}

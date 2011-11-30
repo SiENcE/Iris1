@@ -1,0 +1,117 @@
+<?xml version='1.0'?>
+<form width='427' height='184' alpha='0' flags='0' shape=''>
+ <fade alpha='255' time='400'/>
+ <event onclick='' onclose='handler_on_close_status' onmouseup='' onmousedown='' onkeypressed=''/>
+<control class='picture' name='picture_2a6d' left='3' top='4' width='427' height='184' freezed='0' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='handler_on_close_status' onmouseup='' onmousedown='' onkeypressed=''/>
+ <gump>0x2A6D</gump>
+</control>
+<control class='label' name='status_gold' left='287' top='108' width='42' height='15' freezed='0' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='1' hue='0x1' align='center'>gold</text>
+</control>
+<control class='label' name='status_petscurr' left='287' top='135' width='17' height='15' freezed='0' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='1' hue='0x1' align='center'>petscurr</text>
+</control>
+<control class='label' name='status_petsmax' left='313' top='135' width='17' height='15' freezed='0' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='1' hue='0x1' align='center'>petsmax</text>
+</control>
+<control class='label' name='status_spacer' left='304' top='131' width='8' height='19' freezed='0' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='0' hue='0x1' align='center'>/</text>
+</control>
+<control class='label' name='status_name' left='90' top='53' width='270' height='15' freezed='0' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='7' hue='0x1' align='center'>Name</text>
+</control>
+<control class='label' name='status_int' left='86' top='135' width='35' height='15' freezed='0' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='1' hue='0x1' align='center'>int</text>
+</control>
+<control class='label' name='status_dex' left='86' top='108' width='35' height='15' freezed='0' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='1' hue='0x1' align='center'>dex</text>
+</control>
+<control class='label' name='status_str' left='86' top='79' width='35' height='15' freezed='0' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='1' hue='0x1' align='center'>str</text>
+</control>
+<control class='label' name='status_hits' left='146' top='74' width='35' height='15' freezed='0' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='1' hue='0x1' align='center'>hits</text>
+</control>
+<control class='label' name='status_mana' left='146' top='130' width='35' height='15' freezed='0' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='1' hue='0x1' align='center'>mana</text>
+</control>
+<control class='label' name='status_stamina' left='146' top='102' width='35' height='15' freezed='0' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='1' hue='0x1' align='center'>sta</text>
+</control>
+<control class='label' name='status_weight' left='221' top='136' width='35' height='15' freezed='0' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='1' hue='0x1' align='center'>weight</text>
+</control>
+<control class='label' name='status_maxhits' left='146' top='86' width='35' height='15' freezed='0' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='1' hue='0x1' align='center'>max</text>
+</control>
+<control class='label' name='hits_spacer' left='146' top='77' width='35' height='15' freezed='0' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='1' hue='0x1' align='center'>_____</text>
+</control>
+<control class='label' name='status_maxstamina' left='146' top='114' width='35' height='15' freezed='0' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='1' hue='0x1' align='center'>max</text>
+</control>
+<control class='label' name='stamina_spacer' left='146' top='105' width='33' height='13' freezed='0' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='1' hue='0x1' align='center'>_____</text>
+</control>
+<control class='label' name='status_maxmana' left='146' top='142' width='35' height='15' freezed='0' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='1' hue='0x1' align='center'>max</text>
+</control>
+<control class='label' name='stamina_spacer' left='146' top='133' width='33' height='13' freezed='0' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='1' hue='0x1' align='center'>_____</text>
+</control>
+<control class='label' name='status_armor' left='349' top='77' width='38' height='15' freezed='0' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='1' hue='0x1' align='center'>arm</text>
+</control>
+<control class='label' name='status_fireres' left='349' top='94' width='38' height='15' freezed='0' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='1' hue='0x1' align='center'>fire</text>
+</control>
+<control class='label' name='status_coldres' left='349' top='109' width='38' height='15' freezed='0' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='1' hue='0x1' align='center'>cold</text>
+</control>
+<control class='label' name='status_poisres' left='349' top='123' width='38' height='15' freezed='0' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='1' hue='0x1' align='center'>pois</text>
+</control>
+<control class='label' name='status_energres' left='349' top='138' width='38' height='15' freezed='0' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='1' hue='0x1' align='center'>ener</text>
+</control>
+<control class='label' name='status_mindamage' left='278' top='81' width='27' height='15' freezed='0' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='1' hue='0x1' align='center'>min</text>
+</control>
+<control class='label' name='status_maxdamage' left='305' top='81' width='27' height='15' freezed='0' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='1' hue='0x1' align='center'>max</text>
+</control>
+<control class='label' name='damage_spacer' left='298' top='83' width='12' height='11' freezed='0' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='1' hue='0x1' align='center'>-</text>
+</control>
+<control class='label' name='status_luck' left='221' top='108' width='35' height='15' freezed='0' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='1' hue='0x1' align='center'>luck</text>
+</control>
+</form>

@@ -1,0 +1,92 @@
+Needs debugging or fixing:
+_____________________________________________________________________________________________________________________
+- When clicking self it opens the tooltips but if you click somewhere it doesn't go away	- Needs fixing
+- Options "Music Off" does not work								- Needs fixing
+- When opening the "Bag" you can get multiple bags						- Needs fixing
+- When logging in the shard name and char name does not display correctly (wrong font?)		- Needs fixing
+- Mouse cursor is bugged (doesn't change as it should) (SiENcE)					- Needs fixing
+- Tooltips are bugged under RunUO, doesn't display the font (cliloc?) (SiENcE)			- Needs fixing
+- When puting a candle on floor and turning it on/off the effect remains on floor (SiENcE)	- Needs fixing
+- When dclicking the candle on backpack it equips but does not disapear from backpack (SiENcE)	- Needs fixing
+- Remove fountain effect from candle since it was for debug purposes (SiENcE)			- Needs fixing
+- Creating a character you can not choose your skills (they are choosen for you)		- Needs fixing
+- Skills show everything with 0's (RunUO - Packet missing?)					- Needs fixing
+- Font Color Black and White is vice versa							- Needs fixing
+- Polymorphing (".poly 12") doesn't work, old model remains until logout->login			- Needs fixing
+- Elfs don't wear clothes									- Needs fixing
+- tooltips don't shown in other containers than backpack, doesn't show in paperdoll		- Needs fixing
+- Iris chrashes receiving big gumps from the server						- Needs fixing
+- Drag & Drop drops the performance to almost null (SiENcE)					- Needs fixing
+
+- Skills can not be used (like meditation/taming/hide/etc) - (taming works!, SiENcE)		- Needs testing
+- Fix for walking code (still messed up with RunUO) (SiENcE)					- Needs testing
+- Fix click/target bugs (sometimes click is not detected and statics height is not detected when click on ground) (SiENcE) - Needs testing
+- MapBuffer Error (only happends with RunUO 1.0)						- Needs testing
+- Fix some bad renderings with corpses								- Needs testing
+- Fix alpha switch for ghosts(after death) (transparence changes are applied only after		- Needs testing
+restarting iris)
+- if Char. starts inhouse, roof is faded correct but Items/Models remain above the roof (only when game starts)	- Needs testing
+- chatbar: " " isn't accepted as character (like you want to add a special name with space... you do a [set name "Name here") - Needs testing
+- fix getzpositionforwalk that blocks your character when moving to Z > or < 8 			- Needs testing
+- fix particle rendering (effects are rendered wrong)						- Needs testing
+- fix for using cleaver or dagger (the client crash) 						- Needs testing
+- crash when RunUO-Server uses KnivesChat 2.xx							- Needs testing
+- shadow is too small when mounted / also too big for Birds 					- Needs testing
+
+
+Features needed:
+_____________________________________________________________________________________________________________________
+- On login menu, after the music has stopped it does not start again (loop).			- New Feature
+- Hide cursor when changing the view (SiENcE)							- New Feature
+- Unicode support.										- New Feature
+- Under Create character -> Body / Clothes / etc color						- New Feature
+- When logging in save username/password							- New Feature
+- Speech.mul support (with config option to enable/disable speech.mul)				- New Feature
+- Complete boats with all boats models, boats.xml file						- New Feature
+- mounts.xml file with the ability to add custom mounts						- New Feature
+- better character handling (stitchin, mounts, modelinfo moved to Characters.cpp and client.cpp for better performance) - New Feature
+- new mouse/keyboard controls configurable by controls.xml 					- New Feature
+- new iris gui with 3 pre-made guis: classic UO, UO TD, Iris (custom modern gui) switchable by scriptpath (in config.xml) - New Feature
+- different Profiles for Shards (maybe a Shard selection)					- New Feature
+- custom textures for grannys and characters particles added to modelinfo.xml			- New Feature
+- ability to save desktop (gui) into an xml file on iris quit					- New Feature
+- option window and ability to handle macros by option window and save config by option window	- New Feature
+- custom houses (server side custom houses) ?							- New Feature
+- TargetMulti support										- New Feature
+- ability to set starting with 1st person in config.xml						- New Feature
+- rain/snow											- New Feature
+- lightlevel restore										- New Feature
+- season packet support										- New Feature
+- new skyboxes 											- New Feature
+- Custom packets:										- New Features
+      -character alpha
+      -character scale
+      -skyboxes change
+      -fog change
+      -execute script
+      -sea texture/wave control
+      -custom textures
+      -custom mounts
+- Removing the 8 direction limit (providing patches for Emus (RunUO/Pol) and for Iris)		- New Feature
+- Exchange CSL for LUA										- New Feature
+- Paging system											- New Feature
+- new Boat Models must be added with IrisEdit to uim file. Now only Small Boat is used for all. - New Feature
+
+Fixed in current SVN:
+_____________________________________________________________________________________________________________________
+- Beeing able to stop the Music.								- ADDED
+- Crash on log out?										- FIXED
+- When clicking with the middle side button it crashes with "Unhandled exception" 		- FIXED
+- When clicking with the Right/Middle button (drag+drop) it crashes (login menu)		- FIXED
+- Weird behaviour when closing Iris it doesn't close the console (probably memory leaks)	- FIXED
+- Macros output is kinda weird.									- FIXED
+- Can't move only rotate?									- FIXED
+- If Config.xml user/pass is empty when you try to write it under login screen it crashes	- FIXED
+- Mouse move over the char does not highlight it (SiENcE)					- FIXED
+- Crash on exit											- FIXED
+- When login then log out and exit Iris crashes							- FIXED
+- HUE color bug											- FIXED
+- Sound was not working.									- FIXED
+- UOX3 crashes Iris when server sends new music title						- FIXED
+- When connecting with a wrong username the engine crashes					- FIXED
+- Fog rendering is wrong (new distance formular)						- FIXED

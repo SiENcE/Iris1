@@ -1,0 +1,53 @@
+<?xml version='1.0'?>
+<form width='282' height='151' alpha='0' flags='0' shape=''>
+ <fade alpha='255' time='400'/>
+ <event onclick='' onclose='handler_on_close_status' onmouseup='' onmousedown='' onkeypressed=''/>
+<control class='picture' name='picture_802' left='0' top='0' width='282' height='151' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='handler_on_close_status' onmouseup='' onmousedown='' onkeypressed=''/>
+ <gump>0x802</gump>
+</control>
+<control class='label' name='status_name' left='84' top='41' width='47' height='12' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='1' hue='0x1' align='left'>name</text>
+</control>
+<control class='label' name='status_str' left='84' top='60' width='47' height='12' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='1' hue='0x1' align='left'>str</text>
+</control>
+<control class='label' name='status_dex' left='84' top='71' width='47' height='12' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='1' hue='0x1' align='left'>dex</text>
+</control>
+<control class='label' name='status_int' left='84' top='83' width='47' height='12' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='1' hue='0x1' align='left'>int</text>
+</control>
+<control class='label' name='status_sex' left='84' top='95' width='47' height='12' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='1' hue='0x1' align='left'>sex</text>
+</control>
+<control class='label' name='status_armor' left='84' top='108' width='47' height='12' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='1' hue='0x1' align='left'>armor</text>
+</control>
+<control class='label' name='status_hits' left='172' top='60' width='47' height='12' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='1' hue='0x1' align='left'>hits</text>
+</control>
+<control class='label' name='status_mana' left='172' top='71' width='47' height='12' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='1' hue='0x1' align='left'>mana</text>
+</control>
+<control class='label' name='status_stamina' left='172' top='83' width='68' height='12' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='1' hue='0x1' align='left'>stamina</text>
+</control>
+<control class='label' name='status_gold' left='172' top='96' width='49' height='11' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='1' hue='0x1' align='left'>gold</text>
+</control>
+<control class='label' name='status_weight' left='172' top='108' width='47' height='13' freezed='1' visible='1' alpha='0' flags='0'>
+ <event onclick='' onclose='' onmouseup='' onmousedown='' onkeypressed=''/>
+ <text font='1' hue='0x1' align='left'>weight</text>
+</control>
+</form>
