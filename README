@@ -1,0 +1,142 @@
+Iris 0.87, Copyright (C) 2003 - 2006 Iris Team
+______________________________________________
+
+Iris is a free 3D Client for the popular Massive Multiplayer Role Playing Game Ultima Online. The current Iris version works with the Ultima Online expansions Third Dawn, Age of Shadows, Samurai Empire and Mondain's Legacy!
+
+
+Iris Installation (Step 1-4):
+_____________________________
+
+1. All you need is a legal copy of Ultima Online.
+
+   Supported Ultima Online expansions:
+	- Third Dawn
+	- Age of Shadows
+	- Samurai Empire and Gold Trial  (SE == Gold)
+	- Mondain's Legacy
+
+   Get a free Ultima Online Mondain's Legacy :
+   ___________________________________________
+   http://largedownloads.ea.com/pub/uo/uoml_setup.exe
+
+
+   Or free Ultima Online Gold Trial :
+   __________________________________
+   http://www.gamespot.com/promos/ultimaonline/index.html
+   http://www.fileplanet.com/150525/150000/fileinfo/Ultima-Online-Gold-15-day-Trial
+
+2. Install and run Ultima Online and patch it to the newest Version.
+
+3. Install Iris.
+
+4. Please start IrisConfig.exe or edit xml/config.xml before starting Iris !!!
+
+Remember:
+_________
+- If you update/patch UO-Third Dawn, AoS, SE, Gold or ML select "Age of Shadows (AoS)" in Config!
+
+- If you don't update/patch UO-Third Dawn for any reason select "Third Dawn" in Configtool !
+
+
+Linux compilation:
+__________________
+aclocal
+autoconf
+automake -a
+./configure
+make
+
+
+Interface:
+__________
+Left-Shift + Hold Right Mouse Button == Rotate and Zoom
+
+Right-Shift + Hold Right Mouse Button == Rotate and Change Angle
+
+Mouse wheel also controls zoom
+
+Right Mouse Button closes Gumps
+
+Left Mouse Button is for everything else
+
+
+Option Menu:
+____________
+Click on the Options Menu on the Paperdoll for Camera handling.
+
+
+For Bugreports, suggestions, comments, please visit:
+
+	http://iris.berlios.de/index.php
+	or
+	http://iris.berlios.de/mantis/
+
+
+Iris comes with ABSOLUTELY NO WARRANTY; This is free software, and you are welcome to redistribute it under certain conditions.
+Take a look into License.txt for details.
+
+Contact:
+________
+	SiENcE: seabeams@gmx.de	      /	icq: 11516096
+	Tensor:	tensor@ultima-iris.de / icq: 25173236
+	Ar-Tix:				icq: 164112923
+	Thorgrim:			icq: 110406502
+	[G]angster:			icq: 92852852
+
+
+Credits:
+________
+Core Team:
+	Tensor -	Alexander Oster
+			Main Coder (3d Engine)
+			Location: Germany (Regensburg)
+			Website: http://www.ultima-iris.de
+
+	SiENcE -	Florian Fischer
+			Projectmanager and Coder
+			Location: Germany (Berlin)
+			Website: http://www.seabeams.de
+
+	Artix - 	Fabio Nicotra
+			Coder and Creative Ideas
+			Location: Italy (Sicily)
+
+	Thorgrim -	Matt Stentiford
+			Main 3d Artist and Scripter
+			Location: Australia
+			Website: http://thorgrim.sytes.net
+
+	TheGangster - 	Nuno Ramiro
+			Coder
+			Location: Portugal (Lisbon)
+
+	Harkon -	Seung Yong, Choi
+			Coder
+			Location: Korea
+
+other contributors:
+___________________
+Programming:
+	Darkstorm, Harkon, Blobba, Soulburner, Gigi
+	netzzwerg, x.diablo, tharsade
+
+3D-design:
+	Stygius, Alamar
+
+other:
+	Zeus, Scull, Emrysk, DC, Horian, Doc, Hitman
+
+Thanks:
+_______
+	Imion, Johwood, Luckyluke, Winterbreeze, Psy, Phlegyas
+
+
+Libraries:
+__________
+C Scripting Language (CSL) - http://csl.sourceforge.net	( /csl )
+Granny Loader - http://uop.sourceforge.net	( /Granny/grn* )
+Huffman encryption - http://injection.sourceforge.net	( /net/unicode /net/uo_huffman )
+SDL, SDL_ttf, SDL_mixer, SDL_net, SDL_image - http://www.libsdl.org	( libs/sdl )
+
+
+Copyright (©) 2003-2006 Iris Team
